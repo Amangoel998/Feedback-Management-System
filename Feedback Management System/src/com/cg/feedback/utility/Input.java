@@ -2,6 +2,7 @@ package com.cg.feedback.utility;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import static com.cg.feedback.utility.Validator.*;
 
 import com.cg.feedback.exceptions.CustomException;
 
@@ -71,37 +72,36 @@ public class Input{
 			}
 		}
 	}
-	public static int inputMobileId(String s){
-		int id;
+	public static String[] inputCredentials(int role){
+		String[] st = new String[2];
+		String pt;
+		pt=(role==1)?"Admin":(role==2)?"Trainer":"Student";
+		sc.nextLine();
 		while(true){
 			try{
-				System.out.println("Enter "+s+": ");
-				Thread.sleep(1000);
-				id = sc.nextInt();
-				if(Validator.isValidId(id))
-					return id;
+				System.out.println("Enter "+pt+" ID: ");
+				st[0] = sc.nextLine();
+				System.out.println("Enter Password: ");
+				st[1] = sc.nextLine();
+				if(isValidPassword(st[1])){
+					if((role==1)?isValidAdmin(st[0]):(role==2)?isValidTrainer(st[0]):isValidStudent(st[0]))
+						return st;
+					else throw new Exception();
+				}
 				else throw new Exception();
 			}catch(Exception e){
-				System.err.println("Invalid "+s+", enter again");
+				System.err.println("Invalid Credentials");
 				sc.nextLine();
 			}
 		}
 	}
-	public static String inputName(String s){
-		String st;
-		sc.nextLine();
-		while(true){
-			try{
-				System.out.println("Enter "+s+": ");
-				st = sc.nextLine();
-				if(Validator.isValidName(st))
-					return st;
-				else throw new Exception();
-			}catch(Exception e){
-				System.err.println("Invalid, enter again");
-			}
-		}
-	}
+
+	
+	
+	
+	
+	
+	
 	public static String inputPhone(String s){
 		String st;
 		while(true){

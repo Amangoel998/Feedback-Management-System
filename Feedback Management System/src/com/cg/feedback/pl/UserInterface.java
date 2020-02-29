@@ -54,7 +54,7 @@ public class UserInterface {
 	}
 	static int getTrainerOptions(){
 		System.out.println("1. View Feedback Report\n"
-				+ "2. View Feedback Defaulters");
+				+ "2. View Feedback Defaulters\n");
 		return inputTrainerOptions("Trainer Options");
 	}
 	static void showMenu(){
@@ -68,6 +68,9 @@ public class UserInterface {
 			int method;
 			if(role==1){
 				adm = (AdminService) new AdminServiceImpl();
+				String[] ad = inputCredentials(role);
+				if(adm.login(ad[0], ad[1]))
+					System.out.println("Invalid Credentials");
 				method = getAdminOptions();
 				switch(method){
 				case 1:
@@ -95,21 +98,31 @@ public class UserInterface {
 				case 12:
 					break;
 				default:
-//					System.out.println("Incorrect Option");
+					adm.logout();
 					break;
 				}
 			}else if(role==2){
 				trn = (TrainerService) new TrainerServiceImpl();
+				String[] ad = inputCredentials(role);
+				if(trn.login(ad[0], ad[1]))
+					System.out.println("Invalid Credentials");
 				method = getTrainerOptions();
 				if(method==1){
 					
 				}else if(method==2){
 					
 				}
+				else{
+					trn.logout();
+				}
 			}else{
 				System.out.println("Give Feedback for trainings");
 				std = (StudentService) new StudentServiceImpl();
+				String[] ad = inputCredentials(role);
+				if(std.login(ad[0], ad[1]))
+					System.out.println("Invalid Credentials");
 				QuestionsSetDTO feedbackSet = takeQuestions();
+				std.giveFeedback(feedbackSet);
 			}
 		}while(true);
 	}
