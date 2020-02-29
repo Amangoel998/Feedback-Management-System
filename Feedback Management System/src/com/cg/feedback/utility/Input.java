@@ -8,6 +8,69 @@ import com.cg.feedback.exceptions.CustomException;
 public class Input{
 	static Scanner sc = new Scanner(System.in);
 	
+	public static int inputRole(String s){
+		int i;
+		while(true){
+			try{
+				System.out.println("Enter "+s+": ");
+				Thread.sleep(1000);
+				i = sc.nextInt();
+				if(i>0&&i<4)
+					return i;
+				else throw new Exception();
+			}catch(Exception e){
+				System.err.println("Invalid "+s+", enter again");
+				sc.nextLine();
+			}
+		}
+	}
+	public static int inputAdminOptions(String s){
+		int i;
+		while(true){
+			try{
+				System.out.println("Enter "+s+": ");
+				Thread.sleep(1000);
+				i = sc.nextInt();
+				if(i>0&&i<13)
+					return i;
+				else throw new Exception();
+			}catch(Exception e){
+				System.err.println("Invalid "+s+", enter again");
+				sc.nextLine();
+			}
+		}
+	}
+	public static int inputTrainerOptions(String s){
+		int i;
+		while(true){
+			try{
+				System.out.println("Enter "+s+": ");
+				Thread.sleep(1000);
+				i = sc.nextInt();
+				if(i>0&&i<3)
+					return i;
+				else throw new Exception();
+			}catch(Exception e){
+				System.err.println("Invalid "+s+", enter again");
+				sc.nextLine();
+			}
+		}
+	}
+	public static int inputRating(){
+		int id;
+		while(true){
+			try{
+				Thread.sleep(1000);
+				id = sc.nextInt();
+				if(id>0 && id<6)
+					return id;
+				else throw new Exception();
+			}catch(Exception e){
+				System.err.println("Invalid Rating, enter again");
+				sc.nextLine();
+			}
+		}
+	}
 	public static int inputMobileId(String s){
 		int id;
 		while(true){
