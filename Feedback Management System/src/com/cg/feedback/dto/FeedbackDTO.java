@@ -1,6 +1,5 @@
 package com.cg.feedback.dto;
 
-import java.util.ArrayList;
 
 public class FeedbackDTO {
 
@@ -8,12 +7,11 @@ public class FeedbackDTO {
 	private StudentDTO sudent;
 	private TrainerDTO trainer;
 	private CourseDTO course;
-	private ArrayList<String> feedback;
+	private QuestionsSetDTO questions;
 	private String Comments;
 	
 	
-	
-	
+
 	public String getFeedbackId() {
 		return feedbackId;
 	}
@@ -38,12 +36,11 @@ public class FeedbackDTO {
 	public void setCourse(CourseDTO course) {
 		this.course = course;
 	}
-	public ArrayList<String> getFeedback() {
-		return feedback;
+		
+	public QuestionsSetDTO getQuestions() {
+		return questions;
 	}
-	public void setFeedback(ArrayList<String> feedback) {
-		this.feedback = feedback;
-	}
+	
 	public String getComments() {
 		return Comments;
 	}
