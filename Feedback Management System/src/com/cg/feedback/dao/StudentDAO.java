@@ -1,5 +1,5 @@
 package com.cg.feedback.dao;
 
-public class StudentDAO {
+public interface StudentDAO {
 
 }
