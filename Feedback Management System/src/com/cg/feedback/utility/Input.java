@@ -13,7 +13,7 @@ public class Input{
 		int i;
 		while(true){
 			try{
-				System.out.println("Enter "+s+": ");
+				System.out.print("Enter "+s+": ");
 				Thread.sleep(1000);
 				i = sc.nextInt();
 				if(i>0&&i<4)
@@ -29,7 +29,7 @@ public class Input{
 		int i;
 		while(true){
 			try{
-				System.out.println("Enter "+s+": ");
+				System.out.print("Enter "+s+": ");
 				Thread.sleep(1000);
 				i = sc.nextInt();
 				if(i>0&&i<13)
@@ -79,7 +79,7 @@ public class Input{
 		sc.nextLine();
 		while(true){
 			try{
-				System.out.println("Enter "+pt+" ID: ");
+				System.out.print("Enter "+pt+" ID: ");
 				st[0] = sc.nextLine();
 				System.out.println("Enter Password: ");
 				st[1] = sc.nextLine();
@@ -96,7 +96,21 @@ public class Input{
 		}
 	}
 
-	
+	public static String inputYesOrNo(){
+		while(true){
+			try{
+				System.out.print("Input (Y/N):");
+				String s = sc.next();
+				if("Y".equals(s) || "N".equals(s))
+					return s;
+				else
+					throw new Exception();
+			}catch(Exception e){
+				System.err.println("Invalid Input");
+				sc.nextLine();
+			}
+		}
+	}
 	
 	
 	
@@ -106,7 +120,7 @@ public class Input{
 		String st;
 		while(true){
 			try{
-				System.out.println("Enter "+s+": ");
+				System.out.print("Enter "+s+": ");
 				st = sc.next();
 				if(Validator.isValidPhone(st))
 					return st;

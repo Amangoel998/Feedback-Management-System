@@ -2,8 +2,7 @@ package com.cg.feedback.service;
 
 import com.cg.feedback.exceptions.CustomException;
 
-public interface AdminService{
-	boolean login(String id, String pass) throws CustomException;
+public interface AdminService extends UserService{
 	void addTrainingProgram()  throws CustomException;
 	void removeTrainingProgram()  throws CustomException;
 	void addStudents() throws CustomException;
@@ -16,5 +15,4 @@ public interface AdminService{
 	void removeTrainingCourse() throws CustomException;
 	void viewFeedback() throws CustomException;
 	void viewFeedbackDefaulters() throws CustomException;
-	boolean logout() throws CustomException;
 }

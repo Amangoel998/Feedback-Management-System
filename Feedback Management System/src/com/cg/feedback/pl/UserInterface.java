@@ -2,12 +2,8 @@ package com.cg.feedback.pl;
 import static com.cg.feedback.utility.Input.*;
 
 import com.cg.feedback.dto.QuestionsSetDTO;
-import com.cg.feedback.service.*;
 
 public class UserInterface {
-	static AdminService adm;
-	static StudentService std;
-	static TrainerService trn;
 	static void showRole(){
 		System.out.println("Select the role you want to login with:\n"
 				+ "1.Admin\n"
@@ -37,7 +33,7 @@ public class UserInterface {
 				+ "2:	Below Average:	'Needs improvement and is salvageable'\n"
 				+ "1:	Poor: 			'This way of doing things must change'\n");		
 	}
-	static int getAdminOptions(){
+	static void getAdminOptions(){
 		System.out.println("1. Add Training Course\n"
 				+ "2. Delete Training Course\n"
 				+ "3. Add Students\n"
@@ -50,81 +46,14 @@ public class UserInterface {
 				+ "10. Delete Training Program\n"
 				+ "11. View Feedback Report\n"
 				+ "12. View Feedback Defaulters\n");
-		return inputAdminOptions("Admin Options");
 	}
 	static int getTrainerOptions(){
 		System.out.println("1. View Feedback Report\n"
 				+ "2. View Feedback Defaulters\n");
 		return inputTrainerOptions("Trainer Options");
 	}
-	static void showMenu(){
+	static void showWelcome(){
 		System.out.println("WELCOME to FeedBack Management System!\n\n");
 	}
-	public static void main(String[] args) {
-		showMenu();
-		showRole();
-		int role = inputRole("Role Options");
-		do{
-			int method;
-			if(role==1){
-				adm = (AdminService) new AdminServiceImpl();
-				String[] ad = inputCredentials(role);
-				if(adm.login(ad[0], ad[1]))
-					System.out.println("Invalid Credentials");
-				method = getAdminOptions();
-				switch(method){
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
-					break;
-				case 6:
-					break;
-				case 7:
-					break;
-				case 8:
-					break;
-				case 9:
-					break;
-				case 10:
-					break;
-				case 11:
-					break;
-				case 12:
-					break;
-				default:
-					adm.logout();
-					break;
-				}
-			}else if(role==2){
-				trn = (TrainerService) new TrainerServiceImpl();
-				String[] ad = inputCredentials(role);
-				if(trn.login(ad[0], ad[1]))
-					System.out.println("Invalid Credentials");
-				method = getTrainerOptions();
-				if(method==1){
-					
-				}else if(method==2){
-					
-				}
-				else{
-					trn.logout();
-				}
-			}else{
-				System.out.println("Give Feedback for trainings");
-				std = (StudentService) new StudentServiceImpl();
-				String[] ad = inputCredentials(role);
-				if(std.login(ad[0], ad[1]))
-					System.out.println("Invalid Credentials");
-				QuestionsSetDTO feedbackSet = takeQuestions();
-				std.giveFeedback(feedbackSet);
-			}
-		}while(true);
-	}
-
+	
 }
