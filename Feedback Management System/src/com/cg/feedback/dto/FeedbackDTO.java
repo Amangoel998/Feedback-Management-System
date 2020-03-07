@@ -10,7 +10,9 @@ public class FeedbackDTO {
 	private ProgramDTO program;
 	private QuestionsSetDTO questions;
 	private String Comments;
-
+	private String suggestions;
+	
+	
 	public String getFeedbackId() {
 		return feedbackId;
 	}
@@ -29,10 +31,10 @@ public class FeedbackDTO {
 	public void setTrainer(TrainerDTO trainer) {
 		this.trainer = trainer;
 	}
-	public ProgramDTO getProgram() {
+	public ProgramDTO getprogram() {
 		return program;
 	}
-	public void setProgram(ProgramDTO program) {
+	public void setprogram(ProgramDTO program) {
 		this.program = program;
 	}
 		
