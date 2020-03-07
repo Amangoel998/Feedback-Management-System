@@ -11,14 +11,14 @@ import com.cg.feedback.dto.*;
 
 public final class StaticDAO {
 	
-	private Map<String, TrainerDTO> trainers = new HashMap<String, TrainerDTO>();
-	private Map<String, StudentDTO> students = new HashMap<String, StudentDTO>();
-	private Map<String, ProgramDTO> programs = new HashMap<String, ProgramDTO>();
-	private Map<String, CourseDTO> courses = new HashMap<String, CourseDTO>();
-	private Map<String, FeedbackDTO> feedback = new HashMap<String, FeedbackDTO>();
-	private Map<Integer, List> listOfTrainerProgram = new HashMap<Integer, List>();
-	private Map<Integer, List> listOfProgramInCourse = new HashMap<Integer, List>();
-	private Map<String, String> batchOfCourse = new HashMap<String, String>();
+	private static Map<String, TrainerDTO> trainers = new HashMap<String, TrainerDTO>();
+	private static Map<String, StudentDTO> students = new HashMap<String, StudentDTO>();
+	private static Map<String, ProgramDTO> programs = new HashMap<String, ProgramDTO>();
+	private static Map<String, CourseDTO> courses = new HashMap<String, CourseDTO>();
+	private static Map<String, FeedbackDTO> feedback = new HashMap<String, FeedbackDTO>();
+	private static Map<Integer, List> listOfTrainerProgram = new HashMap<Integer, List>();
+	private static Map<Integer, List> listOfProgramInCourse = new HashMap<Integer, List>();
+	private static Map<String, String> batchOfCourse = new HashMap<String, String>();
 	
 	public StaticDAO() {
 	}
