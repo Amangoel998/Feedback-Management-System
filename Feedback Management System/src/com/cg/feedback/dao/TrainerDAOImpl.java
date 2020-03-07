@@ -8,12 +8,12 @@ import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public class TrainerDAOImpl implements TrainerDAO {
-	Map<String,TrainerDTO> trainers= new StaticDAO().getTrainers();
+	StaticDAO staticDb= new StaticDAO();
 
 	@Override
 	public boolean addTrainer(TrainerDTO trainer) throws CustomException {
-		if(trainers.containsKey(trainer.getTrainerId())){
-			TrainerDTO temp = trainers.get(trainer.getTrainerId());
+		if(staticDb.getTrainers().containsKey(trainer.getTrainerId())){
+			TrainerDTO temp = staticDb.getTrainers().get(trainer.getTrainerId());
 			if(temp.isActive())
 				throw new CustomException("Trainer with Id: "+trainer.getTrainerId()+" is already present and active. First delete the existing trainer to overwrite.");
 			else{
@@ -23,16 +23,16 @@ public class TrainerDAOImpl implements TrainerDAO {
 		}
 		else
 		{
-			trainers.put(trainer.getTrainerId(),trainer);
+			staticDb.getTrainers().put(trainer.getTrainerId(),trainer);
 			return true;
 		}
 	}
 
 	@Override
 	public boolean removeTrainer(String trainerId) throws CustomException {
-		if(trainers.containsKey(trainerId) && trainers.get(trainerId).isActive())
+		if(staticDb.getTrainers().containsKey(trainerId) && staticDb.getTrainers().get(trainerId).isActive())
 		{
-			trainers.get(trainerId).setActive(false);
+			staticDb.getTrainers().get(trainerId).setActive(false);
 			return true;
 		}
 		else
@@ -44,7 +44,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	@Override
 	public boolean addTrainerSkill(SkillDTO skill,String trainerId) throws CustomException {
-		List<SkillDTO>skills=trainers.get(trainerId).getSkill();
+		List<SkillDTO>skills=staticDb.getTrainers().get(trainerId).getSkill();
 		if(skills.contains(skill))
 		{
 			throw new CustomException("Skill aready exists");
@@ -57,7 +57,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	@Override
 	public boolean removeTrainerSkill(String skillName,String trainerId) throws CustomException {
-		List<SkillDTO>skills=trainers.get(trainerId).getSkill();
+		List<SkillDTO>skills=staticDb.getTrainers().get(trainerId).getSkill();
 		for(int i=0;i<skills.size();i++)
 		{
 			if(skills.get(i).getSkillName().equals(skillName))
