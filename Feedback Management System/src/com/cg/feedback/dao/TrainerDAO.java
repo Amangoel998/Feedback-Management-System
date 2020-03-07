@@ -1,5 +1,10 @@
 package com.cg.feedback.dao;
 
-public interface TrainerDAO {
+import com.cg.feedback.exceptions.CustomException;
 
+public interface TrainerDAO {
+	void addTrainer() throws CustomException;
+	void removeTrainer() throws CustomException;
+	void maintainTrainerSkillset() throws CustomException;
+	void updateTrainingProgram() throws CustomException;
 }

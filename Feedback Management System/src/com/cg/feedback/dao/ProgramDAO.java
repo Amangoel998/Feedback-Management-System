@@ -1,5 +1,8 @@
 package com.cg.feedback.dao;
 
-public interface ProgramDAO {
+import com.cg.feedback.exceptions.CustomException;
 
+public interface ProgramDAO {
+	void addTrainingProgram()  throws CustomException;
+	void removeTrainingProgram()  throws CustomException;
 }

@@ -1,5 +1,8 @@
 package com.cg.feedback.dao;
 
-public interface FeedbackDAO {
+import com.cg.feedback.exceptions.CustomException;
 
+public interface FeedbackDAO {
+	void viewFeedback() throws CustomException;
+	void viewFeedbackDefaulters() throws CustomException;
 }
