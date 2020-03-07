@@ -51,7 +51,7 @@ public class AuthInterface {
 			case 1:
 				getAdminOptions();
 				method = inputAdminOptions("Admin Options");
-				((AdminServiceImpl)user).getAdminMethods(method);
+//				((AdminServiceImpl)user).getAdminMethods(method);
 				break;
 			case 2:
 				getTrainerOptions();
@@ -61,7 +61,7 @@ public class AuthInterface {
 			case 3:
 				System.out.println("Give Feedback for trainings");
 				QuestionsSetDTO feedbackSet = takeQuestions();
-				((StudentServiceImpl) user).giveFeedback(feedbackSet);
+//				((StudentServiceImpl) user).giveFeedback(feedbackSet);
 				break;
 			default:
 				break;
