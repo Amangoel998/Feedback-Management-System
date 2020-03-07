@@ -8,7 +8,7 @@ import java.util.Map;
 import com.cg.feedback.dto.StudentDTO;
 
 public interface StudentDAO {
-	void addStudents() throws CustomException;
-	void removeStudents() throws CustomException;
+	boolean addStudents(StudentDTO student) throws CustomException;
+	boolean removeStudents(String studentID) throws CustomException;
 	void giveFeedback(QuestionsSetDTO feedbackSet) throws CustomException;
 }

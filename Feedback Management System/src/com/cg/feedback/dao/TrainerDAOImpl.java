@@ -1,27 +1,37 @@
 package com.cg.feedback.dao;
 
+
+import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public class TrainerDAOImpl implements TrainerDAO {
 
 	@Override
-	public void addTrainer() throws CustomException {
-		
+	public boolean addTrainer(TrainerDTO trainer) throws CustomException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public void removeTrainer() throws CustomException {
-		
+	public boolean removeTrainer(String trainerId) throws CustomException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public void maintainTrainerSkillset() throws CustomException {
-		
+	public boolean addTrainerSkill(String skill) throws CustomException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public void updateTrainingProgram() throws CustomException {
-		
+	public boolean removeTrainerSkill(String skill) throws CustomException {
+		// TODO Auto-generated method stub
+		return false;
 	}
+	
+	
+
+
 
 }
