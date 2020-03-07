@@ -8,24 +8,26 @@ public class StudentDTO {
 	private String studentName;
 	private String studentPass;
 	private String studentEmail;
-	private ArrayList<CourseDTO> courses;
+	private String batch;
 	private boolean isActive;
 	
 	//Constructor
 	
-	public StudentDTO(String studentId, String studentName, String studentPass, String studentEmail) {
+	public StudentDTO(String studentId, String studentName, String studentPass, String studentEmail, String batch) {
 		super();
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.studentPass = studentPass;
 		this.studentEmail = studentEmail;
+		this.batch = batch;
 	}
 	//getter and Setters
-	public ArrayList<CourseDTO> getCourses() {
-		return courses;
+
+	public String getBatch() {
+		return batch;
 	}
-	public void setCourses(ArrayList<CourseDTO> courses) {
-		this.courses = courses;
+	public void setBatch(String batch) {
+		this.batch = batch;
 	}
 	public String getStudentId() {
 		return studentId;

@@ -1,16 +1,15 @@
 package com.cg.feedback.dto;
 
+import com.cg.feedback.dao.ProgramDAO;
 
 public class FeedbackDTO {
 
 	private String feedbackId;
-	private StudentDTO sudent;
+	private StudentDTO student;
 	private TrainerDTO trainer;
-	private CourseDTO course;
+	private ProgramDTO program;
 	private QuestionsSetDTO questions;
 	private String Comments;
-	
-	
 
 	public String getFeedbackId() {
 		return feedbackId;
@@ -18,11 +17,11 @@ public class FeedbackDTO {
 	public void setFeedbackId(String feedbackId) {
 		this.feedbackId = feedbackId;
 	}
-	public StudentDTO getSudent() {
-		return sudent;
+	public StudentDTO getStudent() {
+		return student;
 	}
-	public void setSudent(StudentDTO sudent) {
-		this.sudent = sudent;
+	public void setStudent(StudentDTO sudent) {
+		this.student = sudent;
 	}
 	public TrainerDTO getTrainer() {
 		return trainer;
@@ -30,11 +29,11 @@ public class FeedbackDTO {
 	public void setTrainer(TrainerDTO trainer) {
 		this.trainer = trainer;
 	}
-	public CourseDTO getCourse() {
-		return course;
+	public ProgramDTO getProgram() {
+		return program;
 	}
-	public void setCourse(CourseDTO course) {
-		this.course = course;
+	public void setProgram(ProgramDTO program) {
+		this.program = program;
 	}
 		
 	public QuestionsSetDTO getQuestions() {
