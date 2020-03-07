@@ -3,7 +3,6 @@ package com.cg.feedback.dto;
 public class ProgramDTO {
 	
 	private String programId;
-	private String trainerId;
 	private String programName;
 	private boolean isActive;
 	
@@ -33,6 +32,12 @@ public class ProgramDTO {
 	public void setProgramId(String programId) {
 		this.programId = programId;
 	}
-	
 
+	@Override
+	public boolean equals(Object obj) {
+		ProgramDTO temp = (ProgramDTO) obj;
+		if(temp.getProgramName().equals(this.programName))return true;
+		return false;
+	}
+	
 }

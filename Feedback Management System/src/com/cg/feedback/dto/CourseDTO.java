@@ -43,6 +43,12 @@ public class CourseDTO {
 	public void setPrograms(ArrayList<ProgramDTO> programs) {
 		this.programs = programs;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		CourseDTO temp = (CourseDTO) obj;
+		if(temp.getCourseName().equals(this.courseName))return true;
+		return false;
+	}
 	
 }

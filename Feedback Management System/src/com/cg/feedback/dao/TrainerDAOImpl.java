@@ -13,7 +13,13 @@ public class TrainerDAOImpl implements TrainerDAO {
 	@Override
 	public boolean addTrainer(TrainerDTO trainer) throws CustomException {
 		if(trainers.containsKey(trainer.getTrainerId())){
-			throw new CustomException("Trainer with Id: "+trainer.getTrainerId()+" already exists.");
+			TrainerDTO temp = trainers.get(trainer.getTrainerId());
+			if(temp.isActive())
+				throw new CustomException("Trainer with Id: "+trainer.getTrainerId()+" is already present and active. First delete the existing trainer to overwrite.");
+			else{
+				temp.setActive(true);
+				throw new CustomException("Trainer with Id: "+trainer.getTrainerId()+" is already present and has been set active.");
+			}
 		}
 		else
 		{
@@ -24,14 +30,14 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	@Override
 	public boolean removeTrainer(String trainerId) throws CustomException {
-		if(trainers.containsKey(trainerId))
+		if(trainers.containsKey(trainerId) && trainers.get(trainerId).isActive())
 		{
-			trainers.remove(trainerId);
+			trainers.get(trainerId).setActive(false);
 			return true;
 		}
 		else
 		{
-			throw new CustomException("Trainer with Id: "+trainerId+"does not exist");
+			throw new CustomException("Trainer with Id: "+trainerId+"is not active, so cannot be removed");
 		}
 		
 	}

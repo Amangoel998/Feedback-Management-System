@@ -48,9 +48,12 @@ public class FeedbackDTO {
 	public void setComments(String comments) {
 		Comments = comments;
 	}
-	
-	
-	
-	
+	@Override
+	public boolean equals(Object obj) {
+		FeedbackDTO temp = (FeedbackDTO) obj;
+		if(temp.getStudent().equals(this.student) && temp.getProgram().equals(this.program) && temp.getTrainer().equals(this.trainer))
+			return true;
+		return false;
+	}
 	
 }

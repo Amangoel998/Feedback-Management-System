@@ -59,10 +59,13 @@ public class StudentDTO {
 	public void setStudentEmail(String studentEmail) {
 		this.studentEmail = studentEmail;
 	}
-	
-	
-	
-	
-	
 
+	@Override
+	public boolean equals(Object obj) {
+		StudentDTO temp = (StudentDTO) obj;
+		if(temp.getStudentEmail().equals(this.studentEmail))
+			return true;
+		return false;
+	}
+	
 }

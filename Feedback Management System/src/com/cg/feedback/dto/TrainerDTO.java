@@ -64,4 +64,13 @@ public class TrainerDTO {
 	public void setSkills(ArrayList<SkillDTO> skills) {
 		this.skills = skills;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		TrainerDTO temp = (TrainerDTO) obj;
+		if(temp.getTrainerEmail().equals(this.trainerEmail))
+			return true;
+		return false;
+	}
+	
+	
 }

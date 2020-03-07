@@ -27,17 +27,11 @@ public class SkillDTO {
 	}
 	
 	@Override
-	public int hashCode() {
-		return skillName.hashCode();
-	}
-	
-	@Override
 	public boolean equals(Object obj) {
 		SkillDTO temp=(SkillDTO)obj;
-		if( this.skillName.equals(temp.getSkillName()))
-				return true;
-		else
-			return false;
+		if(this.skillName.equals(temp.getSkillName()))
+			return true;
+		return false;
 	}
 
 

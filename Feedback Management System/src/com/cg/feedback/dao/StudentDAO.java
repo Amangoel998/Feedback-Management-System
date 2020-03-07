@@ -10,5 +10,4 @@ import com.cg.feedback.dto.StudentDTO;
 public interface StudentDAO {
 	boolean addStudents(StudentDTO student) throws CustomException;
 	boolean removeStudents(String studentID) throws CustomException;
-	void giveFeedback(QuestionsSetDTO feedbackSet) throws CustomException;
 }
