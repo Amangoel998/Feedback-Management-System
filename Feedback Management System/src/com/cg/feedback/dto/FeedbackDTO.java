@@ -6,9 +6,10 @@ public class FeedbackDTO {
 	private String feedbackId;
 	private StudentDTO sudent;
 	private TrainerDTO trainer;
-	private CourseDTO course;
+	private ProgramDTO program;
 	private QuestionsSetDTO questions;
 	private String Comments;
+	private String suggestions;
 	
 	
 
@@ -30,11 +31,11 @@ public class FeedbackDTO {
 	public void setTrainer(TrainerDTO trainer) {
 		this.trainer = trainer;
 	}
-	public CourseDTO getCourse() {
-		return course;
+	public programDTO getprogram() {
+		return program;
 	}
-	public void setCourse(CourseDTO course) {
-		this.course = course;
+	public void setprogram(programDTO program) {
+		this.program = program;
 	}
 		
 	public QuestionsSetDTO getQuestions() {

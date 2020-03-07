@@ -2,8 +2,9 @@ package com.cg.feedback.dto;
 
 public class ProgramDTO {
 	
-	private String programName;
 	private String programId;
+	private String trainerId;
+	private String programName;
 	private boolean isActive;
 	
 	//Constructor

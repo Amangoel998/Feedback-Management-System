@@ -5,11 +5,10 @@ import java.util.ArrayList;
 public class TrainerDTO {
 	
 	private String trainerId;
+	private String programId;
 	private String trainerName;
 	private ArrayList<SkillDTO> skills;
 	private String trainerPass;
-	private String trainerEmail;
-	private ArrayList<ProgramDTO> program;
 	private boolean isActive;
 	
 	
