@@ -26,5 +26,25 @@ public class SkillDTO {
 		this.skillName = skillName;
 	}
 	
+	@Override
+	public int hashCode() {
+		return skillName.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		SkillDTO temp=(SkillDTO)obj;
+		if( this.skillName.equals(temp.getSkillName()))
+				return true;
+		else
+			return false;
+	}
+
+
+	@Override
+	public String toString() {
+		return "SkillDTO [skillId=" + skillId + ", skillName=" + skillName + "]";
+	}
+	
 
 }
