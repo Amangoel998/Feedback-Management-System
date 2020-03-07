@@ -11,7 +11,7 @@ import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public interface FeedbackDAO {
-	ArrayList<FeedbackDTO> viewFeedback(ProgramDAO program) throws CustomException;
-	ArrayList<FeedbackDTO> viewFeedback(TrainerDTO trainer) throws CustomException;
+	List<FeedbackDTO> viewFeedback(ProgramDAO program) throws CustomException;
+	List<FeedbackDTO> viewFeedback(TrainerDTO trainer) throws CustomException;
 	List<StudentDTO> viewFeedbackDefaulters(ProgramDAO program) throws CustomException;
 }

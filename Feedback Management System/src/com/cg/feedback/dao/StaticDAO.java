@@ -18,7 +18,7 @@ public final class StaticDAO {
 	private Map<String, FeedbackDTO> feedback = new HashMap<String, FeedbackDTO>();
 	private Map<Integer, List> listOfTrainerProgram = new HashMap<Integer, List>();
 	private Map<Integer, List> listOfProgramInCourse = new HashMap<Integer, List>();
-	private Map<String, Integer> batchOfCourse = new HashMap<String, Integer>();
+	private Map<String, String> batchOfCourse = new HashMap<String, String>();
 	
 	public StaticDAO() {
 	}
@@ -47,11 +47,8 @@ public final class StaticDAO {
 	public final void setCourses(Map<String, CourseDTO> courses) {
 		this.courses = courses;
 	}
-	public final ArrayList<FeedbackDTO> getFeedback(ProgramDAO program) {
-		return new ArrayList<FeedbackDTO>();
-	}
-	public final ArrayList<FeedbackDTO> getFeedback(TrainerDTO trainer) {
-		return new ArrayList<FeedbackDTO>();
+	public final Map<String, FeedbackDTO> getFeedback() {
+		return feedback;
 	}
 	public final void setFeedback(Map<String, FeedbackDTO> feedback) {
 		this.feedback = feedback;
@@ -73,11 +70,11 @@ public final class StaticDAO {
 		this.listOfProgramInCourse = listOfProgramInCourse;
 	}
 
-	public Map<String, Integer> getBatchOfCourse() {
+	public Map<String, String> getBatchOfCourse() {
 		return batchOfCourse;
 	}
 
-	public void setBatchOfCourse(Map<String, Integer> batchOfCourse) {
+	public void setBatchOfCourse(Map<String, String> batchOfCourse) {
 		this.batchOfCourse = batchOfCourse;
 	}
 

@@ -31,10 +31,10 @@ public class FeedbackDTO {
 	public void setTrainer(TrainerDTO trainer) {
 		this.trainer = trainer;
 	}
-	public ProgramDTO getprogram() {
+	public ProgramDTO getProgram() {
 		return program;
 	}
-	public void setprogram(ProgramDTO program) {
+	public void setProgram(ProgramDTO program) {
 		this.program = program;
 	}
 		
