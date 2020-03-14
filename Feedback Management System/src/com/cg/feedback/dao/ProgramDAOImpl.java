@@ -3,7 +3,8 @@ package com.cg.feedback.dao;
 import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class ProgramDAOImpl implements ProgramDAO {
+public class ProgramDAOImpl{
+	/*
 	private static StaticDAO dao = new StaticDAO();
 	@Override
 	public boolean addTrainingProgram(ProgramDTO program) throws CustomException {
@@ -28,5 +29,5 @@ public class ProgramDAOImpl implements ProgramDAO {
 		}
 		throw new CustomException("Program with Id: "+programId+"is not active, so cannot be removed");
 	}
-
+	*/
 }

@@ -5,9 +5,8 @@ import static com.cg.feedback.pl.UserInterface.*;
 import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.service.*;
 
-
-
 public class AuthInterface {
+	/*
 	private static UserService user;
 	private static boolean login(int role){
 		switch(role){
@@ -31,6 +30,7 @@ public class AuthInterface {
 		}
 		return true;
 	}
+	
 	private static boolean logout(){
 		System.out.println("Do you want to logout?");
 		if("Y".equals(inputYesOrNo())){
@@ -60,13 +60,13 @@ public class AuthInterface {
 				break;
 			case 3:
 				System.out.println("Give Feedback for trainings");
-				QuestionsSetDTO feedbackSet = takeQuestions();
-//				((StudentServiceImpl) user).giveFeedback(feedbackSet);
+				QuestionsSetDTO questionSet = takeQuestions();
+				((StudentServiceImpl) user).giveFeedback(questionSet);
 				break;
 			default:
 				break;
 			}
 		}while(!logout());
 	}
-
+	*/
 }

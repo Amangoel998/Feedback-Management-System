@@ -21,7 +21,8 @@ import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl{
+	/*
 	private static CourseDAO crs = new CourseDAOImpl();
 	private static FeedbackDAO fdb = new FeedbackDAOImpl();
 	private static ProgramDAO prg = new ProgramDAOImpl();
@@ -93,4 +94,5 @@ public class AdminServiceImpl implements AdminService{
 	public List<StudentDTO> viewFeedbackDefaulters(ProgramDTO program) throws CustomException {
 		return fdb.viewFeedbackDefaulters(program);
 	}
+	*/
 }

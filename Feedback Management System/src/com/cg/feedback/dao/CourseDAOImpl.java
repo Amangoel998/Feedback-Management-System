@@ -3,7 +3,8 @@ package com.cg.feedback.dao;
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class CourseDAOImpl implements CourseDAO {
+public class CourseDAOImpl {
+	/*
 	private static StaticDAO dao = new StaticDAO();
 	@Override
 	public boolean addTrainingCourse(CourseDTO course) throws CustomException {
@@ -28,5 +29,5 @@ public class CourseDAOImpl implements CourseDAO {
 		}
 		throw new CustomException("Course with Id: "+courseId+" is not active, so cannot be removed.");
 	}
-
+	*/
 }

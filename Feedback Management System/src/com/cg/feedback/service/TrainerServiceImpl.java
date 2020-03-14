@@ -3,7 +3,8 @@ package com.cg.feedback.service;
 
 import com.cg.feedback.exceptions.CustomException;
 
-public class TrainerServiceImpl implements TrainerService {
+public class TrainerServiceImpl {
+	/*
 	
 	public void getTrainerMethods(int method){
 		switch(method){
@@ -40,5 +41,6 @@ public class TrainerServiceImpl implements TrainerService {
 		// TODO Auto-generated method stub
 		
 	}
+	*/
 
 }

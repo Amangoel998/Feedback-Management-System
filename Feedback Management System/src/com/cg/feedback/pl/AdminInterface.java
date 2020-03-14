@@ -15,6 +15,7 @@ import com.cg.feedback.service.AdminService;
 import com.cg.feedback.service.AdminServiceImpl;
 
 public class AdminInterface {
+	/*
 	private static AdminService adm = new AdminServiceImpl();
 	public void getAdminMethods(int method){
 		switch(method){
@@ -61,4 +62,5 @@ public class AdminInterface {
 			break;
 		}
 	}
+	*/
 }

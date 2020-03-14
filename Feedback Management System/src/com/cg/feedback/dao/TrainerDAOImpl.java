@@ -7,7 +7,8 @@ import com.cg.feedback.dto.SkillDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class TrainerDAOImpl implements TrainerDAO {
+public class TrainerDAOImpl{
+	/*
 	StaticDAO staticDb = new StaticDAO();
 
 	@Override
@@ -70,5 +71,5 @@ public class TrainerDAOImpl implements TrainerDAO {
 		}
 		throw new CustomException("Skill not present in Trainer Skill-set.");
 	}
-
+	*/
 }

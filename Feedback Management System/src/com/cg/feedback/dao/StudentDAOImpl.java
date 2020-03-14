@@ -1,5 +1,6 @@
 package com.cg.feedback.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.cg.feedback.dto.FeedbackDTO;
@@ -8,8 +9,8 @@ import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class StudentDAOImpl implements StudentDAO {
-
+public class StudentDAOImpl{
+	/*
 	StaticDAO staticDb = new StaticDAO();
 
 	@Override
@@ -38,6 +39,14 @@ public class StudentDAOImpl implements StudentDAO {
 			return true;
 		}
 	}
+	
+	public List<String> getAvaiablePrograms() throws CustomException {
+		// TODO get program ids
+		return null;
+	}
+	public List<FeedbackDTO> getAvaiiableFeedbacks() throws CustomException{
+		return null;
+	}
 
 	@Override
 	public boolean removeStudents(String studentID) throws CustomException {
@@ -48,5 +57,5 @@ public class StudentDAOImpl implements StudentDAO {
 		else
 			throw new CustomException("Student with Id: "+studentID+"is not active, so cannot be removed");
 	}
-	
+	*/
 }
