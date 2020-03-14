@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
+import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
@@ -30,7 +31,7 @@ public class FeedbackDAOImpl implements FeedbackDAO {
 	}
 	
 	@Override
-	public List<FeedbackDTO> viewFeedback(ProgramDAO program) throws CustomException {
+	public List<FeedbackDTO> viewFeedback(ProgramDTO program) throws CustomException {
 		return dao.getFeedback().values().stream().filter(temp -> temp.getProgram().equals(program)).collect(Collectors.toList());
 	}
 
@@ -41,7 +42,7 @@ public class FeedbackDAOImpl implements FeedbackDAO {
 	
 	static String batch=null;
 	@Override
-	public List<StudentDTO> viewFeedbackDefaulters(ProgramDAO program) throws CustomException {
+	public List<StudentDTO> viewFeedbackDefaulters(ProgramDTO program) throws CustomException {
 		List<FeedbackDTO> feedback = viewFeedback(program);
 		List<StudentDTO> students = new ArrayList<>();
 		

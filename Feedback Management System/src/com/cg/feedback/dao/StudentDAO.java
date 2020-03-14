@@ -6,8 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.cg.feedback.dto.StudentDTO;
+import com.cg.feedback.dto.TrainerDTO;
 
 public interface StudentDAO {
 	boolean addStudents(StudentDTO student) throws CustomException;
 	boolean removeStudents(String studentID) throws CustomException;
+	StudentDTO getStudent(String user, String pass) throws CustomException;
 }

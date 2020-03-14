@@ -78,4 +78,12 @@ public final class StaticDAO {
 		this.batchOfCourse = batchOfCourse;
 	}
 
+	public StudentDTO getStudent(String user) {
+		return students.get(user);
+	}
+	
+	public TrainerDTO getTrainer(String user) {
+		return trainers.get(user);
+	}
+
 }

@@ -6,21 +6,31 @@ import com.cg.feedback.dao.StudentDAO;
 import com.cg.feedback.dao.StudentDAOImpl;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.QuestionsSetDTO;
+import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public class StudentServiceImpl implements StudentService {
 
+	private static StudentDTO student=null;
+	
 	private static FeedbackDAO fdb = new FeedbackDAOImpl();
 	@Override
 	public boolean login(String id, String pass) throws CustomException {
-		// TODO Auto-generated method stub
-		return false;
+		if(student != null)
+			return false;
+		else {
+//			student = ;
+			return true;
+		}
 	}
 
 	@Override
 	public boolean logout() throws CustomException {
-		// TODO Auto-generated method stub
-		return false;
+		if(student == null)return true;
+		else {
+			student = null;
+			return false;
+		}
 	}
 
 	@Override

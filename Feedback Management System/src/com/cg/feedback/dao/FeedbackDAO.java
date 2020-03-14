@@ -6,14 +6,15 @@ import java.util.Map;
 
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
+import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public interface FeedbackDAO {
-	List<FeedbackDTO> viewFeedback(ProgramDAO program) throws CustomException;
+	List<FeedbackDTO> viewFeedback(ProgramDTO program) throws CustomException;
 	List<FeedbackDTO> viewFeedback(TrainerDTO trainer) throws CustomException;
-	List<StudentDTO> viewFeedbackDefaulters(ProgramDAO program) throws CustomException;
+	List<StudentDTO> viewFeedbackDefaulters(ProgramDTO program) throws CustomException;
 	boolean giveFeedback(FeedbackDTO feedbackSet) throws CustomException;
 }

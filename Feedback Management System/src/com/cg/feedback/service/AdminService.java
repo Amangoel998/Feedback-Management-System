@@ -22,7 +22,7 @@ public interface AdminService extends UserService{
 	boolean removeTrainerSkill(String skillName,String trainerId) throws CustomException;
 	boolean addTrainingCourse(CourseDTO course) throws CustomException;
 	boolean removeTrainingCourse(String courseId) throws CustomException;
-	List<FeedbackDTO> viewFeedback(ProgramDAO program) throws CustomException;
+	List<FeedbackDTO> viewFeedback(ProgramDTO program) throws CustomException;
 	List<FeedbackDTO> viewFeedback(TrainerDTO trainer) throws CustomException;
-	List<StudentDTO> viewFeedbackDefaulters(ProgramDAO program) throws CustomException;
+	List<StudentDTO> viewFeedbackDefaulters(ProgramDTO program) throws CustomException;
 }

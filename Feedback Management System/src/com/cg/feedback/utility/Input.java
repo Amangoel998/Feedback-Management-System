@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import static com.cg.feedback.utility.Validator.*;
 
+import com.cg.feedback.dto.ProgramDTO;
+import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public class Input{
@@ -112,6 +114,17 @@ public class Input{
 		}
 	}
 	
+	
+	
+	public static ProgramDTO inputProgram(){
+		return null;
+	}
+	public static StudentDTO inputStudent(){
+		return null;
+	}
+	public static String inputProgramId(){
+		return "";
+	}
 	
 	
 	
