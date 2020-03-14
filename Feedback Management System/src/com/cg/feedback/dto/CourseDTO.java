@@ -6,7 +6,7 @@ public class CourseDTO {
 	private boolean isActive;
 	private String courseId;
 	private String courseName;
-	private ArrayList<ProgramDTO> programs;
+	private ArrayList<String> programs;
 	
 	//Constructor
 	public CourseDTO(String courseId, String courseName) {
@@ -36,11 +36,11 @@ public class CourseDTO {
 		this.courseName = courseName;
 	}
 
-	public ArrayList<ProgramDTO> getPrograms() {
+	public ArrayList<String> getPrograms() {
 		return programs;
 	}
 
-	public void setPrograms(ArrayList<ProgramDTO> programs) {
+	public void setPrograms(ArrayList<String> programs) {
 		this.programs = programs;
 	}
 

@@ -1,7 +1,9 @@
 package com.cg.feedback.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.QuestionsSetDTO;
@@ -9,8 +11,7 @@ import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class StudentDAOImpl{
-	/*
+public class StudentDAOImpl implements StudentDAO{
 	StaticDAO staticDb = new StaticDAO();
 
 	@Override
@@ -39,17 +40,24 @@ public class StudentDAOImpl{
 			return true;
 		}
 	}
-	
-	public List<String> getAvaiablePrograms() throws CustomException {
-		// TODO get program ids
-		return null;
+	@Override
+	public List<String> getAvailablePrograms(String studentId) throws CustomException {
+		String tempC = staticDb.getBatchOfCourse().get(staticDb.getStudent(studentId).getBatch());
+		return staticDb.getListOfProgramInCourse().values().stream().filter(temp -> {
+			if(temp.get(0).equals(tempC) &&  LocalDate.parse(temp.get(3)).isBefore(LocalDate.now()))
+				return true;
+			return false;
+		}).map(temp -> temp.get(1)).collect(Collectors.toList());
 	}
-	public List<FeedbackDTO> getAvaiiableFeedbacks() throws CustomException{
+	
+	@Override
+	public List<FeedbackDTO> getAvailableFeedbacks(String studentId) throws CustomException{
+		
 		return null;
 	}
 
 	@Override
-	public boolean removeStudents(String studentID) throws CustomException {
+	public boolean removeStudent(String studentID) throws CustomException {
 		if(staticDb.getStudents().containsKey(studentID) && staticDb.getStudents().get(studentID).isActive()) {
 			staticDb.getStudents().get(studentID).setActive(false);
 			return true;
@@ -57,5 +65,10 @@ public class StudentDAOImpl{
 		else
 			throw new CustomException("Student with Id: "+studentID+"is not active, so cannot be removed");
 	}
-	*/
+
+	@Override
+	public List<String> getProgramsWithFeedback(String studentId) throws CustomException {
+		return null;
+	}
+	
 }

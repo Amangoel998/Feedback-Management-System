@@ -18,48 +18,42 @@ import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 
-public class FeedbackDAOImpl {
-	/*
+public class FeedbackDAOImpl implements FeedbackDAO{
 	private static StaticDAO dao = new StaticDAO();
 
 	@Override
-	public boolean giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
+	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
 		if (dao.getFeedback().values().contains(feedbackSet)) {
 			throw new CustomException("Feedback has already been given by the Student with ID = "
-					+ feedbackSet.getStudent().getStudentId() + " for the Program with ID = "
-					+ feedbackSet.getProgram().getProgramId());
+					+ feedbackSet.getStudentId() + " for the Program with ID = "
+					+ feedbackSet.getProgramId());
 		}
 		dao.getFeedback().put(feedbackSet.getFeedbackId(), feedbackSet);
-		return true;
+		return feedbackSet;
 	}
 
 	@Override
-	public List<FeedbackDTO> viewFeedback(ProgramDTO program) throws CustomException {
-		return dao.getFeedback().values().stream().filter(temp -> temp.getProgram().equals(program))
+	public List<FeedbackDTO> viewFeedbackByProgram(String programId) throws CustomException {
+		return dao.getFeedback().values().stream().filter(temp -> temp.getProgramId().equals(programId))
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<FeedbackDTO> viewFeedback(TrainerDTO trainer) throws CustomException {
-		return dao.getFeedback().values().stream().filter(temp -> temp.getTrainer().equals(trainer))
+	public List<FeedbackDTO> viewFeedbackByTrainer(String trainerId) throws CustomException {
+		return dao.getFeedback().values().stream().filter(temp -> temp.getTrainerId().equals(trainerId))
 				.collect(Collectors.toList());
 	}
 
 	static String batch = null;
 
 	@Override
-	public List<StudentDTO> viewFeedbackDefaulters(ProgramDTO program) throws CustomException {
-		List<FeedbackDTO> feedback = viewFeedback(program);
+	public List<StudentDTO> viewFeedbackDefaultersByProgram(String programId) throws CustomException {
+		List<FeedbackDTO> feedback = viewFeedbackByProgram(programId);
 		List<StudentDTO> students = new ArrayList<>();
-		
-		return feedback.stream().filter( el->{
-			
-		}).collect(Collectors.toList());
-//		feedback.stream().forEach(temp -> students.add(temp.getStudent()));
-		/*
+		batch = null;
 		String course=null;
 		for(List e : dao.getListOfProgramInCourse().values()){
-			if(e.get(1).equals(program) && LocalDate.now().isAfter((LocalDate) e.get(2)) && LocalDate.now().isBefore((LocalDate) e.get(3))){
+			if(e.get(1).equals(programId) && LocalDate.now().isAfter((LocalDate) e.get(2)) && LocalDate.now().isBefore((LocalDate) e.get(3))){
 				course = (String) e.get(0);
 				break;
 			}
@@ -76,6 +70,31 @@ public class FeedbackDAOImpl {
 		
 		return dao.getStudents().values().stream().filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch)).collect(Collectors.toList());
 		
-	}*/
+	}
+	@Override
+	public List<StudentDTO> viewFeedbackDefaultersByTrainer(String trainerId) throws CustomException {
+		List<FeedbackDTO> feedback = viewFeedbackByTrainer(trainerId);
+		List<StudentDTO> students = new ArrayList<>();
+		
+		String course=null;
+		for(List e : dao.getListOfProgramInCourse().values()){
+			if(e.get(1).equals(trainerId) && LocalDate.now().isAfter((LocalDate) e.get(2)) && LocalDate.now().isBefore((LocalDate) e.get(3))){
+				course = (String) e.get(0);
+				break;
+			}
+		}
+		if(course==null)throw new CustomException("Course not present for this program or Course not started");
+		
+		for(Map.Entry e :dao.getBatchOfCourse().entrySet()){
+			if(e.getValue().equals(course)){
+				batch = (String) e.getKey();
+				break;
+			}
+		}
+		if(batch==null)throw new CustomException("Batch not made for the course");
+		
+		return dao.getStudents().values().stream().filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch)).collect(Collectors.toList());
+		
+	}
 
 }

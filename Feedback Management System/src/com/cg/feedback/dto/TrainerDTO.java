@@ -7,7 +7,7 @@ public class TrainerDTO {
 	private String trainerId;
 	private String programId;
 	private String trainerName;
-	private ArrayList<SkillDTO> skills;
+	private ArrayList<String> skills;
 	private String trainerPass;
 	private String trainerEmail;
 	private boolean isActive;
@@ -34,12 +34,6 @@ public class TrainerDTO {
 	public void setTrainerName(String trainerName) {
 		this.trainerName = trainerName;
 	}
-	public ArrayList<SkillDTO> getSkill() {
-		return skills;
-	}
-	public void setSkill(ArrayList<SkillDTO> skill) {
-		this.skills = skill;
-	}
 	public String getTrainerPass() {
 		return trainerPass;
 	}
@@ -58,10 +52,10 @@ public class TrainerDTO {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public ArrayList<SkillDTO> getSkills() {
+	public ArrayList<String> getSkills() {
 		return skills;
 	}
-	public void setSkills(ArrayList<SkillDTO> skills) {
+	public void setSkills(ArrayList<String> skills) {
 		this.skills = skills;
 	}
 	@Override
