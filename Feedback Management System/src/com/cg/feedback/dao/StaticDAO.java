@@ -221,12 +221,16 @@ public final class StaticDAO {
 		this.batchOfCourse = batchOfCourse;
 	}
 
-	public StudentDTO getStudent(String user) {
-		return students.get(user);
+	public StudentDTO getStudent(String studentId) {
+		if (students.containsKey(studentId))
+			return students.get(studentId);
+		return null;
 	}
 
-	public TrainerDTO getTrainer(String user) {
-		return trainers.get(user);
+	public TrainerDTO getTrainer(String trainerId) {
+		if (trainers.containsKey(trainerId))
+			return trainers.get(trainerId);
+		return null;
 	}
 
 	public CourseDTO getCourse(String courseId) {
