@@ -9,41 +9,58 @@ import com.cg.feedback.dao.TrainerDAO;
 import com.cg.feedback.dao.TrainerDAOImpl;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.StudentDTO;
+import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
-import com.cg.feedback.pl.AuthInterface;
 
 public class TrainerServiceImpl implements TrainerService{
 	
-	private static TrainerDAO trn = new TrainerDAOImpl();
-	private static AuthInterface auth = new AuthInterface();
-	private static FeedbackDAO fdb = new FeedbackDAOImpl();
+	private static TrainerDAO trnDao = new TrainerDAOImpl();
+	private static FeedbackDAO fdbDao = new FeedbackDAOImpl();
+
+	private static TrainerDTO trainer = null;
 	
-	public String getTrainerMethods(int method,String trainerId) throws CustomException{
+	public String getTrainerMethods(int method) throws CustomException{
+		if(trainer==null)
+			throw new CustomException("Trainer Not Logged In !!");
 		if(method==1)
-			return showFeedBack(trainerId);
+			return showFeedBack();
 		else if(method==2)
-			return showDefaulters(trainerId);
+			return showDefaulters();
 		else
 			return "WRONG OPTION";
 	}
 	
 	@Override
 	public boolean login(String id, String pass) throws CustomException {
-		return trn.validateTrainer(id, pass);
+		trainer = trnDao.getTrainer(id);
+		if(trainer != null){
+			if(trnDao.validateTrainer(id, pass)){
+				return true;
+			}
+			trainer = null;
+			return false;
+		}
+		return false;
 	}
 
 	@Override
 	public boolean logout() throws CustomException {
-		return auth.logout();
+		if(trainer==null)
+			throw new CustomException("Trainer Not Logged In !!");
+		else {
+			trainer = null;
+			return true;
+		}
 	}
 
 	@Override
-	public String showFeedBack(String trainerId) throws CustomException {
-		List<FeedbackDTO> feedbacks = fdb.viewFeedbackByTrainer(trainerId);
+	public String showFeedBack() throws CustomException {
+		if(trainer==null)
+			throw new CustomException("Trainer Not Logged In !!");
+		List<FeedbackDTO> feedbacks = fdbDao.viewFeedbackByTrainer(trainer.getTrainerId());
 		if(feedbacks.size()==0)
-			throw new CustomException("No Feedbacks have been given for you!");
+			throw new CustomException("No Feedbacks available for you!\n");
 		else{
-
 			String res = "";
 			for(FeedbackDTO temp : feedbacks)
 				res+=temp;
@@ -52,10 +69,12 @@ public class TrainerServiceImpl implements TrainerService{
 	}
 
 	@Override
-	public String showDefaulters(String trainerId) throws CustomException {
-		List<StudentDTO> defaulters = fdb.viewFeedbackDefaultersByTrainer(trainerId);
+	public String showDefaulters() throws CustomException {
+		if(trainer==null)
+			throw new CustomException("Trainer Not Logged In !!");
+		List<StudentDTO> defaulters = fdbDao.viewFeedbackDefaultersByTrainer(trainer.getTrainerId());
 		if(defaulters.size()==0)
-			throw new CustomException("No Defaulters have been given for you!");
+			throw new CustomException("No Defaulters avaiable.\n");
 		else{
 	
 			String res = "";

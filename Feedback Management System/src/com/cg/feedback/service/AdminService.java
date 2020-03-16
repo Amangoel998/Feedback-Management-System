@@ -2,11 +2,9 @@ package com.cg.feedback.service;
 
 import java.util.List;
 
-import com.cg.feedback.dao.ProgramDAO;
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.ProgramDTO;
-import com.cg.feedback.dto.SkillDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;

@@ -7,23 +7,28 @@ import com.cg.feedback.dao.FeedbackDAOImpl;
 import com.cg.feedback.dao.StudentDAO;
 import com.cg.feedback.dao.StudentDAOImpl;
 import com.cg.feedback.dto.FeedbackDTO;
-import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class StudentServiceImpl implements UserService, StudentService{
+public class StudentServiceImpl implements StudentService {
 	private static StudentDTO student=null;
 	
-	private static FeedbackDAO fdb = new FeedbackDAOImpl();
-	private static StudentDAO std = new StudentDAOImpl();
+	private static FeedbackDAO fdbDao = new FeedbackDAOImpl();
+	private static StudentDAO stdDao = new StudentDAOImpl();
+
 	@Override
 	public boolean login(String id, String pass) throws CustomException {
 		if(student != null)
-			return false;
+			return true;
 		else {
-			if(std.validateStudent(id, pass)){
-				student = std.getStudent(id);
-				return true;
+			if(stdDao.validateStudent(id, pass)){
+				student = stdDao.getStudent(id);
+				if(student.getStudentPass().equals(pass))
+					return true;
+				else{
+					student = null;
+					return false;
+				}
 			}
 			return logout();
 		}
@@ -34,20 +39,20 @@ public class StudentServiceImpl implements UserService, StudentService{
 		if(student == null)return true;
 		else {
 			student = null;
-			return false;
+			return true;
 		}
 	}
-	public static List<FeedbackDTO> availableFeedbacks(String studentId){
-		return std.getAvailableFeedbacks(studentId);
+	public List<FeedbackDTO> availableFeedbacks(){
+		return stdDao.getAvailableFeedbacks(student.getStudentId());
 		
 	}
 	@Override
 	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
-		return fdb.giveFeedback(feedbackSet);
+		return fdbDao.giveFeedback(feedbackSet);
 	}
 
 	@Override
-	public List<String> getProgramsEnrolled(String studentId) throws CustomException {
-		return std.getAvailablePrograms(studentId);
+	public List<String> getProgramsEnrolled() throws CustomException {
+		return stdDao.getAvailablePrograms(student.getStudentId());
 	}
 }

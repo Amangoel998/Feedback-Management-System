@@ -1,11 +1,16 @@
 package com.cg.feedback.utility;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import static com.cg.feedback.utility.Validator.*;
 
+import com.cg.feedback.dto.CourseDTO;
+import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.ProgramDTO;
+import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.dto.StudentDTO;
+import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public class Input{
@@ -103,7 +108,7 @@ public class Input{
 			try{
 				System.out.print("Input (Y/N):");
 				String s = sc.next();
-				if("Y".equals(s) || "N".equals(s))
+				if("Y".equals(s) || "N".equals(s)||"y".equals(s) || "n".equals(s))
 					return s;
 				else
 					throw new Exception();
@@ -122,12 +127,35 @@ public class Input{
 	public static StudentDTO inputStudent(){
 		return null;
 	}
+	public static TrainerDTO inputTrainer(){
+		return null;
+	}
+	public static CourseDTO inputCourse(){
+		return null;
+	}
 	public static String inputProgramId(){
 		return "";
 	}
-	
-	
-	
+	public static String inputCourseId(){
+		return "";
+	}
+	public static String inputStudentId(){
+		return "";
+	}
+	public static String inputTrainerId(){
+		return "";
+	}
+	public static String inputSkill(){
+		return "";
+	}
+	public static String inputComments(){
+		System.out.println("Any Comments : ");
+		return sc.nextLine();
+	}
+	public static String inputSuggestion(){
+		System.out.println("Any Suggestions : ");
+		return sc.nextLine();
+	}
 	
 	public static String inputPhone(String s){
 		String st;
@@ -194,5 +222,10 @@ public class Input{
 				System.out.println("Invalid "+s+", enter again");
 			}
 		}
+	}
+	
+	public static int inputInt(String s){
+		System.out.println("Enter "+s+": ");
+		return Integer.parseInt(sc.nextLine());
 	}
 }

@@ -1,6 +1,5 @@
 package com.cg.feedback.dao;
 
-import com.cg.feedback.dto.SkillDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 

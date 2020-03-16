@@ -11,7 +11,6 @@ import com.cg.feedback.dto.AdminDTO;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.service.*;
-import com.sun.corba.se.spi.ior.iiop.GIOPVersion;
 
 public class AuthInterface {
 	private static Object user;
@@ -50,8 +49,10 @@ public class AuthInterface {
 	
 	public static boolean logout(){
 		System.out.println("Do you want to logout?");
-		if("Y".equals(inputYesOrNo())){
+		String yon = inputYesOrNo();
+		if("Y".equals(yon)||"y".equals(yon)){
 			user = null;
+			System.out.println("Thank You!");
 			return true;
 		}
 		return false;
@@ -60,7 +61,6 @@ public class AuthInterface {
 	public static void main(String[] args) {
 		showWelcome();
 		showRole();
-		Scanner sc = new Scanner(System.in);
 		int role = inputRole("Role Options");
 		while(!login(role));
 		do{
@@ -73,26 +73,12 @@ public class AuthInterface {
 				break;
 			case 2:
 				getTrainerOptions();
-				method = inputTrainerOptions("Admin Options");
-				((TrainerServiceImpl)user).getTrainerMethods(method,ad[0]);
+				method = inputTrainerOptions("Trainer Options");
+				((TrainerServiceImpl)user).getTrainerMethods(method);
 				break;
 			case 3:
-				List<FeedbackDTO> feedbacks = ((StudentServiceImpl)user).availableFeedbacks(ad[0]);
-				System.out.println("Available Feedbacks for the following programs along with their trainers :");
-				int i=1;
-				for(FeedbackDTO temp : feedbacks){
-					System.out.println((i++)+temp.getProgramId()+"\tBy\t"+temp.getTrainerId());
-				}
-				System.out.println("Which Program you would like to give feedback for ? ||Enter a number from 1 to "+i+"||");
-				int e = Integer.parseInt(sc.nextLine());
-				FeedbackDTO temp = feedbacks.get(e);
-				System.out.println("Entering Feedback for the program "+temp.getProgramId()+" by "+temp.getTrainerId()+" :");
-				temp.setQuestions(takeQuestions());
-				System.out.println("Any Comments : ");
-				temp.setComments(sc.nextLine());
-				System.out.println("Any Suggestions : ");
-				temp.setSuggestions(sc.nextLine());
-				
+				List<FeedbackDTO> feedbacks = ((StudentServiceImpl)user).availableFeedbacks();
+				takeFeedback(feedbacks);
 				break;
 			default:
 				break;

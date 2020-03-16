@@ -16,22 +16,23 @@ import com.cg.feedback.dto.AdminDTO;
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.ProgramDTO;
-import com.cg.feedback.dto.SkillDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public class AdminServiceImpl implements AdminService{
-	private static CourseDAO crs = new CourseDAOImpl();
-	private static FeedbackDAO fdb = new FeedbackDAOImpl();
-	private static ProgramDAO prg = new ProgramDAOImpl();
-	private static StudentDAO std = new StudentDAOImpl();
-	private static TrainerDAO trn = new TrainerDAOImpl();
+	private static CourseDAO crsDao = new CourseDAOImpl();
+	private static FeedbackDAO fdbDao = new FeedbackDAOImpl();
+	private static ProgramDAO prgDao = new ProgramDAOImpl();
+	private static StudentDAO stdDao = new StudentDAOImpl();
+	private static TrainerDAO trnDao = new TrainerDAOImpl();
 	
-	
+	private static AdminDTO admin = null;
 	
 	@Override
 	public boolean login(String id, String pass) throws CustomException {
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
 		if(AdminDTO.validateAdmin(id, pass))
 			return true;
 		else
@@ -39,62 +40,93 @@ public class AdminServiceImpl implements AdminService{
 	}
 	@Override
 	public boolean logout() throws CustomException {
-		return false;
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		else {
+			admin = null;
+			return true;
+		}
 	}
 	@Override
 	public boolean addTrainingProgram(ProgramDTO program) throws CustomException {
-		return prg.addTrainingProgram(program);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return prgDao.addTrainingProgram(program);
 	}
 	@Override
 	public boolean removeTrainingProgram(String programID) throws CustomException {
-		return prg.removeTrainingProgram(programID);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return prgDao.removeTrainingProgram(programID);
 	}
 	@Override
 	public boolean addStudents(StudentDTO student) throws CustomException {
-		return std.addStudents(student);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return stdDao.addStudents(student);
 	}
 	@Override
 	public boolean removeStudents(String studentID) throws CustomException {
-		return std.removeStudent(studentID);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return stdDao.removeStudent(studentID);
 	}
 	@Override
 	public boolean addTrainer(TrainerDTO trainer) throws CustomException {
-		return trn.addTrainer(trainer);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return trnDao.addTrainer(trainer);
 	}
 	@Override
 	public boolean removeTrainer(String trainerID) throws CustomException {
-		return trn.removeTrainer(trainerID);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return trnDao.removeTrainer(trainerID);
 	}
 	@Override
 	public boolean addTrainerSkill(String skill, String trainerId) throws CustomException {
-		return trn.addTrainerSkill(skill, trainerId);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return trnDao.addTrainerSkill(skill, trainerId);
 	}
 	@Override
 	public boolean removeTrainerSkill(String skillName, String trainerId) throws CustomException {
-		return trn.removeTrainerSkill(skillName, trainerId);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return trnDao.removeTrainerSkill(skillName, trainerId);
 	}
 	@Override
 	public boolean addTrainingCourse(CourseDTO course) throws CustomException {
-		return crs.addTrainingCourse(course);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return crsDao.addTrainingCourse(course);
 	}
 	@Override
 	public boolean removeTrainingCourse(String courseId) throws CustomException {
-		return crs.removeTrainingCourse(courseId);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return crsDao.removeTrainingCourse(courseId);
 	}
 	@Override
 	public List<FeedbackDTO> viewFeedbackByProgram(String program) throws CustomException {
-		return fdb.viewFeedbackByProgram(program);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return fdbDao.viewFeedbackByProgram(program);
 	}
 	@Override
 	public List<FeedbackDTO> viewFeedbackByTrainer(String trainer) throws CustomException {
-		return fdb.viewFeedbackByTrainer(trainer);
+		return fdbDao.viewFeedbackByTrainer(trainer);
 	}
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByProgram(String program) throws CustomException {
-		return fdb.viewFeedbackDefaultersByProgram(program);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return fdbDao.viewFeedbackDefaultersByProgram(program);
 	}
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException {
-		return fdb.viewFeedbackDefaultersByTrainer(trainer);
+		if(admin==null)
+			throw new CustomException("Admin Not Logged In !!");
+		return fdbDao.viewFeedbackDefaultersByTrainer(trainer);
 	}
 }

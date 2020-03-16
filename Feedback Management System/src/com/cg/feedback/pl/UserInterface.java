@@ -1,6 +1,9 @@
 package com.cg.feedback.pl;
 import static com.cg.feedback.utility.Input.*;
 
+import java.util.List;
+
+import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.QuestionsSetDTO;
 
 public class UserInterface {
@@ -25,6 +28,21 @@ public class UserInterface {
 		int q5 = inputRating();
 		return new QuestionsSetDTO(q1, q2, q3, q4, q5);
 	}
+	public static FeedbackDTO takeFeedback(List<FeedbackDTO> feedbacks){
+		System.out.println("Available Feedbacks for the following programs along with their trainers :");
+		int i=1;
+		for(FeedbackDTO temp : feedbacks){
+			System.out.println((i++)+temp.getProgramId()+"\tBy\t"+temp.getTrainerId());
+		}
+		System.out.print("Which Program you would like to give feedback for ?\nEnter a number from 1 to "+i+":");
+		int e = inputInt("");
+		FeedbackDTO feedback = feedbacks.get(e);
+		System.out.println("Entering Feedback for the program "+feedback.getProgramId()+" by "+feedback.getTrainerId()+" :");
+		feedback.setQuestions(takeQuestions());
+		feedback.setComments(inputComments());
+		feedback.setSuggestions(inputSuggestion());
+		return feedback;
+}
 	static void showLikeliness(){
 		System.out.println("Following are the rating you could choose for each question"
 				+ "5: Excellent: 'Ideal way of doing it'\n"
