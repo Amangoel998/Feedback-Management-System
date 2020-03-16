@@ -85,11 +85,6 @@ public class StudentDAOImpl implements StudentDAO{
 			throw new CustomException("Student with Id: "+studentID+"is not active, so cannot be removed");
 	}
 
-	@Override
-	public List<String> getProgramsWithFeedback(String studentId) throws CustomException {
-		//NOT NEEDED AS feedbacks in getAvailableFeedbacks gives the feedbackDTO set with trainer, student and program.
-		return null;
-	}
 
 	@Override
 	public boolean validateStudent(String user, String pass) throws CustomException {

@@ -21,8 +21,7 @@ import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class AdminServiceImpl{
-	/*
+public class AdminServiceImpl implements AdminService{
 	private static CourseDAO crs = new CourseDAOImpl();
 	private static FeedbackDAO fdb = new FeedbackDAOImpl();
 	private static ProgramDAO prg = new ProgramDAOImpl();
@@ -56,7 +55,7 @@ public class AdminServiceImpl{
 	}
 	@Override
 	public boolean removeStudents(String studentID) throws CustomException {
-		return std.removeStudents(studentID);
+		return std.removeStudent(studentID);
 	}
 	@Override
 	public boolean addTrainer(TrainerDTO trainer) throws CustomException {
@@ -67,7 +66,7 @@ public class AdminServiceImpl{
 		return trn.removeTrainer(trainerID);
 	}
 	@Override
-	public boolean addTrainerSkill(SkillDTO skill, String trainerId) throws CustomException {
+	public boolean addTrainerSkill(String skill, String trainerId) throws CustomException {
 		return trn.addTrainerSkill(skill, trainerId);
 	}
 	@Override
@@ -83,16 +82,19 @@ public class AdminServiceImpl{
 		return crs.removeTrainingCourse(courseId);
 	}
 	@Override
-	public List<FeedbackDTO> viewFeedback(ProgramDTO program) throws CustomException {
-		return fdb.viewFeedback(program);
+	public List<FeedbackDTO> viewFeedbackByProgram(String program) throws CustomException {
+		return fdb.viewFeedbackByProgram(program);
 	}
 	@Override
-	public List<FeedbackDTO> viewFeedback(TrainerDTO trainer) throws CustomException {
-		return fdb.viewFeedback(trainer);
+	public List<FeedbackDTO> viewFeedbackByTrainer(String trainer) throws CustomException {
+		return fdb.viewFeedbackByTrainer(trainer);
 	}
 	@Override
-	public List<StudentDTO> viewFeedbackDefaulters(ProgramDTO program) throws CustomException {
-		return fdb.viewFeedbackDefaulters(program);
+	public List<StudentDTO> viewFeedbackDefaultersByProgram(String program) throws CustomException {
+		return fdb.viewFeedbackDefaultersByProgram(program);
 	}
-	*/
+	@Override
+	public List<StudentDTO> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException {
+		return fdb.viewFeedbackDefaultersByTrainer(trainer);
+	}
 }

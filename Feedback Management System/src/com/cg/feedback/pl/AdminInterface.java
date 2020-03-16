@@ -15,9 +15,8 @@ import com.cg.feedback.service.AdminService;
 import com.cg.feedback.service.AdminServiceImpl;
 
 public class AdminInterface {
-	/*
 	private static AdminService adm = new AdminServiceImpl();
-	public void getAdminMethods(int method){
+	public static void getAdminMethods(int method){
 		switch(method){
 		case 1:
 			ProgramDTO program = inputProgram();
@@ -32,35 +31,40 @@ public class AdminInterface {
 			adm.addStudents(newStudent);
 			break;
 		case 4:
-			adm.removeStudents("");
+			adm.removeStudents("studentID");
 			break;
 		case 5:
 			adm.addTrainer(null);
 			break;
 		case 6:
-			adm.removeTrainer("");
+			adm.removeTrainer("trainerID");
 			break;
 		case 7:
-//			adm.maintainTrainerSkillset();
+			adm.addTrainerSkill("skillName", "trainerId");
 			break;
 		case 8:
-//			adm.updateTrainingProgram();
+			adm.removeTrainerSkill("skillName", "trainerId");
 			break;
 		case 9:
 			adm.addTrainingCourse(null);
 			break;
 		case 10:
-			adm.removeTrainingCourse("");
+			adm.removeTrainingCourse("courseID");
 			break;
 		case 11:
-			adm.viewFeedback(new ProgramDTO("", null));
+			adm.viewFeedbackByProgram("programID");
 			break;
 		case 12:
-			adm.viewFeedbackDefaulters(null);
+			adm.viewFeedbackByTrainer("trainerID");
+			break;
+		case 13:
+			adm.viewFeedbackDefaultersByProgram("programID");
+			break;
+		case 14:
+			adm.viewFeedbackDefaultersByTrainer("trainerID");
 			break;
 		default:
 			break;
 		}
 	}
-	*/
 }

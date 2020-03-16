@@ -11,18 +11,21 @@ import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class StudentServiceImpl{
-	/*
+public class StudentServiceImpl implements UserService, StudentService{
 	private static StudentDTO student=null;
 	
 	private static FeedbackDAO fdb = new FeedbackDAOImpl();
+	private static StudentDAO std = new StudentDAOImpl();
 	@Override
 	public boolean login(String id, String pass) throws CustomException {
 		if(student != null)
 			return false;
 		else {
-//			student = ;
-			return true;
+			if(std.validateStudent(id, pass)){
+				student = std.getStudent(id);
+				return true;
+			}
+			return logout();
 		}
 	}
 
@@ -34,17 +37,17 @@ public class StudentServiceImpl{
 			return false;
 		}
 	}
-	public static List<FeedbackDTO> avaiableFeedbacks(){
-	for(Stirng programId: student.getPrograms()){
-		If(fdb.viewStudentFeedback(programId, studemnt.id) == null){
-			
-		}
-	}
+	public static List<FeedbackDTO> availableFeedbacks(String studentId){
+		return std.getAvailableFeedbacks(studentId);
+		
 	}
 	@Override
-	public boolean giveFeedback(QuestionsSetDTO questionSet) throws CustomException {
-		FeedbackDTO feedbackSet = new FeedbackDTO();
+	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
 		return fdb.giveFeedback(feedbackSet);
 	}
-	*/
+
+	@Override
+	public List<String> getProgramsEnrolled(String studentId) throws CustomException {
+		return std.getAvailablePrograms(studentId);
+	}
 }

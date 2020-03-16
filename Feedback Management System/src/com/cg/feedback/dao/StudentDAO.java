@@ -11,7 +11,6 @@ public interface StudentDAO {
 	boolean removeStudent(String studentID) throws CustomException;
 	boolean validateStudent(String user, String pass) throws CustomException;
 	StudentDTO getStudent(String user) throws CustomException;
-	List<String> getProgramsWithFeedback(String studentId) throws CustomException;
 	List<String> getAvailablePrograms(String studentId) throws CustomException;
 	List<FeedbackDTO> getAvailableFeedbacks(String studentId) throws CustomException;
 }

@@ -28,6 +28,13 @@ public class FeedbackDTO {
 		Comments = comments;
 		this.suggestions = suggestions;
 	}
+	
+	@Override
+	public String toString() {
+		return "FeedbackDTO [feedbackId=" + feedbackId + ", studentId=" + studentId + ", trainerId=" + trainerId
+				+ ", programId=" + programId + ", questions=" + questions + ", Comments=" + Comments + ", suggestions="
+				+ suggestions + "]";
+	}
 
 
 	public String getStudentId() {
