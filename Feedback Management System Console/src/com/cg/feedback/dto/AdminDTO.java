@@ -11,8 +11,8 @@ import com.cg.feedback.exceptions.CustomException;
 public class AdminDTO {
 	private static String adminId;
 	private static String adminPass;
-
-	public AdminDTO() {
+	private static AdminDTO admin;
+	private AdminDTO() {
 		Properties credentials = new Properties();
 		try {
 			credentials.load(new FileInputStream("resources/admin_credentials.properties"));
@@ -24,9 +24,13 @@ public class AdminDTO {
 			throw new CustomException("Couldn't have Admin Credenetials");
 		}
 	}
-
-	public static boolean validateAdmin(String user, String pass) {
-		return adminId.equals(user) && adminPass.equals(pass);
+	
+	public static AdminDTO validateAdmin(String user, String pass) {
+		if( adminId.equals(user) && adminPass.equals(pass)){
+			if(admin==null)
+				admin = new AdminDTO();
+		}
+		return admin;
 	}
 
 	public static void setAdminPass(String newPass) {

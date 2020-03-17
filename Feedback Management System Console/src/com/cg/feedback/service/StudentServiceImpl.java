@@ -7,44 +7,52 @@ import com.cg.feedback.dao.FeedbackDAOImpl;
 import com.cg.feedback.dao.StudentDAO;
 import com.cg.feedback.dao.StudentDAOImpl;
 import com.cg.feedback.dto.FeedbackDTO;
-import com.cg.feedback.dto.QuestionsSetDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class StudentServiceImpl{
-	/*
-	private static StudentDTO student=null;
-	
-	private static FeedbackDAO fdb = new FeedbackDAOImpl();
-	@Override
-	public boolean login(String id, String pass) throws CustomException {
-		if(student != null)
-			return false;
-		else {
-//			student = ;
-			return true;
-		}
-	}
+public class StudentServiceImpl implements StudentService {
+		private static StudentDTO student = null;
 
-	@Override
-	public boolean logout() throws CustomException {
-		if(student == null)return true;
-		else {
-			student = null;
-			return false;
+		private static FeedbackDAO fdbDao = new FeedbackDAOImpl();
+		private static StudentDAO stdDao = new StudentDAOImpl();
+
+		@Override
+		public boolean login(String id, String pass) throws CustomException {
+			if(student != null)
+				return true;
+			else {
+				if(stdDao.validateStudent(id, pass)){
+					student = stdDao.getStudent(id);
+					return true;
+				}
+				else{
+					student = null;
+					return false;
+				}
+			}
 		}
-	}
-	public static List<FeedbackDTO> avaiableFeedbacks(){
-	for(Stirng programId: student.getPrograms()){
-		If(fdb.viewStudentFeedback(programId, studemnt.id) == null){
-			
+
+		public boolean logout() throws CustomException {
+			if (student == null)
+				return true;
+			else {
+				student = null;
+				return true;
+			}
 		}
-	}
-	}
-	@Override
-	public boolean giveFeedback(QuestionsSetDTO questionSet) throws CustomException {
-		FeedbackDTO feedbackSet = new FeedbackDTO();
-		return fdb.giveFeedback(feedbackSet);
-	}
-	*/
+
+		public List<FeedbackDTO> availableFeedbacks() {
+			return stdDao.getAvailableFeedbacks(student.getStudentId());
+
+		}
+
+		@Override
+		public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
+			return fdbDao.giveFeedback(feedbackSet);
+		}
+
+		@Override
+		public List<String> getProgramsEnrolled() throws CustomException {
+			return stdDao.getAvailablePrograms(student.getStudentId());
+		}
 }
