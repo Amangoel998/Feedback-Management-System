@@ -7,7 +7,6 @@ import com.cg.feedback.dao.ProgramDAO;
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.ProgramDTO;
-import com.cg.feedback.dto.SkillDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
@@ -21,7 +20,6 @@ public class AdminInterface {
 			String trainerId;
 			String skillName;
 			String courseId;
-			String programId;
 		switch(method){
 		case 1:
 			ProgramDTO program = inputProgram();
@@ -59,7 +57,6 @@ public class AdminInterface {
 			break;
 		case 8:
 			adm.removeTrainerSkill("skillName", "trainerId");
-			case 8:
 			trainerId = inputTrainerId();
 			skillName = inputSkill();
 			adm.removeTrainerSkill(skillName, trainerId);

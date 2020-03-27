@@ -5,30 +5,30 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
-	public static boolean isValidAdminId(String name) throws Exception{
+	public static boolean isValidAdminId(String name) throws CustomException{
 		if(!Pattern.matches("^(ADM)[0-9]{3,}$", name))
 			throw new CustomException("Invalid Admin ID");
 		return true;
 	}
 
-	public static boolean isValidTrainerId(String name) throws Exception{
+	public static boolean isValidTrainerId(String name) throws CustomException{
 		if(!Pattern.matches("^(TRN)[0-9]{3,}$", name))
 			throw new CustomException("Invalid Trainer ID");
 		return true;
 	}
 
-	public static boolean isValidStudentId(String name) throws Exception{
+	public static boolean isValidStudentId(String name) throws CustomException{
 		if(!Pattern.matches("^(STD)[0-9]{3,}$", name))
 			throw new CustomException("Invalid Student ID");
 		return true;
 	}
 
-	public static boolean isValidProgramId(String name) throws Exception{
+	public static boolean isValidProgramId(String name) throws CustomException{
 		if(!Pattern.matches("^(PRG)[0-9]{3,}$", name))
 			throw new CustomException("Invalid Trainer ID");
 		return true;
 	}
-	public static boolean isValidCourseId(String name) throws Exception{
+	public static boolean isValidCourseId(String name) throws CustomException{
 		if(!Pattern.matches("^(CRS)[0-9]{3,}$", name))
 			throw new CustomException("Invalid Trainer ID");
 		return true;
