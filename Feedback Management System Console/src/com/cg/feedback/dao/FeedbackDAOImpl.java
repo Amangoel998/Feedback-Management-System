@@ -41,7 +41,6 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByProgram(String programId) throws CustomException {
-		List<FeedbackDTO> feedback = viewFeedbackByProgram(programId);
 		List<StudentDTO> students = new ArrayList<>();
 		batch = null;
 		String course=null;

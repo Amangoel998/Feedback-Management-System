@@ -1,7 +1,5 @@
 package com.cg.feedback.dto;
 
-import java.util.ArrayList;
-
 public class StudentDTO {
 	
 	private String studentId;
