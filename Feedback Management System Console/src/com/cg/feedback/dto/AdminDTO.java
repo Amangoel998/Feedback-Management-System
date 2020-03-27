@@ -1,6 +1,6 @@
 package com.cg.feedback.dto;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,42 +9,40 @@ import java.util.Properties;
 import com.cg.feedback.exceptions.CustomException;
 
 public class AdminDTO {
-	private static String adminId;
-	private static String adminPass;
-	private static AdminDTO admin;
+	private static String adminId="";
+	private static String adminPass="";
+	private static AdminDTO admin=null;
+	private final static Properties credentials = new Properties();
 	private AdminDTO() {
-		Properties credentials = new Properties();
 		try {
-			credentials.load(new FileInputStream("resources/admin_credentials.properties"));
+			credentials.load(getClass().getResourceAsStream("admin_credentials.properties"));
 			adminId = credentials.getProperty("admin.Id");
 			adminPass = credentials.getProperty("admin.Pass");
 		} catch (FileNotFoundException e) {
-			throw new CustomException("Couldn't Load Admin Credenetials");
+			throw new CustomException("Couldn't Load Admin Credentials");
 		} catch (IOException e) {
-			throw new CustomException("Couldn't have Admin Credenetials");
+			throw new CustomException("Couldn't get Admin Credentials");
 		}
 	}
 	
 	public static AdminDTO validateAdmin(String user, String pass) {
-		if( adminId.equals(user) && adminPass.equals(pass)){
-			if(admin==null)
-				admin = new AdminDTO();
+		if(admin==null){
+			admin = new AdminDTO();
 		}
-		return admin;
+		if( adminId.equals(user) && adminPass.equals(pass)){
+			return admin;
+		}
+		else return null;
 	}
 
 	public static void setAdminPass(String newPass) {
 		Properties credentials = new Properties();
 		try {
-			credentials.put("admin.Id", adminId);
-			credentials.put("admin.Pass", newPass);
-			credentials.store(new FileOutputStream("resources/admin_credentials.properties"), "");
+			if(credentials.setProperty("admin.Pass", newPass)==null)
+				throw new CustomException("Couldn't have Admin Credenetials");
 			adminPass = newPass;
-		} catch (FileNotFoundException e) {
-			throw new CustomException("Couldn't Store Admin Credenetials");
-
-		} catch (IOException e) {
-			throw new CustomException("Couldn't have Admin Credenetials");
+		} catch (CustomException e) {
+			throw new CustomException(e.getMessage());
 		}
 	}
 
