@@ -5,22 +5,22 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.cg.feedback.exceptions.CustomException;
-
+//admin_credentials.properties not present!
 public class AdminDTO {
-	private static String adminId="";
-	private static String adminPass="";
+	private static String adminId="ADM101";
+	private static String adminPass="admin101";
 	private static AdminDTO admin=null;
 	private final static Properties credentials = new Properties();
 	private AdminDTO() {
-		try {
-			credentials.load(getClass().getResourceAsStream("admin_credentials.properties"));
-			adminId = credentials.getProperty("admin.Id");
-			adminPass = credentials.getProperty("admin.Pass");
-		} catch (FileNotFoundException e) {
-			throw new CustomException("Couldn't Load Admin Credentials");
-		} catch (IOException e) {
-			throw new CustomException("Couldn't get Admin Credentials");
-		}
+//		try {
+//			credentials.load(getClass().getResourceAsStream("admin_credentials.properties"));
+//			adminId = credentials.getProperty("admin.Id");
+//			adminPass = credentials.getProperty("admin.Pass");
+//		} catch (FileNotFoundException e) {
+//			throw new CustomException("Couldn't Load Admin Credentials");
+//		} catch (IOException e) {
+//			throw new CustomException("Couldn't get Admin Credentials");
+//		}
 	}
 	
 	public static AdminDTO validateAdmin(String user, String pass) {
