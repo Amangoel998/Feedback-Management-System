@@ -11,7 +11,12 @@ import com.cg.feedback.service.AdminServiceImpl;
 
 public class AdminInterface {
 	private static AdminService adm = new AdminServiceImpl();
-
+	/*
+	 * Admin interface will obviously not print anything because return type has not been observed carefully.
+	 * Some method return String, boolean, please modify getAdminmethod to print something or return string so we can see the output.
+	 * Same thing needs to be checked in service methods for student and trainer.
+	 * ALSO modify the UI for accepting all the admin methods. it is not showing all the methods.
+	*/
 	public static void getAdminMethods(int method) {
 		try {
 			String trainerId;
