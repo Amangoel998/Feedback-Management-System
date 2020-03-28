@@ -25,10 +25,10 @@ public final class StaticDAO {
 		trainers.put("TRN103", new TrainerDTO("TRN103", "Aman Jadhav", "trainer103", "amanjadhav@gmail.com"));
 		trainers.put("TRN104", new TrainerDTO("TRN104", "Raj Kashyap", "trainer104", "rajkashyap@gmail.com"));
 
-		students.put("STD101", new StudentDTO("STD101", "Om Gupta", "student101", "ogupta261", "A"));
-		students.put("STD102", new StudentDTO("STD102", "Raju Deka", "student102", "raju95", "A"));
-		students.put("STD103", new StudentDTO("STD103", "Amit Yadav", "student103", "amit067", "B"));
-		students.put("STD104", new StudentDTO("STD104", "Abhishek Yadav", "student104", "abhishek2002", "B"));
+		students.put("STD101", new StudentDTO("STD101", "Om Gupta", "student101", "ogupta261@gmail.com", "A"));
+		students.put("STD102", new StudentDTO("STD102", "Raju Deka", "student102", "raju95@gmail.com", "A"));
+		students.put("STD103", new StudentDTO("STD103", "Amit Yadav", "student103", "amit067@gmail.com", "B"));
+		students.put("STD104", new StudentDTO("STD104", "Abhishek Yadav", "student104", "abhishek2002@gmail.com", "B"));
 
 		programs.put("PRG101", new ProgramDTO("PRG101", "DevOps"));
 		programs.put("PRG102", new ProgramDTO("PRG102", "Oracle"));

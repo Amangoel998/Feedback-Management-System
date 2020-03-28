@@ -6,7 +6,6 @@ public class CourseDTO {
 	private boolean isActive;
 	private String courseId;
 	private String courseName;
-	private ArrayList<String> programs;
 	
 	//Constructor
 	public CourseDTO(String courseId, String courseName) {
@@ -34,14 +33,6 @@ public class CourseDTO {
 	}
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
-	}
-
-	public ArrayList<String> getPrograms() {
-		return programs;
-	}
-
-	public void setPrograms(ArrayList<String> programs) {
-		this.programs = programs;
 	}
 
 	@Override
