@@ -168,7 +168,7 @@ public class Input {
 		String st;
 		while (true) {
 			try {
-				System.out.print("\nEnter Program ID: ");
+				System.out.print("\nEnter Trainer ID: ");
 				st = sc.next();
 				if (Validator.isValidTrainerId(st))
 					return st;

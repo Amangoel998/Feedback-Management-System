@@ -1,6 +1,5 @@
 package com.cg.feedback.dto;
 
-import java.util.ArrayList;
 
 public class CourseDTO {
 	private boolean isActive;

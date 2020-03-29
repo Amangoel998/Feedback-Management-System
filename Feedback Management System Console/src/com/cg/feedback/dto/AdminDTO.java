@@ -12,15 +12,15 @@ public class AdminDTO {
 	private static AdminDTO admin=null;
 	private final static Properties credentials = new Properties();
 	private AdminDTO() {
-//		try {
-//			credentials.load(getClass().getResourceAsStream("admin_credentials.properties"));
-//			adminId = credentials.getProperty("admin.Id");
-//			adminPass = credentials.getProperty("admin.Pass");
-//		} catch (FileNotFoundException e) {
-//			throw new CustomException("Couldn't Load Admin Credentials");
-//		} catch (IOException e) {
-//			throw new CustomException("Couldn't get Admin Credentials");
-//		}
+		try {
+			credentials.load(getClass().getResourceAsStream("admin_credentials.properties"));
+			adminId = credentials.getProperty("admin.Id");
+			adminPass = credentials.getProperty("admin.Pass");
+		} catch (FileNotFoundException e) {
+			throw new CustomException("Couldn't Load Admin Credentials");
+		} catch (IOException e) {
+			throw new CustomException("Couldn't get Admin Credentials");
+		}
 	}
 	
 	public static AdminDTO validateAdmin(String user, String pass) {
