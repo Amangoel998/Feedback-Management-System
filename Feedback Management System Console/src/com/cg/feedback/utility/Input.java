@@ -37,7 +37,7 @@ public class Input {
 			try {
 				System.out.print("\nEnter " + s + ": ");
 				i = sc.nextInt();
-				if (i > 0 && i < 13)
+				if (i > 0 && i < 15)
 					return i;
 				else
 					throw new CustomException("Invalid " + s + ", enter again");
@@ -95,7 +95,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.print("\nInput (Y/N):");
-				String s = sc.next();
+				String s = sc.nextLine();
 				if ("Y".equals(s) || "N".equals(s) || "y".equals(s) || "n".equals(s))
 					return s;
 				else
@@ -127,7 +127,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.print("\nEnter Program ID: ");
-				st = sc.next();
+				st = sc.nextLine();
 				if (Validator.isValidProgramId(st))
 					return st;
 			} catch (CustomException e) {
@@ -140,8 +140,8 @@ public class Input {
 		String st;
 		while (true) {
 			try {
-				System.out.print("\nEnter Program ID: ");
-				st = sc.next();
+				System.out.print("\nEnter Course ID: ");
+				st = sc.nextLine();
 				if (Validator.isValidCourseId(st))
 					return st;
 			} catch (CustomException e) {
@@ -154,8 +154,8 @@ public class Input {
 		String st;
 		while (true) {
 			try {
-				System.out.print("\nEnter Program ID: ");
-				st = sc.next();
+				System.out.print("\nEnter Student ID: ");
+				st = sc.nextLine();
 				if (Validator.isValidStudentId(st))
 					return st;
 			} catch (CustomException e) {
@@ -169,7 +169,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.print("\nEnter Trainer ID: ");
-				st = sc.next();
+				st = sc.nextLine();
 				if (Validator.isValidTrainerId(st))
 					return st;
 			} catch (CustomException e) {
@@ -197,7 +197,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.print("\nEnter Batch: ");
-				st = sc.next();
+				st = sc.nextLine();
 				if (Validator.isValidBatch(st))
 					return st;
 			} catch (CustomException e) {
@@ -225,7 +225,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.print("\nEnter Password: ");
-				st = sc.next();
+				st = sc.nextLine();
 				if (Validator.isValidPassword(st))
 					return st;
 			} catch (CustomException e) {
@@ -240,7 +240,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.print("\nEnter " + pt + " ID: ");
-				st = sc.next();
+				st = sc.nextLine();
 				if ((role == 1) ? isValidAdminId(st) : (role == 2) ? isValidTrainerId(st) : isValidStudentId(st))
 					return st;
 			} catch (CustomException e) {
@@ -254,7 +254,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.print("\nEnter " + s + ": ");
-				st = sc.next();
+				st = sc.nextLine();
 				if (Validator.isValidPhone(st))
 					return st;
 			} catch (CustomException e) {
@@ -268,7 +268,7 @@ public class Input {
 		while (true) {
 			try {
 				System.out.println("\nEnter Email: ");
-				st = sc.next();
+				st = sc.nextLine();
 				if (Validator.isValidEmail(st))
 					return st;
 				else

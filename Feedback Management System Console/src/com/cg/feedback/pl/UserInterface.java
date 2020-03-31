@@ -58,7 +58,9 @@ public class UserInterface {
 		System.out.println("1. Add Training Course\n" + "2. Delete Training Course\n" + "3. Add Students\n"
 				+ "4. Remove Students\n" + "5. Add Trainer\n" + "6. Remove Trainer\n"
 				+ "7. Maintain Skillset of Trainer\n" + "8. Update Training Program\n" + "9. Add Training Program\n"
-				+ "10. Delete Training Program\n" + "11. View Feedback Report\n" + "12. View Feedback Defaulters\n");
+				+ "10. Delete Training Program\n" + "11. View Feedback Report by Program\n"
+				+  "12. View Feedback Report by Trainer\n" + "13. View Feedback Defaulters by Program\n"
+				+ "14. View Feedback Defaulters by Trainer\n");
 	}
 
 	static int getTrainerOptions() {
