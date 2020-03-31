@@ -18,7 +18,6 @@ import com.cg.feedback.exceptions.CustomException;
 
 @Repository
 public class TrainerDAOImpl implements TrainerDAO{
-	StaticDAO staticDb = new StaticDAO();
 	
 	@PersistenceContext
 	private EntityManager manager;

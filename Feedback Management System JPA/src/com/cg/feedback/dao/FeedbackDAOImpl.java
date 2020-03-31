@@ -8,33 +8,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.StudentDTO;
 
+@Repository
 public class FeedbackDAOImpl implements FeedbackDAO{
+	
+	@PersistenceContext
+	private EntityManager manager;
 	private static StaticDAO dao = new StaticDAO();
 
 	@Override
 	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
-		if (dao.getFeedback().values().contains(feedbackSet)) {
+		FeedbackDTO temp = manager.find(FeedbackDTO.class, feedbackSet.getFeedbackId());
+		if (temp!=null) {
 			throw new CustomException("Feedback has already been given by the Student with ID = "
 					+ feedbackSet.getStudentId() + " for the Program with ID = "
 					+ feedbackSet.getProgramId());
 		}
-		dao.getFeedback().put(feedbackSet.getFeedbackId(), feedbackSet);
+		manager.persist(feedbackSet);
 		return feedbackSet;
 	}
 
 	@Override
 	public List<FeedbackDTO> viewFeedbackByProgram(String programId) throws CustomException {
-		return dao.getFeedback().values().stream().filter(temp -> temp.getProgramId().equals(programId))
-				.collect(Collectors.toList());
+		return manager.createQuery("from FeedbackDTO where programid='"+programId+"'",FeedbackDTO.class).getResultList();
 	}
 
 	@Override
 	public List<FeedbackDTO> viewFeedbackByTrainer(String trainerId) throws CustomException {
-		return dao.getFeedback().values().stream().filter(temp -> temp.getTrainerId().equals(trainerId))
-				.collect(Collectors.toList());
+		return manager.createQuery("from FeedbackDTO where trainerid='"+trainerId+"'",FeedbackDTO.class).getResultList();
 	}
 
 	static String batch = null;
