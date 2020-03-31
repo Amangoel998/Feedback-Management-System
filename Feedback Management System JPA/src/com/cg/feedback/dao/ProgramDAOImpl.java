@@ -13,7 +13,7 @@ public class ProgramDAOImpl implements ProgramDAO{
 	
 	@PersistenceContext
 	private EntityManager manager;
-	private static StaticDAO dao = new StaticDAO();
+	
 	@Override
 	public boolean addTrainingProgram(ProgramDTO program) throws CustomException {
 		ProgramDTO temp = manager.find(ProgramDTO.class, program.getProgramId());

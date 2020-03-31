@@ -4,24 +4,29 @@ import com.cg.feedback.exceptions.CustomException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.cg.feedback.dto.BatchCourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
+import com.cg.feedback.dto.ProgramCourseDTO;
 import com.cg.feedback.dto.StudentDTO;
+import com.cg.feedback.dto.TrainerProgramDTO;
 
 @Repository
 public class FeedbackDAOImpl implements FeedbackDAO{
 	
 	@PersistenceContext
 	private EntityManager manager;
-	private static StaticDAO dao = new StaticDAO();
 
 	@Override
 	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
@@ -35,8 +40,9 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 		return feedbackSet;
 	}
 
-	@Override
+	@Transactional
 	public List<FeedbackDTO> viewFeedbackByProgram(String programId) throws CustomException {
+		System.out.println("1");
 		return manager.createQuery("from FeedbackDTO where programid='"+programId+"'",FeedbackDTO.class).getResultList();
 	}
 
@@ -49,52 +55,44 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByProgram(String programId) throws CustomException {
-		List<StudentDTO> students = new ArrayList<>();
-		batch = null;
-		String course=null;
-		for(List e : dao.getListOfProgramInCourse().values()){
-			if(e.get(1).equals(programId) && LocalDate.now().isAfter((LocalDate) e.get(2)) && LocalDate.now().isBefore((LocalDate) e.get(3))){
-				course = (String) e.get(0);
-				break;
+		List<String> course = new ArrayList<>();
+		List<ProgramCourseDTO> courses = manager.createQuery("from ProgramCourseDTO where programid='"+programId+"'",ProgramCourseDTO.class).getResultList();
+		for(ProgramCourseDTO e : courses){
+			if(LocalDate.now().isAfter(LocalDate.parse(e.getStartdate())) && LocalDate.now().isBefore(LocalDate.parse(e.getEnddate()))){
+				course.add(e.getCourseId());
 			}
 		}
-		if(course==null)throw new CustomException("Course not present for this program or Course not started");
+		if(course.size()==0)throw new CustomException("Course not present for this program or Course not started");
 		
-		for(Map.Entry e :dao.getBatchOfCourse().entrySet()){
-			if(e.getValue().equals(course)){
-				batch = (String) e.getKey();
-				break;
-			}
-		}
-		if(batch==null)throw new CustomException("Batch not made for the course");
+		Query query1 = manager.createQuery("SELECT batch from BatchCourseDTO where course IN :param",String.class);
+		query1.setParameter("param", course);
+		List<String> batches = query1.getResultList();
 		
-		return dao.getStudents().values().stream().filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch)).collect(Collectors.toList());
+		if(batches.size()==0)throw new CustomException("Batch not made for the course");
 		
+		Query query2 = manager.createQuery("from StudentDTO where batch IN :param",StudentDTO.class);
+		query2.setParameter("param", batches);
+		List<StudentDTO> studentDTOs = query2.getResultList();
+		List<String> students = studentDTOs.stream().map(temp->temp.getStudentId()).collect(Collectors.toList());
+		
+		if(students.size()==0) throw new CustomException("No Students in these batches!");
+		
+		Query query3 = manager.createQuery("from FeedbackDTO where programid='"+programId+"' studentid IN :param",FeedbackDTO.class);
+		query3.setParameter("param", students);
+		List<FeedbackDTO> feedbacksGiven = query3.getResultList();
+		List<String> studentFeedbackGiven = feedbacksGiven.stream().map(temp -> temp.getStudentId()).collect(Collectors.toList());
+		
+		return studentDTOs.stream().filter(temp -> !studentFeedbackGiven.contains(temp.getStudentId())).collect(Collectors.toList());
 	}
 	@Override
-	public List<StudentDTO> viewFeedbackDefaultersByTrainer(String trainerId) throws CustomException {
-		List<FeedbackDTO> feedback = viewFeedbackByTrainer(trainerId);
-		List<StudentDTO> students = new ArrayList<>();
+	public Map<String,List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainerId) throws CustomException {
+		List<TrainerProgramDTO> trainers = manager.createQuery("from TrainerProgramDTO where trainerid='"+trainerId+"'",TrainerProgramDTO.class).getResultList();
+		if(trainers.size()==0)throw new CustomException("Trainer not present!");
 		
-		String course=null;
-		for(List e : dao.getListOfProgramInCourse().values()){
-			if(e.get(1).equals(trainerId) && LocalDate.now().isAfter((LocalDate) e.get(2)) && LocalDate.now().isBefore((LocalDate) e.get(3))){
-				course = (String) e.get(0);
-				break;
-			}
-		}
-		if(course==null)throw new CustomException("Course not present for this program or Course not started");
+		Map<String,List<StudentDTO>> result = new HashMap<String,List<StudentDTO>>();
+		trainers.stream().forEach(temp->result.put(temp.getProgramId(),viewFeedbackDefaultersByProgram(temp.getProgramId())));
 		
-		for(Map.Entry e :dao.getBatchOfCourse().entrySet()){
-			if(e.getValue().equals(course)){
-				batch = (String) e.getKey();
-				break;
-			}
-		}
-		if(batch==null)throw new CustomException("Batch not made for the course");
-		
-		return dao.getStudents().values().stream().filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch)).collect(Collectors.toList());
-		
+		return result;
 	}
 
 }

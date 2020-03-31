@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="feedback")
@@ -210,6 +211,15 @@ public class FeedbackDTO {
 		if(temp.getStudentId().equals(this.studentId) && temp.getProgramId().equals(this.programId) && temp.getTrainerId().equals(this.trainerId))
 			return true;
 		return false;
+	}
+
+	@Transient
+	public void setQuestions(QuestionsSetDTO takeQuestions) {
+		setQ1(takeQuestions.getQ1());
+		setQ2(takeQuestions.getQ2());
+		setQ3(takeQuestions.getQ3());
+		setQ4(takeQuestions.getQ4());
+		setQ5(takeQuestions.getQ5());
 	}
 	
 }
