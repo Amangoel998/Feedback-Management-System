@@ -2,6 +2,7 @@
 package com.cg.feedback.dao;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.exceptions.CustomException;
@@ -46,7 +47,6 @@ public class ProgramDAOImpl implements ProgramDAO {
 
 	@Override
 	public List<String> getPrograms() throws CustomException {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getPrograms().values().stream().filter(temp->temp.isActive()).map(temp->temp.getProgramId()+"-"+temp.getProgramName()).collect(Collectors.toList());
 	}
 }
