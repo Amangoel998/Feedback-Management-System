@@ -57,7 +57,7 @@ public class UserInterface {
 	static void getAdminOptions() {
 		System.out.println("1. Add Training Program\n" + "2. Delete Training Program\n" + "3. Add Students\n"
 				+ "4. Remove Students\n" + "5. Add Trainer\n" + "6. Remove Trainer\n"
-				+ "7. Maintain Skillset of Trainer\n" + "8. Update Training Program\n" + "9. Add Training Course\n"
+				+ "7. Add Skillset of Trainer\n" + "8. Remove Trainer Skills\n" + "9. Add Training Course\n"
 				+ "10. Delete Training Course\n" + "11. View Feedback Report by Program\n"
 				+ "12. View Feedback Report by Trainer\n" + "13. View Feedback Defaulters by Program\n"
 				+ "14. View Feedback Defaulters by Trainer\n");
