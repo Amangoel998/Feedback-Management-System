@@ -35,7 +35,7 @@ public class UserInterface {
 			System.out.println((i++) + temp.getProgramId() + "\tBy\t" + temp.getTrainerId());
 		}
 		System.out.print("Which Program you would like to give feedback for ?\nEnter a number from 1 to " + i + ":");
-		int e = inputInt("");
+		int e = inputInt("", i);
 		FeedbackDTO feedback = feedbacks.get(e);
 		System.out.println("Entering Feedback for the program " + feedback.getProgramId() + " by "
 				+ feedback.getTrainerId() + " :");
@@ -47,19 +47,19 @@ public class UserInterface {
 
 	static void showLikeliness() {
 		System.out.println("Following are the rating you could choose for each question"
-				+ "5: Excellent: 'Ideal way of doing it'\n"
-				+ "4:	Good:			'No pain areas or concern but could have been better'\n"
-				+ "3:	Average:		'There are concerns but not significant'\n"
-				+ "2:	Below Average:	'Needs improvement and is salvageable'\n"
-				+ "1:	Poor: 			'This way of doing things must change'\n");
+				+ "5: Excellent: 	'Ideal way of doing it'\n"
+				+ "4: Good:			'No pain areas or concern but could have been better'\n"
+				+ "3: Average:		'There are concerns but not significant'\n"
+				+ "2: Below Average:	'Needs improvement and is salvageable'\n"
+				+ "1: Poor: 			'This way of doing things must change'\n");
 	}
 
 	static void getAdminOptions() {
-		System.out.println("1. Add Training Course\n" + "2. Delete Training Course\n" + "3. Add Students\n"
+		System.out.println("1. Add Training Program\n" + "2. Delete Training Program\n" + "3. Add Students\n"
 				+ "4. Remove Students\n" + "5. Add Trainer\n" + "6. Remove Trainer\n"
-				+ "7. Maintain Skillset of Trainer\n" + "8. Update Training Program\n" + "9. Add Training Program\n"
-				+ "10. Delete Training Program\n" + "11. View Feedback Report by Program\n"
-				+  "12. View Feedback Report by Trainer\n" + "13. View Feedback Defaulters by Program\n"
+				+ "7. Maintain Skillset of Trainer\n" + "8. Update Training Program\n" + "9. Add Training Course\n"
+				+ "10. Delete Training Course\n" + "11. View Feedback Report by Program\n"
+				+ "12. View Feedback Report by Trainer\n" + "13. View Feedback Defaulters by Program\n"
 				+ "14. View Feedback Defaulters by Trainer\n");
 	}
 

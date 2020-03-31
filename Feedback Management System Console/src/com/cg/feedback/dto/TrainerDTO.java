@@ -1,5 +1,6 @@
 package com.cg.feedback.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrainerDTO {
@@ -67,6 +68,11 @@ public class TrainerDTO {
 
 	public void setSkills(List<String> skills) {
 		this.skills = skills;
+	}
+	public void addSkill(String s){
+		if(this.skills==null)
+			this.skills = new ArrayList<>();
+		this.skills.add(s);
 	}
 
 	@Override

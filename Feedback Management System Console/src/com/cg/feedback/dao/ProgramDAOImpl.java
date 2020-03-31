@@ -26,7 +26,7 @@ public class ProgramDAOImpl implements ProgramDAO{
 			dao.getPrograms().get(programId).setActive(false);
 			return true;
 		}
-		throw new CustomException("Program with Id: "+programId+"is not active, so cannot be removed");
+		throw new CustomException("Program with Id: "+programId+" is not active, so cannot be removed");
 	}
 
 	@Override

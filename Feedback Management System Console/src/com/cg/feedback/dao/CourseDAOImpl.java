@@ -26,7 +26,7 @@ public class CourseDAOImpl implements CourseDAO{
 			dao.getCourses().get(courseId).setActive(false);
 			return true;
 		}
-		throw new CustomException("Course Exception : Course with Id: "+courseId+" is not active, so cannot be removed.");
+		throw new CustomException("Course with Id: "+courseId+" is not active, so cannot be removed.");
 	}
 
 	@Override

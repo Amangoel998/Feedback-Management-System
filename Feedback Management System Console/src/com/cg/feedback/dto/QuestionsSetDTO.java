@@ -31,4 +31,12 @@ public class QuestionsSetDTO {
 	public int getQ5() {
 		return q5;
 	}
+
+	public void addRating(long[] ques_sum){
+		ques_sum[0] += q1;
+		ques_sum[1] += q2;
+		ques_sum[2] += q3;
+		ques_sum[3] += q4;
+		ques_sum[4] += q5;
+	}
 }

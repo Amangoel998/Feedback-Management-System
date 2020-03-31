@@ -1,7 +1,6 @@
 package com.cg.feedback.dao;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import com.cg.feedback.dto.TrainerDTO;
@@ -43,18 +42,19 @@ public class TrainerDAOImpl implements TrainerDAO{
 			staticDb.getTrainers().get(trainerId).setActive(false);
 			return true;
 		} else {
-			throw new CustomException("Trainer with Id: " + trainerId + "is not active, so cannot be removed");
+			throw new CustomException("Trainer with Id: " + trainerId + " is not active, so cannot be removed");
 		}
 
 	}
 
 	@Override
 	public boolean addTrainerSkill(String skill, String trainerId) throws CustomException {
-		List<String> skills = staticDb.getTrainers().get(trainerId).getSkills();
-		if (skills.contains(skill)) {
+		TrainerDTO trn = staticDb.getTrainers().get(trainerId);
+		List<String> skills = trn.getSkills();
+		if (skills!=null && skills.contains(skill)) {
 			throw new CustomException("Skill aready exists");
 		} else {
-			skills.add(skill);
+			trn.addSkill(skill);
 			return true;
 		}
 	}

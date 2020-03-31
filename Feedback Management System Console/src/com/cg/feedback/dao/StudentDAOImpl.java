@@ -78,7 +78,7 @@ public class StudentDAOImpl implements StudentDAO{
 			return true;
 		}
 		else
-			throw new CustomException("Student with Id: "+studentID+"is not active, so cannot be removed");
+			throw new CustomException("Student with Id: "+studentID+" is not active, so cannot be removed");
 	}
 
 

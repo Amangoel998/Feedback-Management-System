@@ -31,7 +31,6 @@ public class AdminInterface {
 					break;
 				case 2:
 					String programId = inputProgramId();
-					programId = inputProgramId();
 					res = adm.removeTrainingProgram(programId);
 					System.out.println((res)?"Program Removed Successfully":"Failed to Remove Program");
 					break;
