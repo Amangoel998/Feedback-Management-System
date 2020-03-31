@@ -69,8 +69,9 @@ public class TrainerDTO {
 	public void setSkills(List<String> skills) {
 		this.skills = skills;
 	}
-	public void addSkill(String s){
-		if(this.skills==null)
+
+	public void addSkill(String s) {
+		if (this.skills == null)
 			this.skills = new ArrayList<>();
 		this.skills.add(s);
 	}

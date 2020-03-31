@@ -11,15 +11,14 @@ import java.util.stream.Collectors;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.StudentDTO;
 
-public class FeedbackDAOImpl implements FeedbackDAO{
+public class FeedbackDAOImpl implements FeedbackDAO {
 	private static StaticDAO dao = new StaticDAO();
 
 	@Override
 	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
 		if (dao.getFeedback().values().contains(feedbackSet)) {
 			throw new CustomException("Feedback has already been given by the Student with ID = "
-					+ feedbackSet.getStudentId() + " for the Program with ID = "
-					+ feedbackSet.getProgramId());
+					+ feedbackSet.getStudentId() + " for the Program with ID = " + feedbackSet.getProgramId());
 		}
 		dao.getFeedback().put(feedbackSet.getFeedbackId(), feedbackSet);
 		return feedbackSet;
@@ -43,50 +42,61 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 	public List<StudentDTO> viewFeedbackDefaultersByProgram(String programId) throws CustomException {
 		List<StudentDTO> students = new ArrayList<>();
 		batch = null;
-		String course=null;
-		for(List e : dao.getListOfProgramInCourse().values()){
-			if(e.get(1).equals(programId) && LocalDate.now().isAfter((LocalDate) e.get(2)) && LocalDate.now().isBefore((LocalDate) e.get(3))){
+		String course = null;
+		for (List e : dao.getListOfProgramInCourse().values()) {
+			if (e.get(1).equals(programId) && LocalDate.now().isAfter((LocalDate) e.get(2))
+					&& LocalDate.now().isBefore((LocalDate) e.get(3))) {
 				course = (String) e.get(0);
 				break;
 			}
 		}
-		if(course==null)throw new CustomException("Course not present for this program or Course not started");
-		
-		for(Map.Entry e :dao.getBatchOfCourse().entrySet()){
-			if(e.getValue().equals(course)){
+		if (course == null)
+			throw new CustomException("Course not present for this program or Course not started");
+
+		for (Map.Entry e : dao.getBatchOfCourse().entrySet()) {
+			if (e.getValue().equals(course)) {
 				batch = (String) e.getKey();
 				break;
 			}
 		}
-		if(batch==null)throw new CustomException("Batch not made for the course");
-		
-		return dao.getStudents().values().stream().filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch)).collect(Collectors.toList());
-		
+		if (batch == null)
+			throw new CustomException("Batch not made for the course");
+
+		return dao.getStudents().values().stream()
+				.filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch))
+				.collect(Collectors.toList());
+
 	}
+
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByTrainer(String trainerId) throws CustomException {
 		List<FeedbackDTO> feedback = viewFeedbackByTrainer(trainerId);
 		List<StudentDTO> students = new ArrayList<>();
-		
-		String course=null;
-		for(List e : dao.getListOfProgramInCourse().values()){
-			if(e.get(1).equals(trainerId) && LocalDate.now().isAfter((LocalDate) e.get(2)) && LocalDate.now().isBefore((LocalDate) e.get(3))){
+
+		String course = null;
+		for (List e : dao.getListOfProgramInCourse().values()) {
+			if (e.get(1).equals(trainerId) && LocalDate.now().isAfter((LocalDate) e.get(2))
+					&& LocalDate.now().isBefore((LocalDate) e.get(3))) {
 				course = (String) e.get(0);
 				break;
 			}
 		}
-		if(course==null)throw new CustomException("Course not present for this program or Course not started");
-		
-		for(Map.Entry e :dao.getBatchOfCourse().entrySet()){
-			if(e.getValue().equals(course)){
+		if (course == null)
+			throw new CustomException("Course not present for this program or Course not started");
+
+		for (Map.Entry e : dao.getBatchOfCourse().entrySet()) {
+			if (e.getValue().equals(course)) {
 				batch = (String) e.getKey();
 				break;
 			}
 		}
-		if(batch==null)throw new CustomException("Batch not made for the course");
-		
-		return dao.getStudents().values().stream().filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch)).collect(Collectors.toList());
-		
+		if (batch == null)
+			throw new CustomException("Batch not made for the course");
+
+		return dao.getStudents().values().stream()
+				.filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch))
+				.collect(Collectors.toList());
+
 	}
 
 }

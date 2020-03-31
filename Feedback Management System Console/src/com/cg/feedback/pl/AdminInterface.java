@@ -1,4 +1,5 @@
 package com.cg.feedback.pl;
+
 import static com.cg.feedback.utility.Input.*;
 
 import com.cg.feedback.dto.CourseDTO;
@@ -11,12 +12,7 @@ import com.cg.feedback.service.AdminServiceImpl;
 
 public class AdminInterface {
 	private static AdminService adm = new AdminServiceImpl();
-	/*
-	 * Admin interface will obviously not print anything because return type has not been observed carefully.
-	 * Some method return String, boolean, please modify getAdminmethod to print something or return string so we can see the output.
-	 * Same thing needs to be checked in service methods for student and trainer.
-	 * ALSO modify the UI for accepting all the admin methods. it is not showing all the methods.
-	*/
+
 	public static void getAdminMethods(int method) {
 		try {
 			String trainerId;
@@ -27,54 +23,54 @@ public class AdminInterface {
 				case 1:
 					ProgramDTO program = inputProgram();
 					res = adm.addTrainingProgram(program);
-					System.out.println((res)?"Program Added Successfully":"Failed to Add Program");
+					System.out.println((res) ? "Program Added Successfully" : "Failed to Add Program");
 					break;
 				case 2:
 					String programId = inputProgramId();
 					res = adm.removeTrainingProgram(programId);
-					System.out.println((res)?"Program Removed Successfully":"Failed to Remove Program");
+					System.out.println((res) ? "Program Removed Successfully" : "Failed to Remove Program");
 					break;
 				case 3:
 					StudentDTO newStudent = inputStudent();
 					res = adm.addStudents(newStudent);
-					System.out.println((res)?"Student Added Successfully":"Failed to Add Student");
+					System.out.println((res) ? "Student Added Successfully" : "Failed to Add Student");
 					break;
 				case 4:
 					String studentId = inputStudentId();
 					res = adm.removeStudents(studentId);
-					System.out.println((res)?"Student Removed Successfully":"Failed to Remove Student");
+					System.out.println((res) ? "Student Removed Successfully" : "Failed to Remove Student");
 					break;
 				case 5:
 					TrainerDTO trainer = inputTrainer();
 					res = adm.addTrainer(trainer);
-					System.out.println((res)?"Trainer Added Successfully":"Failed to Add Trainer");
+					System.out.println((res) ? "Trainer Added Successfully" : "Failed to Add Trainer");
 					break;
 				case 6:
 					trainerId = inputTrainerId();
 					res = adm.removeTrainer(trainerId);
-					System.out.println((res)?"Trainer Removed Successfully":"Failed to Remove Trainer");
+					System.out.println((res) ? "Trainer Removed Successfully" : "Failed to Remove Trainer");
 					break;
 				case 7:
 					skillName = inputSkill();
 					trainerId = inputTrainerId();
 					res = adm.addTrainerSkill(skillName, trainerId);
-					System.out.println((res)?"Trainer Skill Added Successfully":"Failed to Add Trainer Skill");
+					System.out.println((res) ? "Trainer Skill Added Successfully" : "Failed to Add Trainer Skill");
 					break;
 				case 8:
 					trainerId = inputTrainerId();
 					skillName = inputSkill();
 					res = adm.removeTrainerSkill(skillName, trainerId);
-					System.out.println((res)?"Trainer Skill Removed Successfully":"Failed to Remove Trainer Skill");
+					System.out.println((res) ? "Trainer Skill Removed Successfully" : "Failed to Remove Trainer Skill");
 					break;
 				case 9:
 					CourseDTO course = inputCourse();
 					res = adm.addTrainingCourse(course);
-					System.out.println((res)?"Course Added Successfully":"Failed to Add Course");
+					System.out.println((res) ? "Course Added Successfully" : "Failed to Add Course");
 					break;
 				case 10:
 					courseId = inputCourseId();
 					res = adm.removeTrainingCourse(courseId);
-					System.out.println((res)?"Course Removed Successfully":"Failed to Remove Course");
+					System.out.println((res) ? "Course Removed Successfully" : "Failed to Remove Course");
 					break;
 				case 11:
 					programId = inputProgramId();

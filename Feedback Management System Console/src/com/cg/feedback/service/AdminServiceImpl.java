@@ -1,11 +1,12 @@
 package com.cg.feedback.service;
+
 import java.util.List;
 
 import com.cg.feedback.dao.*;
 import com.cg.feedback.dto.*;
 import com.cg.feedback.exceptions.CustomException;
 
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 	private static CourseDAO crsDao = new CourseDAOImpl();
 	private static FeedbackDAO fdbDao = new FeedbackDAOImpl();
 	private static ProgramDAO prgDao = new ProgramDAOImpl();
@@ -128,7 +129,7 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByTrainer(final String trainer) throws CustomException {
-		if(admin==null)
+		if (admin == null)
 			throw new CustomException("Admin Not Logged In !!");
 		return fdbDao.viewFeedbackDefaultersByTrainer(trainer);
 	}

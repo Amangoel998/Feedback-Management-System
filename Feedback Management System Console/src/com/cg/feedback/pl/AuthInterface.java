@@ -60,7 +60,8 @@ public class AuthInterface {
 		showRole();
 		try {
 			int role = inputRole("Role Options");
-			while (!login(role));
+			while (!login(role))
+				;
 			do {
 				int method = 0;
 				switch (role) {

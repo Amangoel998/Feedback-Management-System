@@ -41,6 +41,7 @@ public class Input {
 			}
 		}
 	}
+
 	public static int inputInt(String s, int ed) {
 		int i;
 		while (true) {
@@ -142,7 +143,7 @@ public class Input {
 				System.out.print("\nInput (Y/N):");
 				s = br.readLine();
 				if ("Y".equals(s) || "N".equals(s) || "y".equals(s) || "n".equals(s)) {
-					
+
 					return s;
 				} else
 					throw new CustomException("Invalid Input\n");
@@ -176,7 +177,7 @@ public class Input {
 				System.out.print("\nEnter Program ID: ");
 				st = br.readLine();
 				if (Validator.isValidProgramId(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -193,7 +194,7 @@ public class Input {
 				System.out.print("\nEnter Course ID: ");
 				st = br.readLine();
 				if (Validator.isValidCourseId(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -210,7 +211,7 @@ public class Input {
 				System.out.print("\nEnter Student ID: ");
 				st = br.readLine();
 				if (Validator.isValidStudentId(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -227,7 +228,7 @@ public class Input {
 				System.out.print("\nEnter Trainer ID: ");
 				st = br.readLine();
 				if (Validator.isValidTrainerId(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -245,7 +246,7 @@ public class Input {
 		br = new BufferedReader(inr);
 		try {
 			String comment = br.readLine();
-			
+
 			return comment;
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
@@ -258,7 +259,7 @@ public class Input {
 		br = new BufferedReader(inr);
 		try {
 			String comment = br.readLine();
-			
+
 			return comment;
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
@@ -274,7 +275,7 @@ public class Input {
 				System.out.print("\nEnter Batch: ");
 				st = br.readLine();
 				if (Validator.isValidBatch(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -291,7 +292,7 @@ public class Input {
 				System.out.print("\nEnter " + s + ": ");
 				st = br.readLine();
 				if (Validator.isValidName(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -327,7 +328,7 @@ public class Input {
 				System.out.print("\nEnter " + pt + " ID: ");
 				st = br.readLine();
 				if ((role == 1) ? isValidAdminId(st) : (role == 2) ? isValidTrainerId(st) : isValidStudentId(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -344,7 +345,7 @@ public class Input {
 				System.out.println("\nEnter Email: ");
 				st = br.readLine();
 				if (Validator.isValidEmail(st)) {
-					
+
 					return st;
 				}
 			} catch (IOException | CustomException e) {

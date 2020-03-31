@@ -8,7 +8,6 @@ public interface TrainerDAO {
 	boolean removeTrainer(String trainerId) throws CustomException;
 	boolean addTrainerSkill(String skill,String trainerId) throws CustomException;
 	boolean removeTrainerSkill(String skillName,String trainerId) throws CustomException;
-	
 	boolean validateTrainer(String trainerId,String pass) throws CustomException;
 	TrainerDTO getTrainer(String trainerId) throws CustomException;
 	String getTrainerFromProgram(String batchId, String programsId);

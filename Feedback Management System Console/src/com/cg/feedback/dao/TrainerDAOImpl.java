@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
-public class TrainerDAOImpl implements TrainerDAO{
+public class TrainerDAOImpl implements TrainerDAO {
 	StaticDAO staticDb = new StaticDAO();
 
 	@Override
@@ -51,7 +51,7 @@ public class TrainerDAOImpl implements TrainerDAO{
 	public boolean addTrainerSkill(String skill, String trainerId) throws CustomException {
 		TrainerDTO trn = staticDb.getTrainers().get(trainerId);
 		List<String> skills = trn.getSkills();
-		if (skills!=null && skills.contains(skill)) {
+		if (skills != null && skills.contains(skill)) {
 			throw new CustomException("Skill aready exists");
 		} else {
 			trn.addSkill(skill);
@@ -73,15 +73,17 @@ public class TrainerDAOImpl implements TrainerDAO{
 
 	@Override
 	public boolean validateTrainer(String trainerId, String pass) throws CustomException {
-		if(getTrainer(trainerId).getTrainerPass().equals(pass))
+		if (getTrainer(trainerId).getTrainerPass().equals(pass))
 			return true;
 		return false;
 	}
 
 	@Override
 	public String getTrainerFromProgram(String batchId, String programsId) {
-		Optional<String> trainer =  staticDb.getListOfTrainerProgram().values().stream().filter(temp1->temp1.get(1)==programsId && temp1.get(2)==batchId).map(temp1->temp1.get(0)).findFirst();
-		if(trainer.isPresent())
+		Optional<String> trainer = staticDb.getListOfTrainerProgram().values().stream()
+				.filter(temp1 -> temp1.get(1) == programsId && temp1.get(2) == batchId).map(temp1 -> temp1.get(0))
+				.findFirst();
+		if (trainer.isPresent())
 			return trainer.get();
 		return null;
 	}
