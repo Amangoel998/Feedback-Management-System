@@ -10,10 +10,10 @@ import javax.persistence.Table;
 public class StudentDTO {
 
 	@Id
-	@Column(name="studentid")
+	@Column(name="studentid", updatable=false)
 	private String studentId;
 	
-	@Column(name="studentname")
+	@Column(name="studentname", updatable=false)
 	private String studentName;
 	
 	@Column(name="studentpass")

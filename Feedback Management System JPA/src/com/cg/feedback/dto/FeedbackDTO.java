@@ -10,37 +10,37 @@ import javax.persistence.Table;
 public class FeedbackDTO {
 
 	@Id
-	@Column(name="feedbackid")
+	@Column(name="feedbackid", updatable=false)
 	private String feedbackId;
 	
-	@Column(name="studentid")
+	@Column(name="studentid", updatable=false)
 	private String studentId;
 	
-	@Column(name="trainerid")
+	@Column(name="trainerid", updatable=false)
 	private String trainerId;
 	
-	@Column(name="programid")
+	@Column(name="programid", updatable=false)
 	private String programId;
 	
-	@Column(name="q1")
+	@Column(name="q1", updatable=false)
 	private int q1;
 	
-	@Column(name="q2")
+	@Column(name="q2", updatable=false)
 	private int q2;
 	
-	@Column(name="q3")
+	@Column(name="q3", updatable=false)
 	private int q3;
 	
-	@Column(name="q4")
+	@Column(name="q4", updatable=false)
 	private int q4;
 	
-	@Column(name="q5")
+	@Column(name="q5", updatable=false)
 	private int q5;
 	
-	@Column(name="comments")
+	@Column(name="comments", updatable=false)
 	private String comments;
 	
-	@Column(name="suggestions")
+	@Column(name="suggestions", updatable=false)
 	private String suggestions;
 	
 	public FeedbackDTO(){
