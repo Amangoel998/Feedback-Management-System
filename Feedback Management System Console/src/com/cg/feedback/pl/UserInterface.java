@@ -60,9 +60,8 @@ public class UserInterface {
 				+ "13. View Feedback Defaulters by Program\n" + "14. View Feedback Defaulters by Trainer\n");
 	}
 
-	static int getTrainerOptions() {
+	static void getTrainerOptions() {
 		System.out.println("1. View Feedback Report\n" + "2. View Feedback Defaulters\n");
-		return inputTrainerOptions("Trainer Options");
 	}
 
 	static void showWelcome() {
