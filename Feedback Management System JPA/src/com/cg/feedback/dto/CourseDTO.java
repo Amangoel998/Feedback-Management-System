@@ -12,10 +12,10 @@ import javax.persistence.Table;
 public class CourseDTO {
 	
 	@Id
-	@Column(name="courseid")
+	@Column(name="courseid", updatable=false)
 	private String courseId;
 	
-	@Column(name="coursename")
+	@Column(name="coursename", updatable=false)
 	private String courseName;
 
 	@Column(name="isactive")

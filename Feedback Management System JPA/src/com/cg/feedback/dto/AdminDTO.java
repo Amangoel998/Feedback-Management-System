@@ -3,44 +3,45 @@ package com.cg.feedback.dto;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import com.cg.feedback.exceptions.CustomException;
 
+@Entity
+@Table(name="admin")
 public class AdminDTO {
-	private static String adminId="";
-	private static String adminPass="";
-	private static AdminDTO admin=null;
-	private final static Properties credentials = new Properties();
-	private AdminDTO() {
-		try {
-			credentials.load(getClass().getResourceAsStream("admin_credentials.properties"));
-			adminId = credentials.getProperty("admin.Id");
-			adminPass = credentials.getProperty("admin.Pass");
-		} catch (FileNotFoundException e) {
-			throw new CustomException("Couldn't Load Admin Credentials");
-		} catch (IOException e) {
-			throw new CustomException("Couldn't get Admin Credentials");
-		}
-	}
 	
-	public static AdminDTO validateAdmin(String user, String pass) {
-		if(admin==null){
-			admin = new AdminDTO();
-		}
-		if( adminId.equals(user) && adminPass.equals(pass)){
-			return admin;
-		}
-		else return null;
+	@Id
+	@Column(name="id", updatable=false)
+	private String adminId;
+	
+	@Column(name="pass")
+	private String adminPass;
+	
+	public String getAdminId() {
+		return adminId;
 	}
 
-	public static void setAdminPass(String newPass) {
-		Properties credentials = new Properties();
-		try {
-			if(credentials.setProperty("admin.Pass", newPass)==null)
-				throw new CustomException("Couldn't have Admin Credenetials");
-			adminPass = newPass;
-		} catch (CustomException e) {
-			throw new CustomException(e.getMessage());
-		}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+
+	public String getAdminPass() {
+		return adminPass;
+	}
+	
+	public void setAdminPass(String adminPass) {
+		this.adminPass=adminPass;
+	}
+
+	@Transient
+	public boolean validateAdmin(String user, String pass) {
+		return (adminId.equals(user) && adminPass.equals(pass));
 	}
 
 }

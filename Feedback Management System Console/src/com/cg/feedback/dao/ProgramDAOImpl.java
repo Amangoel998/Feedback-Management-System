@@ -1,10 +1,15 @@
 package com.cg.feedback.dao;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 public class ProgramDAOImpl implements ProgramDAO{
+	
 	private static StaticDAO dao = new StaticDAO();
+	
 	@Override
 	public boolean addTrainingProgram(ProgramDTO program) throws CustomException {
 		if(dao.getCourses().containsKey(program.getProgramId())){
@@ -36,4 +41,10 @@ public class ProgramDAOImpl implements ProgramDAO{
 			return temp;
 		throw new CustomException("Program Exception : No Program with ID = "+programId+"!");
 	}
+	
+	@Override
+	public List<String> getPrograms() throws CustomException {
+		return dao.getPrograms().values().stream().filter(temp -> temp.isActive()).map(temp -> temp.getProgramId()+"-"+temp.getProgramName()).collect(Collectors.toList());
+	}
+	
 }

@@ -6,20 +6,17 @@ import com.cg.feedback.dto.*;
 import com.cg.feedback.exceptions.CustomException;
 
 public class AdminServiceImpl implements AdminService{
-	private static CourseDAO crsDao = new CourseDAOImpl();
-	private static FeedbackDAO fdbDao = new FeedbackDAOImpl();
-	private static ProgramDAO prgDao = new ProgramDAOImpl();
-	private static StudentDAO stdDao = new StudentDAOImpl();
-	private static TrainerDAO trnDao = new TrainerDAOImpl();
+	private static CourseDAO crsDao;
+	private static FeedbackDAO fdbDao;
+	private static ProgramDAO prgDao;
+	private static StudentDAO stdDao;
+	private static TrainerDAO trnDao;
 
-	private static AdminDTO admin = null;
+	private static AdminDTO admin;
 
 	@Override
 	public boolean login(String id, String pass) throws CustomException {
-		if(admin!=null)
-			throw new CustomException("Admin Already Logged In !!");
-		admin = AdminDTO.validateAdmin(id, pass);
-		if(admin!=null)
+		if(admin.validateAdmin(id, pass))
 			return true;
 		else
 			throw new CustomException("Invalid Login Credentials for Admin.");

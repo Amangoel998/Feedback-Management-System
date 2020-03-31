@@ -10,10 +10,10 @@ import javax.persistence.Table;
 public class ProgramDTO {
 
 	@Id
-	@Column(name="programid")
+	@Column(name="programid", updatable=false)
 	private String programId;
 	
-	@Column(name="programname")
+	@Column(name="programname", updatable=false)
 	private String programName;
 	
 	@Column(name="isactive")

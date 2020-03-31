@@ -12,10 +12,10 @@ import javax.persistence.Table;
 public class TrainerDTO {
 
 	@Id
-	@Column(name="trainerid")
+	@Column(name="trainerid", updatable=false)
 	private String trainerId;
 	
-	@Column(name="trainername")
+	@Column(name="trainername", updatable=false)
 	private String trainerName;
 	
 	@Column(name="skills")

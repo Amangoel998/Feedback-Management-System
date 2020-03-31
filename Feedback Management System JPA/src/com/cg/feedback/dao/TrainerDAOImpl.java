@@ -8,10 +8,12 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import com.cg.feedback.dto.TrainerDTO;
+import com.cg.feedback.dto.TrainerProgramDTO;
 import com.cg.feedback.exceptions.CustomException;
 
 @Repository
@@ -118,9 +120,13 @@ public class TrainerDAOImpl implements TrainerDAO{
 
 	@Override
 	public String getTrainerFromProgram(String batchId, String programsId) {
-		Optional<String> trainer =  staticDb.getListOfTrainerProgram().values().stream().filter(temp1->temp1.get(1)==programsId && temp1.get(2)==batchId).map(temp1->temp1.get(0)).findFirst();
-		if(trainer.isPresent())
-			return trainer.get();
-		return null;
+		Query query = manager.createQuery("From TrainerProgramDTO where batch='"+batchId+"' and programid='"+programsId+"'");
+		TrainerProgramDTO temp;
+		try {
+			temp = (TrainerProgramDTO) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+		return temp.getTrainerId();
 	}
 }
