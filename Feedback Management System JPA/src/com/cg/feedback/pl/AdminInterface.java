@@ -2,10 +2,14 @@ package com.cg.feedback.pl;
 
 import static com.cg.feedback.utility.Input.*;
 
+import java.util.List;
+
+import com.cg.feedback.dto.BatchCourseDTO;
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
+import com.cg.feedback.dto.TrainerProgramDTO;
 import com.cg.feedback.exceptions.CustomException;
 import com.cg.feedback.service.AdminService;
 import com.cg.feedback.service.AdminServiceImpl;
@@ -31,7 +35,7 @@ public class AdminInterface {
 					System.out.println((res) ? "Program Removed Successfully" : "Failed to Remove Program");
 					break;
 				case 3:
-					StudentDTO newStudent = inputStudent();
+					StudentDTO newStudent = inputStudent(adm.availableBatches());
 					res = adm.addStudents(newStudent);
 					System.out.println((res) ? "Student Added Successfully" : "Failed to Add Student");
 					break;
@@ -64,6 +68,10 @@ public class AdminInterface {
 					break;
 				case 9:
 					CourseDTO course = inputCourse();
+					List<String> availablePrograms = adm.getPrograms();
+					System.out.println("Available Programs - ");
+					availablePrograms.stream().forEach(temp->System.out.println(availablePrograms.indexOf(temp)+":"+temp));
+					inputPrograms(course.getCourseId(),availablePrograms).stream().forEach(temp->adm.addPrograminCourse(temp));
 					res = adm.addTrainingCourse(course);
 					System.out.println((res) ? "Course Added Successfully" : "Failed to Add Course");
 					break;
@@ -87,6 +95,18 @@ public class AdminInterface {
 				case 14:
 					trainerId = inputTrainerId();
 					System.out.println(adm.viewFeedbackDefaultersByTrainer(trainerId));
+					break;
+				case 15:
+					adm.assignCourseToBatch(new BatchCourseDTO(inputCourseId(adm.getCourses()),inputNewBatch(adm.availableBatches())));
+					break;
+				case 16:
+					String batch = inputBatch(adm.availableBatches());
+					if(batch==null) throw new CustomException("No Batches available!");
+					programId = inputProgramId(adm.availablePrograms(batch));
+					if(programId==null) throw new CustomException("No programs available for the batch!");
+					trainerId = inputTrainerId(adm.getAvailableTrainers(batch));
+					if(trainerId==null) throw new CustomException("No trainers available for the batch!");
+					adm.assignTrainertoProgram(new TrainerProgramDTO(trainerId, programId, batch));
 					break;
 				default:
 					break;

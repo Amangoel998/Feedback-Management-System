@@ -15,28 +15,20 @@ import com.cg.feedback.exceptions.CustomException;
 @Service
 @Scope("singleton")
 public class AdminServiceImpl implements AdminService{
-	
-	@Autowired
-	private CourseDAO crsDao;
-	@Autowired
-	private FeedbackDAO fdbDao;
-	@Autowired
-	private ProgramDAO prgDao;
-	@Autowired
-	private StudentDAO stdDao;
-	@Autowired
-	private TrainerDAO trnDao;
-	@Autowired
-	private AdminDAO admin;
+
+	private CourseDAO crsDao = new CourseDAOImpl();
+	private FeedbackDAO fdbDao = new FeedbackDAOImpl();
+	private ProgramDAO prgDao = new ProgramDAOImpl();
+	private StudentDAO stdDao = new StudentDAOImpl();
+	private TrainerDAO trnDao = new TrainerDAOImpl();
+	private AdminDAO admin = new AdminDAOImpl();
 
 	@Override
 	public boolean login(String id, String pass) throws CustomException {
-		System.out.println(pass);
-		return true;
-//		if(admin.validateAdmin(id, pass))
-//			return true;
-//		else
-//			throw new CustomException("Invalid Login Credentials for Admin.");
+		if(admin.validateAdmin(id, pass))
+			return true;
+		else
+			throw new CustomException("Invalid Login Credentials for Admin.");
 	}
 	@Override
 	public boolean logout() throws CustomException {
@@ -98,5 +90,45 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String,List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException {
 		return fdbDao.viewFeedbackDefaultersByTrainer(trainer);
+	}
+	@Override
+	public boolean addPrograminCourse(ProgramCourseDTO programs) throws CustomException {
+		return admin.addPrograminCourse(programs);
+	}
+	@Override
+	public List<String> availableBatches() throws CustomException {
+		return admin.availableBatches();
+	}
+	@Override
+	public boolean assignTrainertoProgram(TrainerProgramDTO trainer) throws CustomException {
+		return admin.assignTrainertoProgram(trainer);
+	}
+	@Override
+	public boolean assignCourseToBatch(BatchCourseDTO batches) throws CustomException {
+		return admin.assignCourseToBatch(batches);
+	}
+	@Override
+	public List<String> getCourses() throws CustomException {
+		return crsDao.getCourses();
+	}
+	@Override
+	public List<String> getTrainers() throws CustomException {
+		return trnDao.getTrainers();
+	}
+	@Override
+	public List<String> getStudents() throws CustomException {
+		return stdDao.getStudents();
+	}
+	@Override
+	public List<String> getPrograms() throws CustomException {
+		return prgDao.getPrograms();
+	}
+	@Override
+	public List<String> availablePrograms(String batch) {
+		return prgDao.availablePrograms(batch);
+	}
+	@Override
+	public List<String> getAvailableTrainers(String batchId) {
+		return trnDao.getAvailableTrainers(batchId);
 	}
 }

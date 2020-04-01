@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import com.cg.feedback.dao.FeedbackDAO;
 import com.cg.feedback.dao.FeedbackDAOImpl;
 import com.cg.feedback.dao.TrainerDAO;
@@ -14,6 +17,8 @@ import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
 
+@Service
+@Scope("singleton")
 public class TrainerServiceImpl implements TrainerService{
 	private static TrainerDAO trnDao = new TrainerDAOImpl();
 	private static FeedbackDAO fdbDao = new FeedbackDAOImpl();
@@ -63,8 +68,10 @@ public class TrainerServiceImpl implements TrainerService{
 			throw new CustomException("No Feedbacks available for you!\n");
 		else{
 			String res = "";
+			if(feedbacks.size()==0)
+				res+="No available feedbacks for you!";
 			for(FeedbackDTO temp : feedbacks)
-				res+=temp;
+				res+="\t"+temp+"\n";
 			return res;
 		}
 	}
@@ -85,7 +92,7 @@ public class TrainerServiceImpl implements TrainerService{
 					res+="\tNo Defaulters in this program!";
 				}
 				for(StudentDTO std : temp) {
-					res+="\t"+std;
+					res+="\t"+std+"\n";
 				}
 				res+="\n";
 			}

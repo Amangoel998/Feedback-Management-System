@@ -6,11 +6,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 import static com.cg.feedback.utility.Validator.*;
 
 import com.cg.feedback.dto.CourseDTO;
+import com.cg.feedback.dto.ProgramCourseDTO;
 import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
@@ -41,7 +46,48 @@ public class Input {
 			}
 		}
 	}
-
+	
+	public static List<ProgramCourseDTO> inputPrograms(String courseId, List<String> availablePrograms) {
+		String flag ="";
+		br = new BufferedReader(inr);
+		System.out.println("Enter numbers for adding programs!");
+		LocalDate prev = LocalDate.now();
+		LocalDate startdate = LocalDate.now();
+		LocalDate enddate = LocalDate.now();
+		ProgramCourseDTO temp = null;
+		List<ProgramCourseDTO> res = new ArrayList<>();
+		while(true) {
+			try {
+				System.out.println();
+				temp = new ProgramCourseDTO();
+				int index = inputInt("program index",availablePrograms.size()+1)-1;
+				temp.setProgramId(availablePrograms.get(index).split("-")[0]);
+				temp.setCourseId(courseId);
+				while(prev.isAfter(startdate) || prev.isEqual(startdate)) {
+					System.out.println("Enter starting date for program (needs to be after "+prev.toString()+"!):");
+					startdate=inputDate();
+				}
+				prev=startdate;
+				temp.setStartdate(startdate.toString());
+				while(prev.isAfter(enddate) || prev.isEqual(enddate)) {
+					System.out.println("Enter ending date for program (needs to be after "+prev.toString()+"!):");
+					enddate=inputDate();
+				}
+				prev=enddate;
+				temp.setEnddate(enddate.toString());
+				res.add(temp);
+				availablePrograms.remove(index);
+				System.out.println("Want to add more programs?");
+				flag = inputYesOrNo();
+				if(flag.equals("N") || flag.equals("n") || availablePrograms.size()==0) break;
+				availablePrograms.stream().forEach(e->System.out.println(availablePrograms.indexOf(e)+":"+e));
+			}catch(CustomException e){
+				System.err.print(e.getMessage());
+			}
+		}
+		return res;
+	}
+	
 	public static int inputInt(String s, int ed) {
 		int i;
 		while (true) {
@@ -157,8 +203,8 @@ public class Input {
 		return new ProgramDTO(inputProgramId(), inputName("Program Name"), true);
 	}
 
-	public static StudentDTO inputStudent() {
-		return new StudentDTO(inputStudentId(), inputName("Student Name"), inputPassword(), inputEmail(), inputBatch(), true);
+	public static StudentDTO inputStudent(List<String> availableBatches) {
+		return new StudentDTO(inputStudentId(), inputName("Student Name"), inputPassword(), inputEmail(), inputBatch(availableBatches), true);
 	}
 
 	public static TrainerDTO inputTrainer() {
@@ -166,7 +212,8 @@ public class Input {
 	}
 
 	public static CourseDTO inputCourse() {
-		return new CourseDTO(inputCourseId(), inputName("Course Name"), true);
+		CourseDTO temp =  new CourseDTO(inputCourseId(), inputName("Course Name"), true);
+		return temp;
 	}
 
 	public static String inputProgramId() {
@@ -185,6 +232,25 @@ public class Input {
 			}
 		}
 	}
+	
+	public static String inputProgramId(List<String> availablePrograms) {
+		String st;
+		br = new BufferedReader(inr);
+		if(availablePrograms.size()==0)return null;
+		System.out.println("Available Programs to assign to the batch : ");
+		availablePrograms.stream().forEach(temp->System.out.println(availablePrograms.indexOf(temp)+"-"+temp));
+		while (true) {
+			try {
+				System.out.print("\nEnter Program ID: ");
+				st = br.readLine();
+				if (Validator.isValidProgramId(st) && availablePrograms.contains(st)) {
+					return st;
+				}
+			} catch (IOException | CustomException e) {
+				System.err.print(e.getMessage() + ", enter again");
+			}
+		}
+	}
 
 	public static String inputCourseId() {
 		String st;
@@ -194,7 +260,26 @@ public class Input {
 				System.out.print("\nEnter Course ID: ");
 				st = br.readLine();
 				if (Validator.isValidCourseId(st)) {
-
+					return st;
+				}
+			} catch (IOException | CustomException e) {
+				System.err.print(e.getMessage() + ", enter again");
+			}
+		}
+	}
+	
+	public static String inputCourseId(List<String> courses) {
+		String st;
+		br = new BufferedReader(inr);
+		if(courses.size()==0)return null;
+		System.out.println("Available Courses to assign to the batch : ");
+		courses.stream().forEach(temp->System.out.println(courses.indexOf(temp)+"-"+temp));
+		List<String> ids = courses.stream().map(temp -> temp.split("-")[0]).collect(Collectors.toList());
+		while (true) {
+			try {
+				System.out.print("\nEnter Course ID: ");
+				st = br.readLine();
+				if (Validator.isValidCourseId(st) && ids.contains(st)) {
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -236,6 +321,25 @@ public class Input {
 			}
 		}
 	}
+	
+	public static String inputTrainerId(List<String> getAvailableTrainer) {
+		String st;
+		if(getAvailableTrainer.size()==0)return null;
+		br = new BufferedReader(inr);
+		System.out.println("Trainers not teaching any programs are - ");
+		getAvailableTrainer.stream().forEach(temp->System.out.println(getAvailableTrainer.indexOf(temp)+"-"+temp));
+		while (true) {
+			try {
+				System.out.print("\nEnter Trainer ID: ");
+				st = br.readLine();
+				if (Validator.isValidTrainerId(st) && getAvailableTrainer.contains(st)) {
+					return st;
+				}
+			} catch (IOException | CustomException e) {
+				System.err.print(e.getMessage() + ", enter again");
+			}
+		}
+	}
 
 	public static String inputSkill() {
 		return inputName("Skill Name");
@@ -267,15 +371,37 @@ public class Input {
 		}
 	}
 
-	public static String inputBatch() {
+	public static String inputBatch(List<String> availableBatches) {
 		String st;
+		if(availableBatches.size()==0)return null;
 		br = new BufferedReader(inr);
+		System.out.print("Available Batches:");
+		availableBatches.stream().forEach(temp->System.out.print("'"+temp+"' "));
+		System.out.println();
 		while (true) {
 			try {
 				System.out.print("\nEnter Batch: ");
 				st = br.readLine();
-				if (Validator.isValidBatch(st)) {
-
+				if (Validator.isValidBatch(st) && availableBatches.contains(st)) {
+					return st;
+				}
+			} catch (IOException | CustomException e) {
+				System.err.print(e.getMessage() + " enter again");
+			}
+		}
+	}
+	
+	public static String inputNewBatch(List<String> availableBatches) {
+		String st;
+		br = new BufferedReader(inr);
+		System.out.print("Already Present Batches:");
+		availableBatches.stream().forEach(temp->System.out.print("'"+temp+"' "));
+		System.out.println();
+		while (true) {
+			try {
+				System.out.print("\nEnter Batch: ");
+				st = br.readLine();
+				if (Validator.isValidBatch(st) && !availableBatches.contains(st)) {
 					return st;
 				}
 			} catch (IOException | CustomException e) {
@@ -353,11 +479,17 @@ public class Input {
 	}
 
 	public static LocalDate inputDate() {
-		System.out.println("Enter Date: ");
 		while (true) {
 			try {
-				System.err.print("\nEnter Year Month Day");
-				int d = sc.nextInt(), m = sc.nextInt(), y = sc.nextInt();
+				System.err.print("\nEnter Day:");
+				int d = sc.nextInt();
+				System.out.println();
+				System.err.print("\nEnter Month:");
+				int m = sc.nextInt();
+				System.out.println();
+				System.err.print("\nEnter Year:");
+				int y = sc.nextInt();
+				System.out.println();
 				LocalDate ld = LocalDate.of(y, m, d);
 				return ld;
 			} catch (DateTimeException | CustomException e) {

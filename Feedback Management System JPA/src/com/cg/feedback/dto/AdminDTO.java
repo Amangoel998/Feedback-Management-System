@@ -27,6 +27,10 @@ public class AdminDTO {
 		return adminId;
 	}
 
+	public AdminDTO() {
+		super();
+	}
+
 	public void setAdminId(String adminId) {
 		this.adminId = adminId;
 	}
@@ -37,11 +41,6 @@ public class AdminDTO {
 	
 	public void setAdminPass(String adminPass) {
 		this.adminPass=adminPass;
-	}
-
-	@Transient
-	public boolean validateAdmin(String user, String pass) {
-		return (adminId.equals(user) && adminPass.equals(pass));
 	}
 
 }

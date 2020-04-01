@@ -43,6 +43,11 @@ public class StudentDTO {
 	
 	//getter and Setters
 
+	public StudentDTO() {
+		super();
+	}
+
+
 	@Override
 	public String toString() {
 		return "StudentDTO [studentId=" + studentId + ", studentName=" + studentName + ", studentPass=" + studentPass

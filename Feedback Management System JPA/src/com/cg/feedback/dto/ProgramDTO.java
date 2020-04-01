@@ -27,6 +27,10 @@ public class ProgramDTO {
 		this.isActive=isActive;
 	}
 
+	public ProgramDTO() {
+		super();
+	}
+
 	@Override
 	public String toString() {
 		return "ProgramDTO [programId=" + programId + ", programName=" + programName + ", isActive=" + isActive + "]";

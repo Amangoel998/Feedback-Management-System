@@ -41,6 +41,10 @@ public class TrainerDTO {
 		this.isActive=isActive;
 	}
 
+	public TrainerDTO() {
+		super();
+	}
+
 	// Getters and Setters
 	public String getTrainerId() {
 		return trainerId;
