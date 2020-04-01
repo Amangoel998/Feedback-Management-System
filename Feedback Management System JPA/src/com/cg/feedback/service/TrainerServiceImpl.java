@@ -2,6 +2,8 @@ package com.cg.feedback.service;
 
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.cg.feedback.dao.FeedbackDAO;
 import com.cg.feedback.dao.FeedbackDAOImpl;
@@ -71,13 +73,22 @@ public class TrainerServiceImpl implements TrainerService{
 	public String showDefaulters() throws CustomException {
 		if(trainer==null)
 			throw new CustomException("Trainer Not Logged In !!");
-		List<StudentDTO> defaulters = fdbDao.viewFeedbackDefaultersByTrainer(trainer.getTrainerId());
+		Map<String,List<StudentDTO>> defaulters = fdbDao.viewFeedbackDefaultersByTrainer(trainer.getTrainerId());
 		String res = "";
 		if(defaulters.size()==0)
 			throw new CustomException("No Defaulters available.\n");
 		else{
-			for(StudentDTO temp : defaulters)
-				res+=temp;
+			for(Map.Entry<String, List<StudentDTO>> me : defaulters.entrySet()) {
+				res+=me.getKey()+":\n";
+				List<StudentDTO> temp = me.getValue();
+				if(temp.size()==0) {
+					res+="\tNo Defaulters in this program!";
+				}
+				for(StudentDTO std : temp) {
+					res+="\t"+std;
+				}
+				res+="\n";
+			}
 		}
 		return res;
 	}

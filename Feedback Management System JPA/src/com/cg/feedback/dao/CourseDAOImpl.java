@@ -1,14 +1,23 @@
 package com.cg.feedback.dao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.exceptions.CustomException;
 
+@Repository
 public class CourseDAOImpl implements CourseDAO{
-	private static StaticDAO dao = new StaticDAO();
+	
+	@PersistenceContext
+	private EntityManager manager;
+	
 	@Override
 	public boolean addTrainingCourse(CourseDTO course) throws CustomException {
-		if(dao.getCourses().containsKey(course.getCourseId())){
-			CourseDTO temp = dao.getCourses().get(course.getCourseId());
+		CourseDTO temp = manager.find(CourseDTO.class, course.getCourseId());
+		if(temp!=null){
 			if(temp.isActive())
 				throw new CustomException("Course Exception : Course with ID: "+course.getCourseId()+" is already present and active. First delete the existing course to overwrite.");
 			else{
@@ -16,14 +25,15 @@ public class CourseDAOImpl implements CourseDAO{
 				throw new CustomException("Course Exception : Course with ID: "+course.getCourseId()+" is already present and has been set active.");
 			}
 		};
-		dao.getCourses().put(course.getCourseId(),course);
+		manager.persist(course);
 		return true;
 	}
 
 	@Override
 	public boolean removeTrainingCourse(String courseId) throws CustomException {
-		if(dao.getCourses().containsKey(courseId) && dao.getCourses().get(courseId).isActive()){
-			dao.getCourses().get(courseId).setActive(false);
+		CourseDTO temp = manager.find(CourseDTO.class, courseId);
+		if(temp!=null && temp.isActive()){
+			temp.setActive(false);
 			return true;
 		}
 		throw new CustomException("Course Exception : Course with Id: "+courseId+" is not active, so cannot be removed.");
@@ -31,7 +41,7 @@ public class CourseDAOImpl implements CourseDAO{
 
 	@Override
 	public CourseDTO getCourse(String courseId) throws CustomException {
-		CourseDTO temp = dao.getCourse(courseId);
+		CourseDTO temp = manager.find(CourseDTO.class, courseId);
 		if(temp!=null)
 			return temp;
 		throw new CustomException("Course Exception : No Course with ID = "+courseId+"!");

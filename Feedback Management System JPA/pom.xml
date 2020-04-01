@@ -3,11 +3,9 @@
   <groupId>com.cg.feedback</groupId>
   <artifactId>Feedback_Management_System_JPA</artifactId>
   <version>v1</version>
-  <packaging>war</packaging>
-  
   <properties>
   	<spring-version>5.1.13.RELEASE</spring-version>
-  	<oracle-version>19.3.0.0</oracle-version>
+  	<mysql-version>19.3.0.0</mysql-version>
   	<jstl-version>1.2</jstl-version>
   	<jpa-version>5.4.11.Final</jpa-version>
   </properties>
@@ -36,11 +34,11 @@
     	<artifactId>spring-webmvc</artifactId>
     	<version>${spring-version}</version>
 	</dependency>
-	
+
 	<dependency>
-	    <groupId>com.oracle.ojdbc</groupId>
-	    <artifactId>ojdbc8</artifactId>
-	    <version>${oracle-version}</version>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.22</version>
 	</dependency>
 	
 	<dependency>
@@ -71,7 +69,6 @@
 	
 	
   </dependencies>
-  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -81,13 +78,6 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.1</version>
-        <configuration>
-          <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
     </plugins>
