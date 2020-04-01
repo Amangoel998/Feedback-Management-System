@@ -26,43 +26,46 @@ export class AppComponent implements OnInit {
 
     
   }
-  addFeedBack(feed:Feedback){
-    this.feed.postFeedback(feed).subscribe(resp => {
-      return this.spresp.push(resp);
-    });
-  }
-getFeedbacks()
-{
-  this.feed.getFeedbacks().subscribe(resp=>{
-    for(const d of(resp as any)){
-      this.feedbacks.push({ id: d.id,
-       studentId: d.studentId,
-       trainerId: d.trainerId,
-       programId: d.programId,
-       questions:d.questions,
-       comments:d.comments,
-       suggestions:d.suggestions
-      })
-    }
-   console.log(this.feedbacks);
+
+  // Refrence for get and Post
+
+//   addFeedBack(feed:Feedback){
+//     this.feed.postFeedback(feed).subscribe(resp => {
+//       return this.spresp.push(resp);
+//     });
+//   }
+// getFeedbacks()
+// {
+//   this.feed.getFeedbacks().subscribe(resp=>{
+//     for(const d of(resp as any)){
+//       this.feedbacks.push({ id: d.id,
+//        studentId: d.studentId,
+//        trainerId: d.trainerId,
+//        programId: d.programId,
+//        questions:d.questions,
+//        comments:d.comments,
+//        suggestions:d.suggestions
+//       })
+//     }
+//    console.log(this.feedbacks);
    
-  })
-}
+//   })
+// }
 
-deleteFeedback(id:any)
-{
-  this.feed.deleteFeedback(id).subscribe(resp => {
-    return this.spresp.push(resp);
-  });
+// deleteFeedback(id:any)
+// {
+//   this.feed.deleteFeedback(id).subscribe(resp => {
+//     return this.spresp.push(resp);
+//   });
   
-}
+// }
 
-updateFeedback(id:any,feed:Feedback)
-{ 
-  this.feed.updateFeedback(id,feed).subscribe(resp => {
-    return this.spresp.push(resp);
-  });
-}
+// updateFeedback(id:any,feed:Feedback)
+// { 
+//   this.feed.updateFeedback(id,feed).subscribe(resp => {
+//     return this.spresp.push(resp);
+//   });
+// }
 
 
 }

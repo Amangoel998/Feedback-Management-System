@@ -7,6 +7,7 @@ import { Program } from './Program';
 })
 export class ProgramService {
   programDB:any[]=[];
+  localProgram:Program;
 
   constructor(private http:HttpClient) { }
 
