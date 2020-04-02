@@ -31,6 +31,10 @@ public class CourseDTO {
 	
 	//Getter and Setters
 
+	public CourseDTO() {
+		super();
+	}
+
 	@Override
 	public String toString() {
 		return "CourseDTO [courseId=" + courseId + ", courseName=" + courseName + ", isActive=" + isActive + "]";

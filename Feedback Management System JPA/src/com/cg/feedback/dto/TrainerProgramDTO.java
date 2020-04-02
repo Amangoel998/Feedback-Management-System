@@ -3,22 +3,26 @@ package com.cg.feedback.dto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.cg.feedback.id.TrainerProgramDTOId;
+
 @Entity
+@IdClass(TrainerProgramDTOId.class)
 @Table(name="listoftrainerprogram")
 public class TrainerProgramDTO {
-	
-	@Id
-	@Column(name="trainerid")
-	private String trainerId;
-	
+
 	@Id
 	@Column(name="programid")
 	private String programId;
 	
+	@Id
 	@Column(name="batch")
 	private String batch;
+	
+	@Column(name="trainerid")
+	private String trainerId;
 
 	public String getTrainerId() {
 		return trainerId;

@@ -9,10 +9,10 @@ import javax.persistence.Table;
 @Table(name="batchofcourse")
 public class BatchCourseDTO {
 	
-	@Id
 	@Column(name="courseid")
 	private String courseId;
 	
+	@Id
 	@Column(name="batch")
 	private String batch;
 

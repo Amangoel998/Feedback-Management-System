@@ -32,7 +32,7 @@ public class UserInterface {
 		for (FeedbackDTO temp : feedbacks) {
 			System.out.println((i++) + temp.getProgramId() + "\tBy\t" + temp.getTrainerId());
 		}
-		System.out.print("Which Program you would like to give feedback for ?\nEnter a number from 1 to " + i + ":");
+		System.out.print("Which Program you would like to give feedback for ?\nEnter a number from 1 to " + (i-1) + ":");
 		int e = inputInt("", i);
 		FeedbackDTO feedback = feedbacks.get(e);
 		System.out.println("Entering Feedback for the program " + feedback.getProgramId() + " by "
@@ -57,7 +57,8 @@ public class UserInterface {
 				+ "4. Remove Students\n" + "5. Add Trainer\n" + "6. Remove Trainer\n" + "7. Add Skillset of Trainer\n"
 				+ "8. Remove Trainer Skills\n" + "9. Add Training Course\n" + "10. Delete Training Course\n"
 				+ "11. View Feedback Report by Program\n" + "12. View Feedback Report by Trainer\n"
-				+ "13. View Feedback Defaulters by Program\n" + "14. View Feedback Defaulters by Trainer\n");
+				+ "13. View Feedback Defaulters by Program\n" + "14. View Feedback Defaulters by Trainer\n"
+				+ "15. Assign Course to a Batch\n" + "16. Assign Trainer to a Program\n");
 	}
 
 	static void getTrainerOptions() {

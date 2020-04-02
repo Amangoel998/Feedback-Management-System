@@ -60,27 +60,30 @@ public class AuthInterface {
 		showRole();
 		try {
 			int role = inputRole("Role Options");
-			while (!login(role))
-				;
+			while (!login(role));
 			do {
-				int method = 0;
-				switch (role) {
-					case 1:
-						getAdminOptions();
-						method = inputAdminOptions("Admin Options");
-						AdminInterface.getAdminMethods(method);
-						break;
-					case 2:
-						getTrainerOptions();
-						method = inputTrainerOptions("Trainer Options");
-						((TrainerServiceImpl) user).getTrainerMethods(method);
-						break;
-					case 3:
-						List<FeedbackDTO> feedbacks = ((StudentServiceImpl) user).availableFeedbacks();
-						takeFeedback(feedbacks);
-						break;
-					default:
-						break;
+				try {
+					int method = 0;
+					switch (role) {
+						case 1:
+							getAdminOptions();
+							method = inputAdminOptions("Admin Options");
+							AdminInterface.getAdminMethods(method);
+							break;
+						case 2:
+							getTrainerOptions();
+							method = inputTrainerOptions("Trainer Options");
+							System.out.println(((TrainerServiceImpl) user).getTrainerMethods(method));
+							break;
+						case 3:
+							List<FeedbackDTO> feedbacks = ((StudentServiceImpl) user).availableFeedbacks();
+							takeFeedback(feedbacks);
+							break;
+						default:
+							break;
+					}
+				} catch (CustomException e) {
+					System.out.println(e.getMessage());
 				}
 			} while (!logout());
 		} catch (CustomException e) {

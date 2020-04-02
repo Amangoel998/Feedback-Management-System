@@ -2,6 +2,9 @@ package com.cg.feedback.service;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import com.cg.feedback.dao.FeedbackDAO;
 import com.cg.feedback.dao.FeedbackDAOImpl;
 import com.cg.feedback.dao.StudentDAO;
@@ -10,6 +13,8 @@ import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.exceptions.CustomException;
 
+@Service
+@Scope("singleton")
 public class StudentServiceImpl implements StudentService {
 		private static StudentDTO student = null;
 
@@ -41,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
 			}
 		}
 
-		public List<FeedbackDTO> availableFeedbacks() {
+		public List<FeedbackDTO> availableFeedbacks() throws CustomException{
 			return stdDao.getAvailableFeedbacks(student.getStudentId());
 
 		}
