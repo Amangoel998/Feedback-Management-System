@@ -3,6 +3,10 @@ import { StuLoginComponent } from '../stu-login/stu-login.component';
 import { Student } from '../student';
 import { StuServiceService } from '../stu-service.service';
 import { Course } from '../Course';
+import { FeedbackService } from '../feedback.service';
+import { TrainersService } from '../trainers.service';
+import { Router } from '@angular/router';
+import { ProgramService } from '../program.service';
 
 @Component({
   selector: 'app-student-info',
@@ -11,43 +15,31 @@ import { Course } from '../Course';
 })
 export class StudentInfoComponent implements OnInit {
 
-  constructor(private studSer:StuServiceService) { }
+  constructor(public progServ:ProgramService,public studSer:StuServiceService,public tain:TrainersService ,private router:Router) { }
  public student:Student;
- public trainers:string[];
- courseId:any;
-  programsEnrolled:any[]=[];
-  availableFeedbacks:any[]=[];
 
   ngOnInit(): void {
-    this.student=this.studSer.tempStudent;
-    
-    this.setCourse();
-
-    
+       this.setStudent();
 
 }
-setCourse()
-{
-  this.courseId=this.studSer.getCourse(this.student);
-  this.setPrograms(this.courseId);
-}
-
-setPrograms(courseId:any)
-{
-  this.programsEnrolled=this.studSer.getPrograms(courseId);
-  this.setFeedbacks(this.programsEnrolled);
-}
-
-setFeedbacks(programIds:any[])
+setStudent()
 {
   
-  this.availableFeedbacks =this.studSer.getAvailableFeedback(programIds);
+  this.student=this.studSer.tempStudent;
+  this.setCourse(this.studSer.tempStudent.batch);
+}
+setCourse(batch:string)
+{
+  this.studSer.getCourse(batch);
+  
 }
 
 
-getForm(studentId:any,programId:any)
+getForm(programId:any)
 {
-  
+  this.tain.getTrainerByProgram(programId,this.student.batch);
+  this.progServ.setProgramById(programId);
+  this.router.navigateByUrl('giveFeedback');
 }
 
 }

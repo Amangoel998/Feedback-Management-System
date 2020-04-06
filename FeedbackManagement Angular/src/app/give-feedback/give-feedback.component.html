@@ -1,22 +1,22 @@
 <form [formGroup]="feedbackForm" (ngSubmit)="submitFeedBack()">
     <table>
-        <thead>Feedback form for {{program.programName}} by {{trainer.trainerName}}</thead>
+        <thead>Feedback form for <b>{{this.programService.localProgram.programName}}</b> by <b>{{trainerService.localTrainer.trainerName}}</b></thead>
         <tr>
             <th>Student Id</th>
             <td>
-                <input type="text" min="1" max="5" value="{{student.id}}" disabled>
+                <input type="text" min="1" max="5" value="{{stuSer.tempStudent.id}}" disabled>
             </td>
         </tr>
         <tr>
             <th>Trainer Id</th>
             <td>
-                <input type="text" min="1" max="5"value="{{trainer.id}}" disabled>
+                <input type="text" min="1" max="5"value="{{trainerService.localTrainer.id}}" disabled>
             </td>
         </tr>
         <tr>
             <th>Progaram ID</th>
             <td>
-                <input type="text" min="1" max="5" value="{{program.id}}" disabled>
+                <input type="text" min="1" max="5" value="{{this.programService.localProgram.id}}" disabled>
             </td>
         </tr>
         <tr>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Trainer } from './Trainer';
-import { timingSafeEqual } from 'crypto';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback';
 
@@ -33,12 +32,18 @@ export class TrainersService {
   }
 
   addTrainer(trainer:Trainer)
-  {
+  { this.trainerDB.push(trainer);
     return this.http.post('http://localhost:3000/trainers',trainer);
   }
   
   deleteTrainer(trainerId:any)
-  {
+  { for(var i=0;i<this.trainerDB.length;i++)
+    {
+      if(this.trainerDB[i].id==trainerId)
+      {
+        this.trainerDB.splice(i,1);
+      }
+    }
     return this.http.delete('http://localhost:3000/trainers/'+trainerId);
   }
   updateTrainer(trainerId:any,trainer:Trainer)
@@ -104,5 +109,25 @@ export class TrainersService {
     
 
   }
+  setLocalTrainerById(trainerId){
+   this.http.get<Trainer>('http://localhost:3000/trainers/'+trainerId).subscribe((data:Trainer)=>{
+     this.localTrainer=data;
+   });
 
+  }
+
+  getTrainerByProgram(programId,batch)
+  {
+    this.http.get('http://localhost:3000/trainersProgram').subscribe(resp=>{
+      for(const d of(resp as any))
+      {
+        if(d.programId==programId&&d.batch==batch)
+        {
+          this.setLocalTrainerById(d.trainerId);
+          
+        }
+      }
+      
+  });
+}
 }
