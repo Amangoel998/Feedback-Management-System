@@ -40,12 +40,19 @@ export class StuServiceService {
   }
 
   addStudent(student:Student)
-  {
+  { this.studentDb.push(student);
     return this.http.post('http://localhost:3000/students',student);
+    
   }
 
   deleteStudent(id:any)
-  {
+  { for(let i=0;i<this.studentDb.length;i++)
+    {
+      if(this.studentDb[i].id==id)
+      {
+        this.studentDb.splice(i,1);
+      }
+    }
     return this.http.delete('http://localhost:3000/students/'+id);
   }
  

@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { StuServiceService } from './stu-service.service';
 import { GiveFeedbackComponent } from './give-feedback/give-feedback.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { TrainerLoginComponent } from './trainer-login/trainer-login.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     StuLoginComponent,
     StudentInfoComponent,
     GiveFeedbackComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    TrainerLoginComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,

@@ -32,12 +32,18 @@ export class TrainersService {
   }
 
   addTrainer(trainer:Trainer)
-  {
+  { this.trainerDB.push(trainer);
     return this.http.post('http://localhost:3000/trainers',trainer);
   }
   
   deleteTrainer(trainerId:any)
-  {
+  { for(var i=0;i<this.trainerDB.length;i++)
+    {
+      if(this.trainerDB[i].id==trainerId)
+      {
+        this.trainerDB.splice(i,1);
+      }
+    }
     return this.http.delete('http://localhost:3000/trainers/'+trainerId);
   }
   updateTrainer(trainerId:any,trainer:Trainer)
