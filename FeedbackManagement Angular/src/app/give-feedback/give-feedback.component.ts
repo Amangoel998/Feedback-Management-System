@@ -8,6 +8,7 @@ import { TrainersService } from '../trainers.service';
 import { ProgramService } from '../program.service';
 import { Feedback } from '../feedback';
 import { FeedbackService } from '../feedback.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-give-feedback',
@@ -15,15 +16,22 @@ import { FeedbackService } from '../feedback.service';
   styleUrls: ['./give-feedback.component.css']
 })
 export class GiveFeedbackComponent implements OnInit {
-  student:Student;
-  trainer:Trainer;
-  program:Program;
-  constructor(private stuSer:StuServiceService,private trainerService:TrainersService,private programService:ProgramService,private feedbackService:FeedbackService) { }
+  constructor(private router:Router,public stuSer:StuServiceService,public trainerService:TrainersService,public programService:ProgramService,private feedbackService:FeedbackService) { }
 
   ngOnInit(): void {
-    this.student=this.stuSer.tempStudent;
-    this.trainer=this.trainerService.localTrainer;
-    this.program=this.programService.localProgram;
+    this.feedbackService.getFeedbacks().subscribe(resp=>{
+          for(const d of(resp as any)){
+            this.feedbackService.feedbacksDb.push({ id: d.id,
+             studentId: d.studentId,
+             trainerId: d.trainerId,
+             programId: d.programId,
+             questions:d.questions,
+             comments:d.comments,
+             suggestions:d.suggestions
+            })
+          }
+         
+        })
   }
 
   feedbackForm=new FormGroup({
@@ -37,7 +45,8 @@ export class GiveFeedbackComponent implements OnInit {
   });
 
   submitFeedBack()
-  { var feedbackid:string="FDB"+Number(this.feedbackService.feedbacksDb[this.feedbackService.feedbacksDb.length-1].id.toString().substring(2))+1;
+  { var feedbackid:string="FDB"+(Number(this.feedbackService.feedbacksDb[this.feedbackService.feedbacksDb.length-1].id.toString().substring(3))+1);
+    
     var ques:number[]=[this.feedbackForm.get('ques1').value,
                         this.feedbackForm.get('ques2').value,
                         this.feedbackForm.get('ques3').value,
@@ -46,11 +55,15 @@ export class GiveFeedbackComponent implements OnInit {
                       ];
     var comments=this.feedbackForm.get('comments').value;
     var suggestions=this.feedbackForm.get('suggestions').value;
-    var feedback:Feedback=new Feedback(feedbackid,this.student.id,this.trainer.id,this.program.id,ques,comments,suggestions);
+    var feedback:Feedback=new Feedback(feedbackid,this.stuSer.tempStudent.id,this.trainerService.localTrainer.id,this.programService.localProgram.id,ques,comments,suggestions);
+    
+    
     this.feedbackService.postFeedback(feedback).subscribe(resp => {
       console.log(resp);
       
-    });;
+    });
+    this.router.navigateByUrl('stuActions');
+
   }
 
 }

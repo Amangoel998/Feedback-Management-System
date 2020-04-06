@@ -17,6 +17,17 @@
 </table>
     </div>
 
+    <table>
+        <tr>
+            <th>Program Id</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let p of studSer.availableFeedbacks">
+            <td>{{p}}</td>
+            <td><input type="button" (click)="getForm(p)" value="Give Feedback"></td>
+        </tr>
+    </table>
+
 
 
     

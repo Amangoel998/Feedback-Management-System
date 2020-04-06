@@ -39,4 +39,12 @@ export class ProgramService {
   {
     return this.http.put('http://localhost:3000/programs/'+id,program);
   }
+
+  setProgramById(programId:string)
+  {
+    this.http.get('http://localhost:3000/programs/'+programId).subscribe((data:Program)=>
+    {
+      this.localProgram=data;
+    })
+  }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Trainer } from './Trainer';
-import { timingSafeEqual } from 'crypto';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback';
 
@@ -104,5 +103,25 @@ export class TrainersService {
     
 
   }
+  setLocalTrainerById(trainerId){
+   this.http.get<Trainer>('http://localhost:3000/trainers/'+trainerId).subscribe((data:Trainer)=>{
+     this.localTrainer=data;
+   });
 
+  }
+
+  getTrainerByProgram(programId,batch)
+  {
+    this.http.get('http://localhost:3000/trainersProgram').subscribe(resp=>{
+      for(const d of(resp as any))
+      {
+        if(d.programId==programId&&d.batch==batch)
+        {
+          this.setLocalTrainerById(d.trainerId);
+          
+        }
+      }
+      
+  });
+}
 }
