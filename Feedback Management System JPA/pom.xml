@@ -4,73 +4,28 @@
   <artifactId>Feedback_Management_System_JPA</artifactId>
   <version>v1</version>
   <properties>
-  	<spring-version>5.1.13.RELEASE</spring-version>
-  	<mysql-version>19.3.0.0</mysql-version>
-  	<jstl-version>1.2</jstl-version>
-  	<jpa-version>5.4.11.Final</jpa-version>
+    <mysql-version>19.3.0.0</mysql-version>
+    <jstl-version>1.2</jstl-version>
+    <jpa-version>5.4.11.Final</jpa-version>
   </properties>
-  
+
   <dependencies>
-  	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-context</artifactId>
-    	<version>${spring-version}</version>
-	</dependency>
-	
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-jdbc</artifactId>
-    	<version>${spring-version}</version>
-	</dependency>
-	
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-tx</artifactId>
-    	<version>${spring-version}</version>
-	</dependency>
-	
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-webmvc</artifactId>
-    	<version>${spring-version}</version>
-	</dependency>
 
-	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>5.1.22</version>
-	</dependency>
-	
-	<dependency>
-	    <groupId>jstl</groupId>
-	    <artifactId>jstl</artifactId>
-	    <version>${jstl-version}</version>
-	</dependency>
-	
-	
-	<dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-core</artifactId>
-        <version>${jpa-version}</version>
-    </dependency>
-	<dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-orm</artifactId>
-        <version>${spring-version}</version>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.22</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${jpa-version}</version>
+    </dependency>
 
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>3.0.1</version>
-		<scope>provided</scope>
-	</dependency>
-	
-	
   </dependencies>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
