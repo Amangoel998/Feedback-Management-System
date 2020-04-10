@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Trainer } from './Trainer';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback';
+import { StuServiceService } from './stu-service.service';
+import { Student } from './student';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,9 @@ import { Feedback } from './feedback';
 export class TrainersService {
   public trainerDB:any[]=[];
   localTrainer:Trainer;
+  public flag:boolean=false;
 
-  constructor(private http:HttpClient,private feed:FeedbackService) { }
+  constructor(private http:HttpClient,private feed:FeedbackService,private stuServ:StuServiceService) { }
 
   loadTrainers()
   {
@@ -72,14 +75,15 @@ export class TrainersService {
     this.feed.getFeedbacks().subscribe(resp=>{
       for(const d of(resp as any)){
 
-        if(programId==d.programId)
+        if(programId==d.programId&&this.localTrainer.id==d.trainerId)
         {
           feedbacks.push(d);
         }
       }
-      return feedbacks;
+      
+      
     })
-    
+    return feedbacks;
   }
 
   getPrograms()
@@ -98,14 +102,51 @@ export class TrainersService {
     return programs;
   }
 
-  addskills(skill:any)
-  { if(!this.localTrainer.skills.includes(skill))
-      this.localTrainer.skills.push(skill);   
+  getProgramsAndBatch()
+  {let programs:any[]=[];
+    this.http.get('http://localhost:3000/trainersProgram').subscribe(resp=>{
+      for(const d of(resp as any))
+      {
+        if(d.trainerId==this.localTrainer.id)
+        {
+          programs.push(d);
+        }
+      }
+    }
+
+    )
+    return programs;
   }
 
-  viewFeedBackDefaulters(programId:any){
-    let studentsInProgram:any[];
-    let courseId:any;
+  addskills(trainer:Trainer,skill:any)
+  { if(!trainer.skills.includes(skill))
+      {trainer.skills.push(skill);  
+      this.updateTrainer(trainer.id,trainer) ;
+      }
+  }
+
+  viewFeedBackDefaulters(programId:any,batch:any){
+    let studentsInProgram=this.stuServ.getStudentsFromBatch(batch);
+
+    this.feed.getFeedbacks().subscribe(resp=>{
+      for(const d of (resp as any))
+      {
+          if(d.programId==programId){
+            for(let i=0;i<studentsInProgram.length;i++)
+            {
+              if(studentsInProgram[i].id==d.studentId)
+            
+                studentsInProgram.splice(i,1);
+              }
+            }
+
+          }
+    })
+    console.log(studentsInProgram);
+    
+    return studentsInProgram;
+
+
     
 
   }

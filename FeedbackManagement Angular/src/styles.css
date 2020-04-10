@@ -6,5 +6,5 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-
-  }
+   height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,67 +1,75 @@
-<form [formGroup]="feedbackForm" (ngSubmit)="submitFeedBack()">
-    <table>
-        <thead>Feedback form for <b>{{this.programService.localProgram.programName}}</b> by <b>{{trainerService.localTrainer.trainerName}}</b></thead>
-        <tr>
-            <th>Student Id</th>
-            <td>
-                <input type="text" min="1" max="5" value="{{stuSer.tempStudent.id}}" disabled>
-            </td>
-        </tr>
-        <tr>
-            <th>Trainer Id</th>
-            <td>
-                <input type="text" min="1" max="5"value="{{trainerService.localTrainer.id}}" disabled>
-            </td>
-        </tr>
-        <tr>
-            <th>Progaram ID</th>
-            <td>
-                <input type="text" min="1" max="5" value="{{this.programService.localProgram.id}}" disabled>
-            </td>
-        </tr>
-        <tr>
-            <th>Question 1</th>
-            <td>
-                <input type="number" name="ques1" id="ques1" min="1" max="5" formControlName="ques1">
-            </td>
-        </tr>
-        <tr>
-            <th>Question 2</th>
-            <td>
-                <input type="number" name="ques2" id="ques2" min="1" max="5" formControlName="ques2">
-            </td>
-        </tr>
-        <tr>
-            <th>Question 3</th>
-            <td>
-                <input type="number" name="ques3" id="ques3" min="1" max="5" formControlName="ques3">
-            </td>
-        </tr>
-        <tr>
-            <th>Question 4</th>
-            <td>
-                <input type="number" name="ques4" id="ques4" min="1" max="5" formControlName="ques4">
-            </td>
-        </tr>
-        <tr>
-            <th>Question 5</th>
-            <td>
-                <input type="number" name="ques5" id="ques5" min="1" max="5" formControlName="ques5">
-            </td>
-        </tr>
-        <tr>
-            <th>Comments</th>
-            <td><textarea name="comments" id="comments" cols="20" rows="5" formControlName="comments"></textarea></td>
-        </tr>
-        <tr>
-            <th>suggetions</th>
-            <td><textarea name="suggestions" id="suggestions" cols="20" rows="5" formControlName="suggestions"></textarea></td>
-        </tr>
-
-        <tr>
-            <td>
-                <input type="submit" value="Submit Feedback">
-            </td>
-        </tr>
-    </table>
-</form>
+<div class="container col-md-6" style="text-align: center;">
+    <h1 style="background-color: wheat; height: 50px; padding-top: 5px; padding-bottom: 5px; border-radius: 50px; color:firebrick;">Feedback Form</h1>
+    <form [formGroup]="feedbackForm" (ngSubmit)="submitFeedBack()" class="form-group">
+        <table class="table table-light">
+            <tr class="thead thead-dark">
+                <th colspan="2"> Feedback form for <b>{{this.programService.localProgram.programName}}</b> by
+                    <b>{{trainerService.localTrainer.trainerName}}</b>
+                </th>
+            </tr>
+            <tr>
+                <th>Student Id</th>
+                <td>
+                    <input type="text" min="1" max="5" value="{{stuSer.tempStudent.id}}" class="form-control" disabled>
+                </td>
+            </tr>
+            <tr>
+                <th>Trainer Id</th>
+                <td>
+                    <input type="text" min="1" max="5" value="{{trainerService.localTrainer.id}}" class="form-control"disabled>
+                </td>
+            </tr>
+            <tr>
+                <th>Progaram ID</th>
+                <td>
+                    <input type="text" min="1" max="5" value="{{this.programService.localProgram.id}}" class="form-control" disabled>
+                </td>
+            </tr>
+            <tr>
+                <th>Presentation and communication skills of faculty </th>
+                <td>
+                    <input type="number" name="ques1" id="ques1" min="1" max="5" formControlName="ques1" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <th>Ability to clarify doubts and explain difficult points</th>
+                <td>
+                    <input type="number" name="ques2" id="ques2" min="1" max="5" formControlName="ques2" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <th>Time management in completing the contents</th>
+                <td>
+                    <input type="number" name="ques3" id="ques3" min="1" max="5" formControlName="ques3" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <th>Handout provided(Student Guide)</th>
+                <td>
+                    <input type="number" name="ques4" id="ques4" min="1" max="5" formControlName="ques4" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <th>Hardware, software and network availability</th>
+                <td>
+                    <input type="number" name="ques5" id="ques5" min="1" max="5" formControlName="ques5" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td><textarea name="comments" id="comments" cols="5" rows="5" formControlName="comments" class="form-control"></textarea></td>
+            </tr>
+            <tr>
+                <th>Suggetions</th>
+                <td><textarea name="suggestions" id="suggestions" cols="5" rows="5"
+                        formControlName="suggestions" class="form-control"></textarea></td>
+            </tr>
+    
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Submit Feedback" class="btn btn-success">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

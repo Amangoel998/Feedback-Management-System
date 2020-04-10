@@ -41,5 +41,9 @@ getForm(programId:any)
   this.progServ.setProgramById(programId);
   this.router.navigateByUrl('giveFeedback');
 }
+logout()
+{ this.student=null;
+  this.router.navigateByUrl('/stuLogin')
+}
 
 }

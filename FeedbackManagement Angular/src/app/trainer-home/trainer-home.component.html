@@ -1,0 +1,162 @@
+<nav class="navbar">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item ">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                aria-controls="pills-home" aria-selected="true">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-trainer-feedback-tab" data-toggle="pill" href="#pills-trainer-feedback"
+                role="tab" aria-controls="pills-trainer-feedback" aria-selected="false">Feebacks for Me</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-trainer-program-feedback-tab" data-toggle="pill"
+                href="#pills-trainer-program-feedback" role="tab" aria-controls="pills-trainer-program-feedback"
+                aria-selected="false">FeedBacks by Program</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav" style="float: right;">
+        <li><button class="btn btn-primary" (click)="logout()">Logout</button></li>
+    </ul>
+</nav>
+<div class="tab-content" id="pills-tabContent" style="text-align: center;">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <h1> Welcome {{trainerService.localTrainer.trainerName}}</h1>
+
+        <h2>Trainer Profile</h2>
+        <div class="container col-md-5">
+            <table class="table table-light table-bordered">
+
+                <tr>
+                    <th>Trainer ID:</th>
+                    <td>{{trainerService.localTrainer.id}}</td>
+                </tr>
+                <tr>
+                    <th>Trainer Name:</th>
+                    <td>{{trainerService.localTrainer.trainerName}}</td>
+                </tr>
+                <tr>
+                    <th>Programs Undertaken</th>
+                    <td>
+                        <ol>
+                            <li *ngFor="let program of trainerPrograms">
+                                <b>{{program.programId}}</b> for batch <b>{{program.batch}}</b>
+                            </li>
+                        </ol>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th>Skills</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let skill of trainerService.localTrainer.skills">
+                                <b> {{skill}} </b>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-trainer-feedback" role="tabpanel" aria-labelledby="pills-trainer-feedback">
+
+        <div class="container">
+            <table class="table table-light table-bordered">
+                <tr class="thead-dark">
+                    <th>FeedBack ID</th>
+                    <th>Program ID</th>
+                    <th>Presentation and communication skills of faculty</th>
+                    <th>Ability to clarify doubts and explain difficult points</th>
+                    <th>Time management in completing the content</th>
+                    <th>Handout provided(Student Guide)</th>
+                    <th>Hardware, software and network availability</th>
+                    <th>Comments</th>
+                    <th>Suggestions</th>
+                </tr>
+
+                <tr *ngFor="let feedback of trainerFeedbacks">
+                    <td>{{feedback.id}}</td>
+                    <td>{{feedback.programId}}</td>
+                    <td *ngFor="let ques of feedback.questions">
+                        {{ques}}
+                    </td>
+                    <td>{{feedback.comments}}</td>
+                    <td>{{feedback.suggestions}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="tab-pane fade" id="pills-trainer-program-feedback" role="tabpanel"
+        aria-labelledby="pills-trainer-program-feedback">
+        <h2>Progarms Under Taken</h2>
+        <div class="container col-md-5">
+            <table class="table table-light table-bordered">
+                <tr class="thead-dark">
+                    <th>S.No</th>
+                    <th>Program ID</th>
+                    <th>Batch</th>
+                    <th>Action</th>
+
+                </tr>
+
+                <tr *ngFor="let programs of trainerPrograms;let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{programs.programId}}</td>
+                    <td>{{programs.batch}}</td>
+                    <td><button class="btn btn-primary"
+                            (click)="viewFeedback(programs.programId,programs.batch)">{{btnName}}</button></td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="show">
+            <h2>Feedbacks for {{progServ.localProgram.programName}}</h2>
+            <div class="container">
+                <table class="table table-light table-bordered" *ngIf="programFeedbacks.length>0">
+                    <tr class="thead-dark">
+                        <th>FeedBack ID</th>
+                        <th>Program ID</th>
+                        <th>Presentation and communication skills of faculty</th>
+                        <th>Ability to clarify doubts and explain difficult points</th>
+                        <th>Time management in completing the content</th>
+                        <th>Handout provided(Student Guide)</th>
+                        <th>Hardware, software and network availability</th>
+                        <th>Comments</th>
+                        <th>Suggestions</th>
+                    </tr>
+
+                    <tr *ngFor="let feedback of programFeedbacks">
+                        <td>{{feedback.id}}</td>
+                        <td>{{feedback.programId}}</td>
+                        <td *ngFor="let ques of feedback.questions">
+                            {{ques}}
+                        </td>
+                        <td>{{feedback.comments}}</td>
+                        <td>{{feedback.suggestions}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>Feedback Defaulters</h2>
+            <div class="container">
+                <table class="table table-bordered table-light">
+                    <tr class="thead-dark">
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Batch</th>
+                    </tr>
+
+                    <tr *ngFor="let student of feedbackDefaulters">
+                        <td>{{student.id}}</td>
+                        <td>{{student.studentName}}</td>
+                        <td>{{student.batch}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

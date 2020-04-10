@@ -124,5 +124,36 @@ export class StuServiceService {
    
   }
 
+  getStudentsFromBatch(batch){
+  // { let students=[];
+  //   this.http.get('http://localhost:3000/students').subscribe(resp=>{
+  //     for(const d of (resp as Student[]))
+  //     {
+  //       if(d.batch==batch)
+  //       {
+  //         students.push(d.id);
+  //       }
+  //     }
+  //      }
+
+  //   )
+
+  //   return students;
+  let students=[];
+    this.http.get('http://localhost:3000/students').subscribe(resp=>{
+      for(const d of (resp as Student[]))
+      {
+        if(d.batch==batch)
+        {
+          students.push(d);
+        }
+      }
+       }
+
+    )
+
+    return students;
+  }
+
  
 }

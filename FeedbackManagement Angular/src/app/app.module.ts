@@ -13,6 +13,9 @@ import { GiveFeedbackComponent } from './give-feedback/give-feedback.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { TrainerLoginComponent } from './trainer-login/trainer-login.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TrainerHomeComponent } from './trainer-home/trainer-home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     GiveFeedbackComponent,
     AdminLoginComponent,
     TrainerLoginComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    TrainerHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +34,8 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [StuServiceService],
   bootstrap: [AppComponent]
