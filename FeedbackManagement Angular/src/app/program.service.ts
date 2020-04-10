@@ -26,17 +26,35 @@ export class ProgramService {
     });;
   }
 
-  addProgram(Program:Program)
-  {
-    return this.http.post('http://localhost:3000/programs',Program);
+  addProgram(program:Program)
+  {this.programDB.push(program);
+    return this.http.post('http://localhost:3000/programs',program);
   }
   
   deleteProgram(programId:any)
-  {
+  { for(let i=0;i<this.programDB.length;i++)
+    {
+      if(this.programDB[i].id==programId)
+      {
+        this.programDB.splice(i,1);
+      }
+    }
     return this.http.delete('http://localhost:3000/programs/'+programId);
   }
   updateProgram(id:any,program:Program)
   {
     return this.http.put('http://localhost:3000/programs/'+id,program);
+  }
+  getProgramById(programId:string)
+  {
+    return this.http.get('http://localhost:3000/programs/'+programId);
+  }
+
+  setProgramById(programId:string)
+  {
+    this.http.get('http://localhost:3000/programs/'+programId).subscribe((data:Program)=>
+    {
+      this.localProgram=data;
+    })
   }
 }

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FeedbackService {
-  feedbacksDb:any[];
+  feedbacksDb:any[]=[];
 
   constructor(private http:HttpClient) { }
 

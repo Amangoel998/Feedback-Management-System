@@ -80,7 +80,7 @@ public class Input {
 				System.out.println("Want to add more programs?");
 				flag = inputYesOrNo();
 				if(flag.equals("N") || flag.equals("n") || availablePrograms.size()==0) break;
-				availablePrograms.stream().forEach(e->System.out.println(availablePrograms.indexOf(e)+":"+e));
+				availablePrograms.stream().forEach(e->System.out.println((availablePrograms.indexOf(e)+1)+":"+e));
 			}catch(CustomException e){
 				System.err.print(e.getMessage());
 			}

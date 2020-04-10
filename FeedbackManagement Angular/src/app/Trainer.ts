@@ -2,7 +2,7 @@ export class Trainer{
     id:string;
     trainerName:string;
     trainerEmail:string;
-    pass:string;
+    password:string;
     active:boolean;
     skills:string[];
 
@@ -13,7 +13,7 @@ export class Trainer{
         this.trainerName=trainerName;
         this.id=trainerId;
         this.trainerEmail=trainerEmail;
-        this.pass=pass;
+        this.password=pass;
         
     }
 }
