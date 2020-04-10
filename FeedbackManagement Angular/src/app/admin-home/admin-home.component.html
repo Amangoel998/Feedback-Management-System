@@ -185,37 +185,70 @@
           <td>{{d.trainerEmail}}</td>
           <td>{{d.password}}</td>
           <td>
-
-            <ul>
-              <li *ngFor="let s of d.skills">
-                {{s}}
-              </li>
-            </ul>
+            <button class="btn btn-warning" (click)="manageSkills(d.id)">Manage Skills</button>
           </td>
           <td><input type="button" value="Delete" class="btn btn-danger" (click)="deleteTrainer(d.id)"></td>
         </tr>
+      </table>
 
+      <h2>Add new Trainer</h2>
+      <table class="table table-dark table-bordered">
         <tr>
-
-          <td><input type="text" class="form-control" name="trainerId" placeholder="trainer ID here" id="trainerId">
-          </td>
-          <td><input type="text" class="form-control" name="trainerName" placeholder="Trainer Name here"
-              id="trainerName"></td>
-          <td><input type="text" class="form-control" name="trainerEmail" placeholder="trainer Email here"
-              id="trainerEmail"></td>
-          <td><input type="text" class="form-control" name="password" placeholder="Password here" id="trainerPass"></td>
-          <td>
-            <button type="button" class="btn btn-primary" >
-              Add Skills
-            </button>
-
-          </td>
-          <td><input type="button" value="Add Trainer" class="btn btn-success" (click)="addTrainer()"></td>
-
+          <th>Trainer ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Action</th>
         </tr>
 
+        <tr>
+          <td>
+            <input type="text" id="new-trainerId" class="form-control">
+          </td>
+          <td>
+            <input type="text" id="new-trainerName" class="form-control">
+          </td>
+          <td>
+            <input type="text" id="new-trainerEmail" class="form-control">
+          </td>
+          <td>
+            <input type="text" id="new-trainerPassword" class="form-control">
+          </td>
+          <td><button class="btn btn-success" (click)="addTrainer()">
+            Add Trainer
+          </button></td>
+
+          
+        </tr>
 
       </table>
+    </div>
+    <div *ngIf="showSkillsFlag">
+      <div class="container">
+        <table class="table table-light table-bordered">
+          <tr class="thead thead-dark">
+            <th>Skill</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngFor="let skill of tempSkills">
+            <td>
+              {{skill}}
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteSkill(skill)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" class="form-control" placeholder="Enter skill here" id="skill">
+            </td>
+            <td>
+              <button class="btn btn-success" (click)="addSkill()">Add Skill</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
     </div>
   </div>
 

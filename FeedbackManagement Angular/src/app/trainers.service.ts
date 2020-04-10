@@ -118,11 +118,30 @@ export class TrainersService {
     return programs;
   }
 
-  addskills(trainer:Trainer,skill:any)
-  { if(!trainer.skills.includes(skill))
-      {trainer.skills.push(skill);  
-      this.updateTrainer(trainer.id,trainer) ;
+  addskills(skill:any)
+  { if(!this.localTrainer.skills.includes(skill))
+      {this.localTrainer.skills.push(skill);  
+      this.updateTrainer(this.localTrainer.id,this.localTrainer).subscribe() ;
       }
+  }
+
+  deleteSkills(skill:any)
+  {
+    
+      for(let i=0;i<this.localTrainer.skills.length;i++)
+      {
+        if(this.localTrainer.skills[i]===skill)
+        {
+          this.localTrainer.skills.splice(i,1);
+         
+        }
+      }
+      this.updateTrainer(this.localTrainer.id,this.localTrainer).subscribe() ;
+    
+  }
+
+  getSkills(){
+    return this.localTrainer.skills;
   }
 
   viewFeedBackDefaulters(programId:any,batch:any){

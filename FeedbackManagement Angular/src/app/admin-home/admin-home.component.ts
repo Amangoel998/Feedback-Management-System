@@ -23,7 +23,9 @@ export class AdminHomeComponent implements OnInit {
   programsForTrainer=[];
   showTrainerPrograms:boolean=false;
   viewFeedbacksForProgram:boolean=false;
+  showSkillsFlag:boolean=false;
   feedbacksForProgram=[];
+  tempSkills=[];
   feedbackDefaulters=[];
   viewTrainerProgramsButton:string="Show Programs";
   show: boolean = false;
@@ -55,10 +57,10 @@ export class AdminHomeComponent implements OnInit {
     this.trainServ.deleteTrainer(trainerId).subscribe();
   }
   addTrainer() {
-    var id = (<HTMLInputElement>document.getElementById('trainerId')).value;
-    var name = (<HTMLInputElement>document.getElementById('trainerName')).value;
-    var email = (<HTMLInputElement>document.getElementById('trainerEmail')).value;
-    var pass = (<HTMLInputElement>document.getElementById('trainerPass')).value;
+    var id = (<HTMLInputElement>document.getElementById('new-trainerId')).value;
+    var name = (<HTMLInputElement>document.getElementById('new-trainerName')).value;
+    var email = (<HTMLInputElement>document.getElementById('new-trainerEmail')).value;
+    var pass = (<HTMLInputElement>document.getElementById('new-trainerPassword')).value;
     var skills = [];
     if (id != null && name != null && email != null && pass != null) {
       var tempTrainer: Trainer = new Trainer(id, name, email, pass, true, skills);
@@ -163,6 +165,30 @@ export class AdminHomeComponent implements OnInit {
       let course:Course=new Course(courseId,courseName,true);
       this.courseServ.addcourse(course).subscribe();
     }
+  }
+
+  manageSkills(trainerId)
+  { this.trainServ.setLocalTrainerById(trainerId);
+    this.showSkillsFlag=!this.showSkillsFlag;
+
+    if(this.showSkillsFlag){
+    this.tempSkills=this.trainServ.getSkills();
+    }
+
+  }
+
+  deleteSkill(skill)
+  {
+    this.trainServ.deleteSkills(skill);
+    this.tempSkills=this.trainServ.getSkills();
+
+  }
+
+  addSkill()
+  {
+    var skill=(<HTMLInputElement>document.getElementById('skill')).value;
+    this.trainServ.addskills(skill);
+    this.tempSkills=this.trainServ.getSkills();
   }
 
 }
