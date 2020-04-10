@@ -7,12 +7,13 @@
 		name="Feedback Management System JPA">
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/project" />
-			<property name="javax.persistence.jdbc.user" value="ogupta261" />
+				value="jdbc:mysql://localhost:3306/feedback_system" />
+			<property name="javax.persistence.jdbc.user" value="aman_developer" />
 			<property name="javax.persistence.jdbc.password"
-				value="system" />
+				value="Am@n1998" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 		</properties>
 	</persistence-unit>
+	
 </persistence>

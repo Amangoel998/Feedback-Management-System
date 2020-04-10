@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - AuthInterface",
+            "request": "launch",
+            "mainClass": "com.cg.feedback.pl.AuthInterface",
+            "projectName": "Feedback_management_JPA"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringRestController<Feedback_Management_SpringBoot>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.cg.feedback.restcontroller.SpringRestController",
+            "projectName": "Feedback_Management_SpringBoot",
+            "args": ""
+        }
+    ]
+}

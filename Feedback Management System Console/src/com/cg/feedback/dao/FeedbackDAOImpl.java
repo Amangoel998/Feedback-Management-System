@@ -53,7 +53,7 @@ public class FeedbackDAOImpl implements FeedbackDAO {
 		if (course == null)
 			throw new CustomException("Course not present for this program or Course not started");
 
-		for (Map.Entry e : dao.getBatchOfCourse().entrySet()) {
+		for (Map.Entry<String,String> e : dao.getBatchOfCourse().entrySet()) {
 			if (e.getValue().equals(course)) {
 				batch = (String) e.getKey();
 				break;
