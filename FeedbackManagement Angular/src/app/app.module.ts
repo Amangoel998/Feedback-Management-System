@@ -13,8 +13,6 @@ import { GiveFeedbackComponent } from './give-feedback/give-feedback.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { TrainerLoginComponent } from './trainer-login/trainer-login.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
 import { TrainerHomeComponent } from './trainer-home/trainer-home.component';
 
 @NgModule({
@@ -33,9 +31,7 @@ import { TrainerHomeComponent } from './trainer-home/trainer-home.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule,
-    BrowserAnimationsModule,
-    MatDialogModule
+    RouterModule
   ],
   providers: [StuServiceService],
   bootstrap: [AppComponent]
