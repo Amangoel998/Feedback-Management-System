@@ -15,7 +15,8 @@ const routes: Routes = [{path:'stuLogin',component:StuLoginComponent},
 {path:'admin',component:AdminLoginComponent},
 {path:'adminHome',component:AdminHomeComponent},
 {path:'trainer',component:TrainerLoginComponent},
-{path:'trainerHome',component:TrainerHomeComponent}];
+{path:'trainerHome',component:TrainerHomeComponent},
+{path: '**', redirectTo:"admin"}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
