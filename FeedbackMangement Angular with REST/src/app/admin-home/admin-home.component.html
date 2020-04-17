@@ -1,0 +1,386 @@
+<nav class="navbar ">
+  <ul class="nav nav-pills" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+        aria-controls="pills-home" aria-selected="true">Feedbacks</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-students-tab" data-toggle="pill" href="#pills-student" role="tab"
+        aria-controls="pills-student" aria-selected="false">Students</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-trainers-tab" data-toggle="pill" href="#pills-trainer" role="tab"
+        aria-controls="pills-trainer" aria-selected="false">Trainers</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-course-tab" data-toggle="pill" href="#pills-courses" role="tab"
+        aria-controls="pills-courses" aria-selected="false">Courses</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-programs-tab" data-toggle="pill" href="#pills-programs" role="tab"
+        aria-controls="pills-programs" aria-selected="false">Programs</a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav" style="float: right;">
+    <li><button class="btn btn-warning" (click)="logout()">Logout
+        <img src="https://cdn.onlinewebfonts.com/svg/img_248752.png" alt="" style="width: 20px; height: 20px;">
+      </button></li>
+  </ul>
+</nav>
+<div class="tab-content" id="pills-tabContent" style="text-align: center;">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+    <div>
+      <h1> List of all the Trainers</h1>
+      <div class="container col-md-9">
+        <table class="table table-light table-bordered">
+          <tr class="thead-dark">
+            <th>Trainer ID</th>
+            <th>Trainer Name</th>
+            <th>Trainer Email</th>
+            <th>Programs UnderTaken</th>
+          </tr>
+
+          <tr *ngFor="let trainer of trainServ.trainerDB">
+            <td>{{trainer.id}}</td>
+            <td>{{trainer.trainerName}}</td>
+            <td>{{trainer.trainerEmail}}</td>
+            <td><button class="btn btn-info"
+                (click)="showProgramsForTrainer(trainer.id)">{{viewTrainerProgramsButton}}</button></td>
+          </tr>
+        </table>
+      </div>
+
+      <div *ngIf="showTrainerPrograms">
+        <h2>Programs Undertaken by {{trainServ.localTrainer.trainerName}}</h2>
+        <div class="container col-md-9">
+          <table class="table table-light table-bordered">
+            <thead class="thead-dark">
+              <th>Program Id</th>
+              <th>Batch</th>
+              <th>View FeedBacks</th>
+            </thead>
+            <tr *ngFor="let program of programsForTrainer">
+              <td>{{program.programId}}</td>
+              <td>{{program.batch}}</td>
+              <td><button class="btn btn-info" (click)="showFeedbacksForProgram(program.programId,program.batch)">Show
+                  Feedbacks</button></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="viewFeedbacksForProgram">
+        <h2>FeedBack for {{programServ.localProgram.programName}} ({{programServ.localProgram.id}}) by
+          {{trainServ.localTrainer.trainerName}} </h2>
+        <div class="container col-md-9">
+          <table class="table table-light table-bordered" *ngIf="feedbacksForProgram.length>0">
+            <tr class="thead thead-dark">
+              <th>FeedBack ID</th>
+              <th>Trainer ID</th>
+              <th>Program ID</th>
+              <th>Presentation and communication skills of faculty</th>
+              <th>Ability to clarify doubts and explain difficult points</th>
+              <th>Time management in completing the content</th>
+              <th>Handout provided(Student Guide)</th>
+              <th>Hardware, software and network availability</th>
+              <th>Comments</th>
+              <th>Sugesstions</th>
+            </tr>
+            <tr *ngFor="let feedback of feedbacksForProgram">
+              <td>{{feedback.id}}</td>
+              <td>{{feedback.trainerId}}</td>
+              <td>{{feedback.programId}}</td>
+              <td *ngFor=" let ques of feedback.questions">{{ques}}</td>
+              <td>{{feedback.comments}}</td>
+              <td>{{feedback.suggestions}}</td>
+
+            </tr>
+          </table>
+
+          <div *ngIf="feedbacksForProgram.length==0">
+            <h1 class="text-danger" style="background-color: wheat;">No Feedbacks present</h1>
+          </div>
+        </div>
+        <h2>FeedBack Defaulters for {{programServ.localProgram.programName}} ({{programServ.localProgram.id}}) by
+          {{trainServ.localTrainer.trainerName}} </h2>
+
+        <div class="container col-md-9">
+          <table class="table table-light table-bordered">
+            <tr class="thead thead-dark">
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Batch</th>
+              <th>Email</th>
+            </tr>
+
+            <tr *ngFor="let defaulter of feedbackDefaulters">
+              <td>{{defaulter.id}}</td>
+              <td>{{defaulter.studentName}}</td>
+              <td>{{defaulter.batch}}</td>
+              <td>{{defaulter.studentEmail}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="tab-pane fade" id="pills-student" role="tabpanel" aria-labelledby="pills-students-tab">
+    <h1>List of all Students</h1>
+    <div class="container">
+      <table class="table table-dark table-bordered">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Batch</th>
+          <th>Delete</th>
+        </tr>
+
+        <tr *ngFor="let d of studServ.studentDb">
+          <td>{{d.id}}</td>
+          <td>{{d.studentName}}</td>
+          <td>{{d.studentEmail}}</td>
+          <td>{{d.password}}</td>
+          <td>{{d.batch}}</td>
+          <td><input type="button" value="Delete" class="btn btn-danger" (click)="deleteStudent(d.id)"></td>
+        </tr>
+
+        <tr>
+
+          <td><input type="text" class="form-control" name="studentId" placeholder="student ID here" id="stuId"></td>
+          <td><input type="text" class="form-control" name="studentName" placeholder="student Name here" id="stuName">
+          </td>
+          <td><input type="text" class="form-control" name="studentEmail" placeholder="student Email here"
+              id="stuEmail"></td>
+          <td><input type="text" class="form-control" name="password" placeholder="Password here" id="pass"></td>
+          <td><input type="text" class="form-control" name="batch" placeholder="Enter Batch" id="batch"></td>
+          <td><input type="button" value="Add Student" class="btn btn-success" (click)="addStudent()"></td>
+
+        </tr>
+
+
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="pills-trainer" role="tabpanel" aria-labelledby="pills-trainers-tab">
+    <h1>List of all Trainers</h1>
+    <div class="container">
+      <table class="table table-dark table-bordered">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Skills</th>
+          <th>Delete</th>
+        </tr>
+
+        <tr *ngFor="let d of trainServ.trainerDB;">
+          <td>{{d.id}}</td>
+          <td>{{d.trainerName}}</td>
+          <td>{{d.trainerEmail}}</td>
+          <td>{{d.password}}</td>
+          <td>
+            <button class="btn btn-warning" (click)="manageSkills(d.id)">Manage Skills</button>
+          </td>
+          <td><input type="button" value="Delete" class="btn btn-danger" (click)="deleteTrainer(d.id)"></td>
+        </tr>
+      </table>
+
+      <h2>Add new Trainer</h2>
+      <table class="table table-dark table-bordered">
+        <tr>
+          <th>Trainer ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Action</th>
+        </tr>
+
+        <tr>
+          <td>
+            <input type="text" id="new-trainerId" class="form-control">
+          </td>
+          <td>
+            <input type="text" id="new-trainerName" class="form-control">
+          </td>
+          <td>
+            <input type="text" id="new-trainerEmail" class="form-control">
+          </td>
+          <td>
+            <input type="text" id="new-trainerPassword" class="form-control">
+          </td>
+          <td><button class="btn btn-success" (click)="addTrainer()">
+            Add Trainer
+          </button></td>
+
+          
+        </tr>
+
+      </table>
+    </div>
+    <div *ngIf="showSkillsFlag">
+      <div class="container">
+        <table class="table table-light table-bordered">
+          <tr class="thead thead-dark">
+            <th>Skill</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngFor="let skill of tempSkills">
+            <td>
+              {{skill}}
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteSkill(skill)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" class="form-control" placeholder="Enter skill here" id="skill">
+            </td>
+            <td>
+              <button class="btn btn-success" (click)="addSkill()">Add Skill</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="pills-courses" role="tabpanel" aria-labelledby="pills-courses-tab">
+    <h1>List of all courses</h1>
+    <div class="container col-md-8">
+      <table class="table table-dark table-bordered" >
+        <tr>
+          <th>Course ID</th>
+          <th>Course Name</th>
+          <th>Programs In Course</th>
+          <th>Actions</th>
+        </tr>
+
+        <tr *ngFor="let course of courseServ.courseDb">
+          <td>{{course.id}}</td>
+          <td>{{course.courseName}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="loadProgramsForCourse(course.id)">
+              {{viewProgramButton}}
+            </button>
+
+          </td>
+
+          <td>
+            <input type="button" value="Delete" class="btn btn-danger" (click)="deleteCourse(course.id)">
+          </td>
+        </tr>
+      </table>
+      <h2>Add Course to Database</h2>
+      <table class="table table-dark table-bordered">
+        <tr>
+          <th>Course ID</th>
+          <th>Course Name</th>
+          <th>Add Course</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" id="new-courseId" class="form-control" placeholder="Course ID here" required>
+          </td>
+          <td>
+            <input type="text" id="new-courseName" class="form-control" placeholder="Course Name here" required>
+          </td>
+          <td>
+            <button class="btn btn-success" (click)="addCourse()">Add Course</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="show">
+      <div class="container">
+        <h1> Programs under {{courseServ.localCourse.courseName}} ({{courseServ.localCourse.id}}) </h1>
+        <table class="table table-dark table-bordered">
+          <tr class="thead-dark">
+            <th>S.No</th>
+            <th>Course Id</th>
+            <th>Program Id</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let program of localProgarms;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{program.courseId}}</td>
+            <td>{{program.programID}}</td>
+            <td>{{program.startDate}}</td>
+            <td>{{program.endDate}}</td>
+            <td><button class="btn btn-danger" (click)="removeFromCourse(program.id)">Remove from course</button></td>
+          </tr>
+        </table>
+      </div>
+      <button class="btn btn-success" (click)="showFormProgramCourse()">Add Program to Course</button>
+      <div *ngIf="showProgramForm" class="container">
+        <table class="table table-light table-bordered">
+          <tr class="thead-dark">
+            <th>Course ID</th>
+            <th>Program ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" id='course-courseId' value="{{courseServ.localCourse.id}}" disabled
+                class="form-control">
+            </td>
+            <td>
+              <input type="text" id="course-programId" class="form-control">
+            </td>
+            <td>
+              <input type="date" id="start-date" class="form-control">
+            </td>
+            <td>
+              <input type="date" id="end-date" class="form-control">
+            </td>
+            <td>
+              <button class="btn btn-success" (click)="addProgramToCourse()">Submit</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="pills-programs" role="tabpanel" aria-labelledby="pills-programs-tab">
+    <h1>List of all Programs</h1>
+    <div class="container col-md-5">
+      <table class="table table-dark table-bordered">
+        <tr>
+          <th>Program ID</th>
+          <th>Program Name</th>
+          <th>Actions</th>
+        </tr>
+
+        <tr *ngFor="let program of programServ.programDB">
+          <td>{{program.id}}</td>
+          <td>{{program.programName}}</td>
+          <td>
+            <input type="button" value="Delete" class="btn btn-danger" (click)="deleteProgram(program.id)">
+          </td>
+        </tr>
+
+        <tr>
+          <td><input type="text" class="form-control" name="programId" placeholder="Program ID here" id="programId">
+          </td>
+          <td><input type="text" class="form-control" name="programName" placeholder="Program Name here"
+              id="programName"></td>
+          <td><input type="submit" value="Add Program" class="btn btn-success" (click)="addProgram()"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+</div>
