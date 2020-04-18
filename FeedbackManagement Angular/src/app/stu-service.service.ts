@@ -41,7 +41,7 @@ export class StuServiceService {
 
   addStudent(student:Student)
   { this.studentDb.push(student);
-    return this.http.post('http://localhost:3000/students',student);
+    return this.http.post('http://localhost:3000/students/',student);
     
   }
 
@@ -139,6 +139,8 @@ export class StuServiceService {
   //   )
 
   //   return students;
+  console.log(batch);
+  
   let students=[];
     this.http.get('http://localhost:3000/students').subscribe(resp=>{
       for(const d of (resp as Student[]))
@@ -151,7 +153,8 @@ export class StuServiceService {
        }
 
     )
-
+       console.log(students);
+       
     return students;
   }
 

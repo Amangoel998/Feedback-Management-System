@@ -5,6 +5,7 @@ import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback';
 import { StuServiceService } from './stu-service.service';
 import { Student } from './student';
+import { TrainerPrograms } from './trainerProgram';
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +100,7 @@ export class TrainersService {
     }
 
     )
+    
     return programs;
   }
 
@@ -145,6 +147,8 @@ export class TrainersService {
   }
 
   viewFeedBackDefaulters(programId:any,batch:any){
+    console.log(batch);
+    
     let studentsInProgram=this.stuServ.getStudentsFromBatch(batch);
 
     this.feed.getFeedbacks().subscribe(resp=>{
@@ -189,5 +193,15 @@ export class TrainersService {
       }
       
   });
+}
+
+addTrainerProgram(trainerProgram:TrainerPrograms)
+{
+  return this.http.post('http://localhost:3000/trainersProgram/',trainerProgram);
+}
+
+removeTrainerProgram(id)
+{
+  return this.http.delete('http://localhost:3000/trainersProgram/'+id);
 }
 }

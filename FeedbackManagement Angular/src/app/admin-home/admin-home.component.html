@@ -29,10 +29,9 @@
 </nav>
 <div class="tab-content" id="pills-tabContent" style="text-align: center;">
   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-    <div>
-      <h1> List of all the Trainers</h1>
+     
       <div class="container col-md-9">
+        <h1> List of all the Trainers</h1>
         <table class="table table-light table-bordered">
           <tr class="thead-dark">
             <th>Trainer ID</th>
@@ -71,9 +70,9 @@
       </div>
 
       <div *ngIf="viewFeedbacksForProgram">
-        <h2>FeedBack for {{programServ.localProgram.programName}} ({{programServ.localProgram.id}}) by
-          {{trainServ.localTrainer.trainerName}} </h2>
-        <div class="container col-md-9">
+        <div class="container col-md-12">
+          <h2>FeedBack for {{programServ.localProgram.programName}} ({{programServ.localProgram.id}}) by
+            {{trainServ.localTrainer.trainerName}} </h2>
           <table class="table table-light table-bordered" *ngIf="feedbacksForProgram.length>0">
             <tr class="thead thead-dark">
               <th>FeedBack ID</th>
@@ -102,10 +101,11 @@
             <h1 class="text-danger" style="background-color: wheat;">No Feedbacks present</h1>
           </div>
         </div>
-        <h2>FeedBack Defaulters for {{programServ.localProgram.programName}} ({{programServ.localProgram.id}}) by
-          {{trainServ.localTrainer.trainerName}} </h2>
+      
 
         <div class="container col-md-9">
+          <h2>FeedBack Defaulters for {{programServ.localProgram.programName}} ({{programServ.localProgram.id}}) by
+            {{trainServ.localTrainer.trainerName}} </h2>
           <table class="table table-light table-bordered">
             <tr class="thead thead-dark">
               <th>Student ID</th>
@@ -124,19 +124,19 @@
         </div>
       </div>
 
-    </div>
-
   </div>
   <div class="tab-pane fade" id="pills-student" role="tabpanel" aria-labelledby="pills-students-tab">
-    <h1>List of all Students</h1>
+    
     <div class="container">
+      <h1>List of all Students</h1>
+      <form [formGroup]="studentForm">
       <table class="table table-dark table-bordered">
         <tr>
           <th>Id</th>
           <th>Name</th>
           <th>Email</th>
           <th>Password</th>
-          <th>Batch</th>
+          <th>Batch Enrolled </th>
           <th>Delete</th>
         </tr>
 
@@ -150,25 +150,41 @@
         </tr>
 
         <tr>
-
-          <td><input type="text" class="form-control" name="studentId" placeholder="student ID here" id="stuId"></td>
-          <td><input type="text" class="form-control" name="studentName" placeholder="student Name here" id="stuName">
+          <td><input type="text" class="form-control" formControlName="studentId" placeholder="Enter Student ID">
+            <div *ngIf="studentForm.get('studentId').hasError('required') && ( studentForm.get('studentId').dirty ||studentForm.get('studentId').touched )"  class="text text-danger">Student Id is required</div>
           </td>
-          <td><input type="text" class="form-control" name="studentEmail" placeholder="student Email here"
-              id="stuEmail"></td>
-          <td><input type="text" class="form-control" name="password" placeholder="Password here" id="pass"></td>
-          <td><input type="text" class="form-control" name="batch" placeholder="Enter Batch" id="batch"></td>
-          <td><input type="button" value="Add Student" class="btn btn-success" (click)="addStudent()"></td>
+          <td><input type="text" class="form-control" formControlName="studentName"  placeholder="Enter Student Name">
+            <div *ngIf="studentForm.get('studentName').hasError('required') && ( studentForm.get('studentName').dirty ||studentForm.get('studentName').touched )"  class="text text-danger">Student Name is required</div>
 
+          </td>
+          <td><input type="text" class="form-control" formControlName="studentEmail"  placeholder="Enter Student Email">
+            <div *ngIf="studentForm.get('studentEmail').hasError('required') && ( studentForm.get('studentEmail').dirty ||studentForm.get('studentEmail').touched )"  class="text text-danger">Student E-Mail is required</div>
+            <div *ngIf="!studentForm.get('studentEmail').hasError('required') && studentForm.get('studentEmail').hasError('email') && ( studentForm.get('studentEmail').dirty ||studentForm.get('studentEmail').touched )"  class="text text-danger">Invalid Email</div>
+          </td>
+          <td><input type="text" class="form-control" formControlName="password"  placeholder="Enter Password">
+            <div *ngIf="studentForm.get('password').hasError('required') && ( studentForm.get('password').dirty ||studentForm.get('password').touched )"  class="text text-danger">Password is required</div></td>
+        
+
+          <td>
+            <select formControlName="batchesDropdown" class="form-control">
+              <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
+            </select>
+            <div *ngIf="studentForm.get('batchesDropdown').hasError('required') && ( studentForm.get('batchesDropdown').dirty ||studentForm.get('batchesDropdown').touched )"  class="text text-danger">BAtch is required</div>
+
+
+          </td>
+          <td><input type="button" value="Add Student" class="btn btn-success" (click)="addStudent()"></td>
         </tr>
 
 
       </table>
+      </form>
     </div>
   </div>
   <div class="tab-pane fade" id="pills-trainer" role="tabpanel" aria-labelledby="pills-trainers-tab">
-    <h1>List of all Trainers</h1>
+   
     <div class="container">
+      <h1>List of all Trainers</h1>
       <table class="table table-dark table-bordered">
         <tr>
           <th>Id</th>
@@ -176,6 +192,7 @@
           <th>Email</th>
           <th>Password</th>
           <th>Skills</th>
+          <th>Programs</th>
           <th>Delete</th>
         </tr>
 
@@ -187,11 +204,91 @@
           <td>
             <button class="btn btn-warning" (click)="manageSkills(d.id)">Manage Skills</button>
           </td>
+          <td>
+            <button class="btn btn-info" (click)="managePrograms(d.id)">Manage Programs</button>
+          </td>
           <td><input type="button" value="Delete" class="btn btn-danger" (click)="deleteTrainer(d.id)"></td>
         </tr>
       </table>
 
+      <div *ngIf="trainerProgramToggle" class="container col-md-9">
+        <h2>Programs Under Taken by {{trainServ.localTrainer.trainerName}} </h2>
+        <form [formGroup]="trainerPrograms">
+        <table class="table table-dark table-bordered">
+          <tr>
+            <th>Trainer ID</th>
+            <th>Program ID</th>
+            <th>Batch for Program</th>
+            <th>Action</th>
+          </tr>
+
+          <tr *ngFor="let program of programsForTrainer">
+            <td>{{program.trainerId}}</td>
+            <td>{{program.programId}}</td>
+            <td>{{program.batch}}</td>
+
+            <td><button class="btn btn-danger" (click)="removeTrainerProgram(program.id)">Remove Program</button></td>
+          </tr>
+
+          <tr>
+            <td>
+              <input type="text" value="{{trainServ.localTrainer.id}}" disabled class="form-control">
+            </td>
+            <td>
+             <select class="form-control" formControlName="programId">
+               <option *ngFor="let program of programServ.programDB" [value]="program.id">{{program.id}} - {{program.programName}}</option>
+               </select>
+             <div class="text text-danger" *ngIf="trainerPrograms.get('programId').hasError('required') && (trainerPrograms.get('programId').dirty || trainerPrograms.get('programId').touched)">
+              Program ID not Specified
+             </div>
+            </td>
+            <td>
+              <select formControlName="batch" class="form-control">
+                <option *ngFor="let batch of batches" [value]="batch">{{batch}}</option>
+              </select>
+              <div class="text text-danger" *ngIf="trainerPrograms.get('batch').hasError('required') && (trainerPrograms.get('batch').dirty || trainerPrograms.get('batch').touched)">
+               Batch not Selected
+               </div>
+            </td>
+            <td>
+              <button class="btn btn-success" (click)="addProgramForTrainer()">Add Program</button>
+            </td>
+          </tr>
+        </table>
+        </form>
+      </div>
+
+      <div *ngIf="showSkillsFlag">
+        <h2>Skills for {{trainServ.localTrainer.trainerName}}</h2>
+        <div class="container">
+          <table class="table table-light table-bordered">
+            <tr class="thead thead-dark">
+              <th>Skill</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngFor="let skill of tempSkills">
+              <td>
+                {{skill}}
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="deleteSkill(skill)">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" class="form-control" placeholder="Enter skill here" id="skill">
+              </td>
+              <td>
+                <button class="btn btn-success" (click)="addSkill()">Add Skill</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+  
+      </div>
+
       <h2>Add new Trainer</h2>
+      <form [formGroup]="newTrainerForm">
       <table class="table table-dark table-bordered">
         <tr>
           <th>Trainer ID</th>
@@ -203,16 +300,28 @@
 
         <tr>
           <td>
-            <input type="text" id="new-trainerId" class="form-control">
+            <input type="text" formControlName="trainerId" class="form-control" placeholder="Enter Trainer ID">
+            <div *ngIf="newTrainerForm.get('trainerId').hasError('required')&&(newTrainerForm.get('trainerId').dirty||newTrainerForm.get('trainerId').touched)" class="text text-danger">
+              Id not specified
+            </div>
           </td>
           <td>
-            <input type="text" id="new-trainerName" class="form-control">
+            <input type="text" formControlName="trainerName" class="form-control" placeholder="Enter Trainer Name">
+            <div *ngIf="newTrainerForm.get('trainerName').hasError('required')&&(newTrainerForm.get('trainerName').dirty||newTrainerForm.get('trainerName').touched)" class="text text-danger">
+              Name can not be empty
+            </div>
           </td>
           <td>
-            <input type="text" id="new-trainerEmail" class="form-control">
+            <input type="text" formControlName="trainerEmail" class="form-control" placeholder="Enter Email here">
+            <div *ngIf="newTrainerForm.get('trainerEmail').hasError('required') && ( newTrainerForm.get('trainerEmail').dirty ||newTrainerForm.get('trainerEmail').touched )"  class="text text-danger">Student E-Mail is required</div>
+            <div *ngIf="!newTrainerForm.get('trainerEmail').hasError('required') && newTrainerForm.get('trainerEmail').hasError('email') && ( newTrainerForm.get('trainerEmail').dirty ||newTrainerForm.get('trainerEmail').touched )"  class="text text-danger">Invalid Email</div>
+          
           </td>
           <td>
-            <input type="text" id="new-trainerPassword" class="form-control">
+            <input type="text" formControlName="password" class="form-control" placeholder="Password">
+            <div *ngIf="newTrainerForm.get('password').hasError('required')&&(newTrainerForm.get('password').dirty||newTrainerForm.get('password').touched)" class="text text-danger"> 
+              Password is required
+            </div>
           </td>
           <td><button class="btn btn-success" (click)="addTrainer()">
             Add Trainer
@@ -222,44 +331,21 @@
         </tr>
 
       </table>
+      </form>
     </div>
-    <div *ngIf="showSkillsFlag">
-      <div class="container">
-        <table class="table table-light table-bordered">
-          <tr class="thead thead-dark">
-            <th>Skill</th>
-            <th>Action</th>
-          </tr>
-          <tr *ngFor="let skill of tempSkills">
-            <td>
-              {{skill}}
-            </td>
-            <td>
-              <button class="btn btn-danger" (click)="deleteSkill(skill)">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="text" class="form-control" placeholder="Enter skill here" id="skill">
-            </td>
-            <td>
-              <button class="btn btn-success" (click)="addSkill()">Add Skill</button>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-    </div>
+    
   </div>
 
   <div class="tab-pane fade" id="pills-courses" role="tabpanel" aria-labelledby="pills-courses-tab">
-    <h1>List of all courses</h1>
+   
     <div class="container col-md-8">
+      <h1>List of all courses</h1>
       <table class="table table-dark table-bordered" >
         <tr>
           <th>Course ID</th>
           <th>Course Name</th>
           <th>Programs In Course</th>
+          <th>Batches</th>
           <th>Actions</th>
         </tr>
 
@@ -274,11 +360,65 @@
           </td>
 
           <td>
+            <button class="btn btn-warning" (click)="manageBatches(course.id)" >Manage Batches</button>
+          </td>
+
+          <td>
             <input type="button" value="Delete" class="btn btn-danger" (click)="deleteCourse(course.id)">
           </td>
         </tr>
       </table>
+
+      <div *ngIf="showBatchForCourse">
+        <h2>Batches for {{courseServ.localCourse.courseName}} ({{courseServ.localCourse.id}})</h2>
+        <form [formGroup]="newBatchForm" class="form-group">
+        <table class="table table-light table-bordered">
+          <tr class="thead thead-dark">
+            <th>
+              Course Id
+            </th>
+            <th>
+              Course Name
+            </th>
+            <th>
+              Batch Name
+            </th>
+            <th>
+              Action
+            </th>
+          </tr>
+
+          <tr *ngFor="let batch of batchesForCourse">
+            <td>
+              {{batch.CourseId}}
+            </td>
+            <td>
+              {{courseServ.localCourse.courseName}}
+            </td>
+            <td>
+              {{batch.batch}}
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="removeBatch(batch.id)"> Remove Batch</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td><input type="text" [value]="courseServ.localCourse.id" disabled class="form-control"></td>
+            <td><input type="text" [value]="courseServ.localCourse.courseName" disabled class="form-control"></td>
+            <td><input type="text" formControlName="batch" class="form-control">
+              <div class="text text-danger" *ngIf="newBatchForm.get('batch').hasError('required')&&(newBatchForm.get('batch').dirty || newBatchForm.get('batch').touched)">
+                Batch is required
+              </div>
+            </td>
+            <td><button class="btn btn-success" (click)="addBatches()">Add Batch to course</button></td>
+          </tr>
+        </table>
+        </form>
+      </div>
+
       <h2>Add Course to Database</h2>
+      <form [formGroup]="newCourseForm">
       <table class="table table-dark table-bordered">
         <tr>
           <th>Course ID</th>
@@ -287,16 +427,23 @@
         </tr>
         <tr>
           <td>
-            <input type="text" id="new-courseId" class="form-control" placeholder="Course ID here" required>
+            <input type="text" formControlName="courseId" class="form-control" placeholder="Course ID here" >
+            <div class="text text-danger" *ngIf="newCourseForm.get('courseId').hasError('required')&&(newCourseForm.get('courseId').dirty||newCourseForm.get('courseId').touched)">
+              Course ID is required
+            </div>
           </td>
           <td>
-            <input type="text" id="new-courseName" class="form-control" placeholder="Course Name here" required>
+            <input type="text" formControlName="courseName" class="form-control" placeholder="Course Name here">
+            <div class="text text-danger" *ngIf="newCourseForm.get('courseName').hasError('required')&&(newCourseForm.get('courseName').dirty||newCourseForm.get('courseName').touched)">
+              Course Name is required
+            </div>
           </td>
           <td>
             <button class="btn btn-success" (click)="addCourse()">Add Course</button>
           </td>
         </tr>
       </table>
+      </form>
     </div>
     <div *ngIf="show">
       <div class="container">
@@ -322,6 +469,7 @@
       </div>
       <button class="btn btn-success" (click)="showFormProgramCourse()">Add Program to Course</button>
       <div *ngIf="showProgramForm" class="container">
+        <form [formGroup]="newProgramForCourse">
         <table class="table table-light table-bordered">
           <tr class="thead-dark">
             <th>Course ID</th>
@@ -332,30 +480,44 @@
           </tr>
           <tr>
             <td>
-              <input type="text" id='course-courseId' value="{{courseServ.localCourse.id}}" disabled
+              <input type="text" value="{{courseServ.localCourse.id}}" disabled
                 class="form-control">
             </td>
             <td>
-              <input type="text" id="course-programId" class="form-control">
+              <select type="text" formControlName="programId" class="form-control">
+                <option *ngFor="let program of programServ.programDB" [value]="program.id">{{program.id}} - {{program.programName}}</option>
+              </select>
+              <div class="text text-danger"*ngIf="newProgramForCourse.get('programId').hasError('required')&&(newProgramForCourse.get('programId').dirty||newProgramForCourse.get('programId').touched)">
+                Program not Selected
+              </div>
             </td>
             <td>
-              <input type="date" id="start-date" class="form-control">
+              <input type="date" formControlName="startDate" class="form-control">
+              <div class =" text text-danger" *ngIf="newProgramForCourse.get('startDate').hasError('required')&&(newProgramForCourse.get('startDate').dirty||newProgramForCourse.get('startDate').touched)">
+                Start date not Selected
+              </div>
             </td>
             <td>
-              <input type="date" id="end-date" class="form-control">
+              <input type="date" formControlName="endDate" class="form-control">
+              <div class="text text-danger" *ngIf="newProgramForCourse.get('endDate').hasError('required')&&(newProgramForCourse.get('endDate').dirty||newProgramForCourse.get('endDate').touched)">
+                End date not Selected
+              </div>
             </td>
             <td>
               <button class="btn btn-success" (click)="addProgramToCourse()">Submit</button>
             </td>
           </tr>
         </table>
+        </form>
       </div>
     </div>
   </div>
 
   <div class="tab-pane fade" id="pills-programs" role="tabpanel" aria-labelledby="pills-programs-tab">
-    <h1>List of all Programs</h1>
+   
     <div class="container col-md-5">
+      <h1>List of all Programs</h1>
+      <form [formGroup]="newProgramForm">
       <table class="table table-dark table-bordered">
         <tr>
           <th>Program ID</th>
@@ -372,13 +534,20 @@
         </tr>
 
         <tr>
-          <td><input type="text" class="form-control" name="programId" placeholder="Program ID here" id="programId">
+          <td><input type="text" class="form-control"  placeholder="Program ID here" formControlName="programId">
+          <div class="text text-danger" *ngIf="newProgramForm.get('programId').hasError('required')&&(newProgramForm.get('programId').dirty||newProgramForm.get('programId').touched)">
+            Program Id is Required
+          </div>
           </td>
-          <td><input type="text" class="form-control" name="programName" placeholder="Program Name here"
-              id="programName"></td>
+          <td><input type="text" class="form-control" placeholder="Program Name here" formControlName="programName">
+            <div class="text text-danger" *ngIf="newProgramForm.get('programName').hasError('required')&&(newProgramForm.get('programName').dirty||newProgramForm.get('programName').touched)">
+              Program Name is Required
+            </div>
+          </td>
           <td><input type="submit" value="Add Program" class="btn btn-success" (click)="addProgram()"></td>
         </tr>
       </table>
+      </form>
     </div>
   </div>
 
