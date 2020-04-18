@@ -303,17 +303,15 @@ public class Input {
 
 	public static String inputPassword() {
 		String st;
-		cons = System.console();
+		br = new BufferedReader(inr);
 		while (true) {
 			try {
-				System.out.print("\nEnter Password: {hidden}");
-				char[] pass = cons.readPassword();
-				st = new String(pass);
+				System.out.print("\nEnter Password: ");
+				st = br.readLine();
 				if (Validator.isValidPassword(st)) {
-					cons.flush();
 					return st;
 				}
-			} catch (CustomException e) {
+			} catch (CustomException | IOException e) {
 				System.err.print(e.getMessage() + ", enter again");
 			}
 		}

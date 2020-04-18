@@ -4,30 +4,36 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cg.feedback.dao.*;
 import com.cg.feedback.dto.*;
 import com.cg.feedback.exceptions.CustomException;
 
+@Service
 public class AdminServiceImpl implements AdminService{
-
-	private CourseDAO crsDao = new CourseDAOImpl();
-	private FeedbackDAO fdbDao = new FeedbackDAOImpl();
-	private ProgramDAO prgDao = new ProgramDAOImpl();
-	private StudentDAO stdDao = new StudentDAOImpl();
-	private TrainerDAO trnDao = new TrainerDAOImpl();
-	private AdminDAO admin = new AdminDAOImpl();
-
-	@Override
-	public boolean login(String id, String pass) throws CustomException {
-		if(admin.validateAdmin(id, pass))
-			return true;
-		else
-			throw new CustomException("Invalid Login Credentials for Admin.");
+	private CourseDAO crsDao;
+	private FeedbackDAO fdbDao;
+	private ProgramDAO prgDao;
+	private StudentDAO stdDao;
+	private TrainerDAO trnDao;
+	private AdminDAO admin;
+	
+	@Autowired
+	public AdminServiceImpl(){
+		this.crsDao = new CourseDAOImpl();
+		this.fdbDao = new FeedbackDAOImpl();
+		this.prgDao = new ProgramDAOImpl();
+		this.stdDao = new StudentDAOImpl();
+		this.trnDao = new TrainerDAOImpl();
+		this.admin = new AdminDAOImpl();
 	}
+
 	@Override
-	public boolean logout() throws CustomException {
-		return true;
+	public AdminDTO login(String id, String pass) throws CustomException {
+		AdminDTO result = admin.validateAdmin(id, pass);
+		return result;
 	}
 	@Override
 	public boolean addTrainingProgram(ProgramDTO program) throws CustomException {
@@ -70,12 +76,12 @@ public class AdminServiceImpl implements AdminService{
 		return crsDao.removeTrainingCourse(courseId);
 	}
 	@Transactional
-	public ReportDTO viewFeedbackByProgram(String program) throws CustomException {
+	public List<FeedbackDTO> viewFeedbackByProgram(String program) throws CustomException {
 		
 		return fdbDao.viewFeedbackByProgram(program);
 	}
 	@Override
-	public ReportDTO viewFeedbackByTrainer(String trainer) throws CustomException {
+	public List<FeedbackDTO> viewFeedbackByTrainer(String trainer) throws CustomException {
 		return fdbDao.viewFeedbackByTrainer(trainer);
 	}
 	@Override
@@ -87,7 +93,7 @@ public class AdminServiceImpl implements AdminService{
 		return fdbDao.viewFeedbackDefaultersByTrainer(trainer);
 	}
 	@Override
-	public boolean addPrograminCourse(ProgramCourseDTO programs) throws CustomException {
+	public boolean assignPrograminCourse(ProgramCourseDTO programs) throws CustomException {
 		return admin.addPrograminCourse(programs);
 	}
 	@Override

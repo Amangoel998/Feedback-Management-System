@@ -16,13 +16,15 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Repository;
+
 import com.cg.feedback.dto.BatchCourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.ProgramCourseDTO;
-import com.cg.feedback.dto.ReportDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerProgramDTO;
 
+@Repository
 public class FeedbackDAOImpl implements FeedbackDAO{
 
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Feedback Management System JPA");
@@ -43,13 +45,13 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 	}
 
 	@Transactional
-	public ReportDTO viewFeedbackByProgram(String programId) throws CustomException {
-		return new ReportDTO(manager.createQuery("from FeedbackDTO where programid='"+programId+"'",FeedbackDTO.class).getResultList());
+	public List<FeedbackDTO> viewFeedbackByProgram(String programId) throws CustomException {
+		return manager.createQuery("from FeedbackDTO where programid='"+programId+"'",FeedbackDTO.class).getResultList();
 	}
 
 	@Override
-	public ReportDTO viewFeedbackByTrainer(String trainerId) throws CustomException {
-		return new ReportDTO(manager.createQuery("from FeedbackDTO where trainerid='"+trainerId+"'",FeedbackDTO.class).getResultList());
+	public List<FeedbackDTO> viewFeedbackByTrainer(String trainerId) throws CustomException {
+		return manager.createQuery("from FeedbackDTO where trainerid='"+trainerId+"'",FeedbackDTO.class).getResultList();
 	}
 
 	static String batch = null;

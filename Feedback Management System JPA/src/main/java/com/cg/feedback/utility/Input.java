@@ -426,7 +426,7 @@ public class Input {
 		br = new BufferedReader(inr);
 		while (true) {
 			try {
-				System.out.print("\nEnter Password: {hidden}");
+				System.out.print("\nEnter Password: ");
 				st = br.readLine();
 				if (Validator.isValidPassword(st)) {
 					return st;
