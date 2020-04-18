@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import com.cg.feedback.dto.BatchCourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.ProgramCourseDTO;
+import com.cg.feedback.dto.ReportDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerProgramDTO;
 
@@ -47,8 +48,8 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 	}
 
 	@Override
-	public List<FeedbackDTO> viewFeedbackByTrainer(String trainerId) throws CustomException {
-		return manager.createQuery("from FeedbackDTO where trainerid='"+trainerId+"'",FeedbackDTO.class).getResultList();
+	public ReportDTO viewFeedbackByTrainer(String trainerId) throws CustomException {
+		return new ReportDTO(manager.createQuery("from FeedbackDTO where trainerid='"+trainerId+"'",FeedbackDTO.class).getResultList());
 	}
 
 	static String batch = null;

@@ -9,6 +9,7 @@ import com.cg.feedback.dao.FeedbackDAOImpl;
 import com.cg.feedback.dao.TrainerDAO;
 import com.cg.feedback.dao.TrainerDAOImpl;
 import com.cg.feedback.dto.FeedbackDTO;
+import com.cg.feedback.dto.ReportDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
@@ -58,17 +59,11 @@ public class TrainerServiceImpl implements TrainerService{
 	public String showFeedBack() throws CustomException {
 		if(trainer==null)
 			throw new CustomException("Trainer Not Logged In !!");
-		List<FeedbackDTO> feedbacks = fdbDao.viewFeedbackByTrainer(trainer.getTrainerId());
-		if(feedbacks.size()==0)
-			throw new CustomException("No Feedbacks available for you!\n");
-		else{
-			String res = "";
-			if(feedbacks.size()==0)
-				res+="No available feedbacks for you!";
-			for(FeedbackDTO temp : feedbacks)
-				res+="\t"+temp+"\n";
-			return res;
-		}
+		ReportDTO feedback = fdbDao.viewFeedbackByTrainer(trainer.getTrainerId());
+		
+		if(feedback.getSize()==0)
+			return "No available feedbacks for you!";
+		return feedback.toString();
 	}
 
 	@Override

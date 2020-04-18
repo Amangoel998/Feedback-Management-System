@@ -8,6 +8,7 @@ import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.ProgramCourseDTO;
 import com.cg.feedback.dto.ProgramDTO;
+import com.cg.feedback.dto.ReportDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.dto.TrainerProgramDTO;
@@ -25,7 +26,7 @@ public interface AdminService extends UserService{
 	boolean addTrainingCourse(CourseDTO course) throws CustomException;
 	boolean removeTrainingCourse(String courseId) throws CustomException;
 	List<FeedbackDTO> viewFeedbackByProgram(String program) throws CustomException;
-	List<FeedbackDTO> viewFeedbackByTrainer(String trainer) throws CustomException;
+	ReportDTO viewFeedbackByTrainer(String trainer) throws CustomException;
 	List<StudentDTO> viewFeedbackDefaultersByProgram(String program) throws CustomException;
 	Map<String, List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException;
 	boolean addPrograminCourse(ProgramCourseDTO programs) throws CustomException;

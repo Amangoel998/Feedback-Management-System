@@ -51,8 +51,4 @@ public class StudentServiceImpl implements StudentService {
 			return fdbDao.giveFeedback(feedbackSet);
 		}
 
-		@Override
-		public List<String> getProgramsEnrolled() throws CustomException {
-			return stdDao.getAvailablePrograms(student.getStudentId());
-		}
 }

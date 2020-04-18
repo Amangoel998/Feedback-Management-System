@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService{
 		return fdbDao.viewFeedbackByProgram(program);
 	}
 	@Override
-	public List<FeedbackDTO> viewFeedbackByTrainer(String trainer) throws CustomException {
+	public ReportDTO viewFeedbackByTrainer(String trainer) throws CustomException {
 		return fdbDao.viewFeedbackByTrainer(trainer);
 	}
 	@Override
