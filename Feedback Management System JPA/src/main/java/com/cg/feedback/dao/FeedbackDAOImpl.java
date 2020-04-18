@@ -43,8 +43,8 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 	}
 
 	@Transactional
-	public List<FeedbackDTO> viewFeedbackByProgram(String programId) throws CustomException {
-		return manager.createQuery("from FeedbackDTO where programid='"+programId+"'",FeedbackDTO.class).getResultList();
+	public ReportDTO viewFeedbackByProgram(String programId) throws CustomException {
+		return new ReportDTO(manager.createQuery("from FeedbackDTO where programid='"+programId+"'",FeedbackDTO.class).getResultList());
 	}
 
 	@Override

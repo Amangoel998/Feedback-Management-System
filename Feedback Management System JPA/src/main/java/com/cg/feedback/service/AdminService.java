@@ -25,7 +25,7 @@ public interface AdminService extends UserService{
 	boolean removeTrainerSkill(String skillName,String trainerId) throws CustomException;
 	boolean addTrainingCourse(CourseDTO course) throws CustomException;
 	boolean removeTrainingCourse(String courseId) throws CustomException;
-	List<FeedbackDTO> viewFeedbackByProgram(String program) throws CustomException;
+	ReportDTO viewFeedbackByProgram(String program) throws CustomException;
 	ReportDTO viewFeedbackByTrainer(String trainer) throws CustomException;
 	List<StudentDTO> viewFeedbackDefaultersByProgram(String program) throws CustomException;
 	Map<String, List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException;

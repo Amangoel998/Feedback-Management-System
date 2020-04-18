@@ -70,7 +70,7 @@ public class AdminServiceImpl implements AdminService{
 		return crsDao.removeTrainingCourse(courseId);
 	}
 	@Transactional
-	public List<FeedbackDTO> viewFeedbackByProgram(String program) throws CustomException {
+	public ReportDTO viewFeedbackByProgram(String program) throws CustomException {
 		
 		return fdbDao.viewFeedbackByProgram(program);
 	}
