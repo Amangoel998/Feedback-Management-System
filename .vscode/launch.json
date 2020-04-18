@@ -16,6 +16,16 @@
             "mainClass": "com.cg.feedback.restcontroller.SpringRestController",
             "projectName": "Feedback_Management_SpringBoot",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringRestController<Feedback_Management_SpringBoot>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.cg.feedback.SpringRestController",
+            "projectName": "Feedback_Management_SpringBoot",
+            "args": ""
         }
     ]
 }
