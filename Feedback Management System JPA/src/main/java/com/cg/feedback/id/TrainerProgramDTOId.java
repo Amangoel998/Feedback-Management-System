@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class TrainerProgramDTOId implements Serializable{
 	private String batch, programId;
 
-	public TrainerProgramDTOId(String trainerId, String programId) {
+	public TrainerProgramDTOId(String batch, String programId) {
 		super();
-		this.batch = trainerId;
+		this.batch = batch;
 		this.programId = programId;
 	}
 

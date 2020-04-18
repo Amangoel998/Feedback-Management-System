@@ -13,6 +13,7 @@ import com.cg.feedback.dto.ProgramCourseDTO;
 import com.cg.feedback.dto.TrainerProgramDTO;
 import com.cg.feedback.exceptions.CustomException;
 import com.cg.feedback.id.ProgramCourseDTOId;
+import com.cg.feedback.id.TrainerProgramDTOId;
 
 public class AdminDAOImpl implements AdminDAO {
 	static EntityManager manager = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -34,7 +35,7 @@ public class AdminDAOImpl implements AdminDAO {
 		} catch (EntityExistsException e) {
 			manager.find(BatchCourseDTO.class, batches.getBatch()).setCourseId(batches.getCourseId());
 			manager.getTransaction().commit();
-			throw new CustomException("batch Already Exists");
+			throw new CustomException("batch Already Exists so overwritten!");
 		}
 		manager.getTransaction().commit();
 		return true;
@@ -62,7 +63,10 @@ public class AdminDAOImpl implements AdminDAO {
 		try {
 			manager.persist(trainer);
 		} catch (EntityExistsException e) {
-			throw new CustomException("Trainer for Program in this Batch Already Exists!");
+			TrainerProgramDTO temp = manager.find(TrainerProgramDTO.class, new TrainerProgramDTOId(trainer.getBatch(),trainer.getProgramId()));
+			temp.setTrainerId(trainer.getTrainerId());
+			manager.getTransaction().commit();
+			throw new CustomException("Trainer for Program in this Batch Already Exists so overwritten!");
 		}
 		manager.getTransaction().commit();
 		return true;
