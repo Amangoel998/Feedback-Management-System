@@ -13,4 +13,5 @@ public interface StudentDAO {
 	StudentDTO getStudent(String user) throws CustomException;
 	List<String> getAvailablePrograms(String studentId) throws CustomException;
 	List<FeedbackDTO> getAvailableFeedbacks(String studentId) throws CustomException;
+	List<String> getStudents();
 }

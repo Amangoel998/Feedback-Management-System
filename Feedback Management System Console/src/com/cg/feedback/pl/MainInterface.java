@@ -78,7 +78,10 @@ public class MainInterface {
 						break;
 					case 3:
 						List<FeedbackDTO> feedbacks = ((StudentServiceImpl) user).availableFeedbacks();
-						takeFeedback(feedbacks);
+						if(feedbacks.size()==0)
+							System.out.println("No Feedbacks available for you!");
+						else	
+							takeFeedback(feedbacks);
 						break;
 					default:
 						break;

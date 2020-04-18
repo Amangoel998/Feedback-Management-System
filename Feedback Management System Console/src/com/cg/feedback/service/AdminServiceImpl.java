@@ -1,6 +1,7 @@
 package com.cg.feedback.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cg.feedback.dao.*;
 import com.cg.feedback.dto.*;
@@ -12,7 +13,7 @@ public class AdminServiceImpl implements AdminService {
 	private static ProgramDAO prgDao = new ProgramDAOImpl();
 	private static StudentDAO stdDao = new StudentDAOImpl();
 	private static TrainerDAO trnDao = new TrainerDAOImpl();
-
+	private static AdminDAO adm = new AdminDAOImpl();
 	private static AdminDTO admin = null;
 
 	@Override
@@ -128,9 +129,47 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<StudentDTO> viewFeedbackDefaultersByTrainer(final String trainer) throws CustomException {
-		if (admin == null)
-			throw new CustomException("Admin Not Logged In !!");
+	public Map<String,List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException {
 		return fdbDao.viewFeedbackDefaultersByTrainer(trainer);
+	}
+	@Override
+	public boolean addPrograminCourse(List<String> programs) throws CustomException {
+		return adm.addPrograminCourse(programs);
+	}
+	@Override
+	public List<String> availableBatches() throws CustomException {
+		return adm.availableBatches();
+	}
+	@Override
+	public boolean assignTrainertoProgram(List<String> trainer) throws CustomException {
+		return adm.assignTrainertoProgram(trainer);
+	}
+	@Override
+	public boolean assignCourseToBatch(List<String> batches) throws CustomException {
+		return adm.assignCourseToBatch(batches);
+	}
+	@Override
+	public List<String> getCourses() throws CustomException {
+		return crsDao.getCourses();
+	}
+	@Override
+	public List<String> getTrainers() throws CustomException {
+		return trnDao.getTrainers();
+	}
+	@Override
+	public List<String> getStudents() throws CustomException {
+		return stdDao.getStudents();
+	}
+	@Override
+	public List<String> getPrograms() throws CustomException {
+		return prgDao.getPrograms();
+	}
+	@Override
+	public List<String> availablePrograms(String batch) {
+		return prgDao.availablePrograms(batch);
+	}
+	@Override
+	public List<String> getAvailableTrainers(String batchId) {
+		return trnDao.getAvailableTrainers(batchId);
 	}
 }

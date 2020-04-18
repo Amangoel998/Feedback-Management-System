@@ -4,6 +4,7 @@ import com.cg.feedback.exceptions.CustomException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -69,33 +70,20 @@ public class FeedbackDAOImpl implements FeedbackDAO {
 	}
 
 	@Override
-	public List<StudentDTO> viewFeedbackDefaultersByTrainer(String trainerId) throws CustomException {
-		List<FeedbackDTO> feedback = viewFeedbackByTrainer(trainerId);
-		List<StudentDTO> students = new ArrayList<>();
-
-		String course = null;
-		for (List e : dao.getListOfProgramInCourse().values()) {
-			if (e.get(1).equals(trainerId) && LocalDate.now().isAfter((LocalDate) e.get(2))
-					&& LocalDate.now().isBefore((LocalDate) e.get(3))) {
-				course = (String) e.get(0);
-				break;
+	public Map<String, List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainerId) throws CustomException {
+		List<List<String>> trainers = dao.getListOfTrainerProgram().values().stream().filter(temp -> temp.get(0)==trainerId).collect(Collectors.toList());
+		if(trainers.size()==0)throw new CustomException("Trainer not present!");
+		
+		Map<String,List<StudentDTO>> result = new HashMap<String,List<StudentDTO>>();
+		trainers.stream().forEach(temp->{
+			try {
+				result.put(temp.get(1),viewFeedbackDefaultersByProgram(temp.get(1)));
+			} catch (CustomException e) {
+				result.put(temp.get(1), new ArrayList<StudentDTO>());
 			}
-		}
-		if (course == null)
-			throw new CustomException("Course not present for this program or Course not started");
-
-		for (Map.Entry e : dao.getBatchOfCourse().entrySet()) {
-			if (e.getValue().equals(course)) {
-				batch = (String) e.getKey();
-				break;
-			}
-		}
-		if (batch == null)
-			throw new CustomException("Batch not made for the course");
-
-		return dao.getStudents().values().stream()
-				.filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch))
-				.collect(Collectors.toList());
+		});
+		
+		return result;
 
 	}
 

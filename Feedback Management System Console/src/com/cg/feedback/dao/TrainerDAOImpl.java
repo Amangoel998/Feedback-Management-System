@@ -1,7 +1,10 @@
 package com.cg.feedback.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
@@ -24,7 +27,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 			TrainerDTO temp = staticDb.getTrainers().get(trainer.getTrainerId());
 			if (temp.isActive())
 				throw new CustomException("Trainer with Id: " + trainer.getTrainerId()
-						+ " is already present and active. First delete the existing trainer to overwrite.");
+				+ " is already present and active. First delete the existing trainer to overwrite.");
 			else {
 				temp.setActive(true);
 				throw new CustomException(
@@ -86,5 +89,24 @@ public class TrainerDAOImpl implements TrainerDAO {
 		if (trainer.isPresent())
 			return trainer.get();
 		return null;
+	}
+
+	@Override
+	public List<String> getTrainers() {
+		return staticDb.getTrainers().values().stream().filter(temp->temp.isActive()).map(temp -> temp.getTrainerId()+"-"+temp.getTrainerName()).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<String> getAvailableTrainers(String batchId) {
+		List<String> activeTrainers = getTrainers();
+		Stream<List<String>> stream = staticDb.getListOfProgramInCourse().values().stream().filter(temp->LocalDate.parse(temp.get(2)).isBefore(LocalDate.now()) && LocalDate.parse(temp.get(3)).isAfter(LocalDate.now()));		
+		if(stream.count()==0) return activeTrainers;
+		else {
+			List<String> trainersBusy = staticDb.getListOfTrainerProgram().values().stream().filter(temp-> {
+				return stream.map(temp1->temp1.get(1)).collect(Collectors.toList()).contains(temp.get(1)) && temp.get(2).equals(batchId);
+			}).map(temp -> temp.get(0)).collect(Collectors.toList());
+			if(trainersBusy.size()==0) return activeTrainers;
+			return activeTrainers.stream().filter(temp-> !trainersBusy.contains(temp)).collect(Collectors.toList());
+		}
 	}
 }

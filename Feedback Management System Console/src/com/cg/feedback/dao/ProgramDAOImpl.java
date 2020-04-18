@@ -49,4 +49,10 @@ public class ProgramDAOImpl implements ProgramDAO {
 	public List<String> getPrograms() throws CustomException {
 		return dao.getPrograms().values().stream().filter(temp->temp.isActive()).map(temp->temp.getProgramId()+"-"+temp.getProgramName()).collect(Collectors.toList());
 	}
+
+	@Override
+	public List<String> availablePrograms(String batch) {
+		List<String> programs = dao.getListOfTrainerProgram().values().stream().filter(temp -> temp.get(2).equals(batch)).map(temp -> temp.get(1)).collect(Collectors.toList());
+		return getPrograms().stream().filter(temp->!programs.contains(temp)).collect(Collectors.toList());
+	}
 }

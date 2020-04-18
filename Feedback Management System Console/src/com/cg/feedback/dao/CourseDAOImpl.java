@@ -1,5 +1,8 @@
 package com.cg.feedback.dao;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.exceptions.CustomException;
 
@@ -40,5 +43,10 @@ public class CourseDAOImpl implements CourseDAO {
 		if (temp != null)
 			return temp;
 		throw new CustomException("Course Exception : No Course with ID = " + courseId + "!");
+	}
+
+	@Override
+	public List<String> getCourses() {
+		return dao.getCourses().values().stream().filter(temp-> temp.isActive()).map(temp->temp.getCourseId()+"-"+temp.getCourseName()).collect(Collectors.toList());
 	}
 }

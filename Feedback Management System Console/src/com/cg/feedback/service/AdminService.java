@@ -1,6 +1,8 @@
 package com.cg.feedback.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.cg.feedback.dto.CourseDTO;
 import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.dto.StudentDTO;
@@ -22,5 +24,16 @@ public interface AdminService extends UserService{
 	ReportDTO viewFeedbackByProgram(String program) throws CustomException;
 	ReportDTO viewFeedbackByTrainer(String trainer) throws CustomException;
 	List<StudentDTO> viewFeedbackDefaultersByProgram(String program) throws CustomException;
-	List<StudentDTO> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException;
+	Map<String, List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException;
+	boolean addPrograminCourse(List<String> programCourse) throws CustomException;
+	List<String> availableBatches() throws CustomException;
+	boolean assignTrainertoProgram(List<String> trainerProgram) throws CustomException;
+	boolean assignCourseToBatch(List<String> courseBatch) throws CustomException;
+	List<String> getCourses() throws CustomException;
+	List<String> getTrainers() throws CustomException;
+	List<String> getStudents() throws CustomException;
+	List<String> getPrograms() throws CustomException;
+	List<String> availablePrograms(String batch);
+	List<String> getAvailableTrainers(String batchId);
+	
 }

@@ -1,6 +1,7 @@
 package com.cg.feedback.dao;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,10 +43,10 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public List<String> getAvailablePrograms(String studentId) throws CustomException {
-		String tempCourse = staticDb.getBatchOfCourse().get(staticDb.getStudent(studentId).getBatch());
+	public List<String> getAvailablePrograms(String course) throws CustomException {
 		return staticDb.getListOfProgramInCourse().values().stream().filter(temp -> {
-			if (temp.get(0).equals(tempCourse) && LocalDate.parse(temp.get(3)).isBefore(LocalDate.now()))
+			long days = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(temp.get(3)));
+			if (temp.get(0).equals(course) && days<=0 && days>=-30)
 				return true;
 			return false;
 		}).map(temp -> temp.get(1)).collect(Collectors.toList());
@@ -55,7 +56,7 @@ public class StudentDAOImpl implements StudentDAO {
 	public List<FeedbackDTO> getAvailableFeedbacks(String studentId) throws CustomException {
 		String tempBatch = staticDb.getStudent(studentId).getBatch();
 		String tempCourse = staticDb.getBatchOfCourse().get(tempBatch);
-		List<String> programs = getAvailablePrograms(studentId);
+		List<String> programs = getAvailablePrograms(tempCourse);
 		if (programs.size() == 0)
 			throw new CustomException(
 					"Student Exception : Student with Id: " + studentId + " is not in a running program!");
@@ -91,6 +92,11 @@ public class StudentDAOImpl implements StudentDAO {
 		if (getStudent(user).getStudentPass().equals(pass))
 			return true;
 		return false;
+	}
+
+	@Override
+	public List<String> getStudents() {
+		return staticDb.getStudents().values().stream().filter(temp->temp.isActive()).map(temp -> temp.getStudentId()+"-"+temp.getStudentName()).collect(Collectors.toList());
 	}
 
 }

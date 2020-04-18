@@ -8,5 +8,6 @@ public interface ProgramDAO {
 	boolean addTrainingProgram(ProgramDTO program)  throws CustomException;
 	boolean removeTrainingProgram(String programId)  throws CustomException;
 	ProgramDTO getProgram(String programId) throws CustomException;
-	List<String> getPrograms() throws CustomException;	
+	List<String> getPrograms() throws CustomException;
+	List<String> availablePrograms(String batch);	
 }
