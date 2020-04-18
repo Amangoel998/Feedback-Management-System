@@ -9,6 +9,9 @@ import { Program } from '../Program';
 import { ProgramInCourse } from '../programsInCourse';
 import { ProgramService } from '../program.service';
 import { Router } from '@angular/router';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { TrainerPrograms } from '../trainerProgram';
+import { BatchOfCourse } from '../BatchOfCourse';
 
 @Component({
   selector: 'app-admin-home',
@@ -26,28 +29,168 @@ export class AdminHomeComponent implements OnInit {
   showSkillsFlag:boolean=false;
   feedbacksForProgram=[];
   tempSkills=[];
+  batches=[];
+  trainerProgramToggle:boolean=false;
+  batchesForCourse=[];
   feedbackDefaulters=[];
   viewTrainerProgramsButton:string="Show Programs";
   show: boolean = false;
   showProgramForm: boolean = false;
   viewProgramButton: string = "View Programs"
+  showBatchForCourse:boolean=false;
+
+
+  studentForm=new FormGroup({
+  studentId:new FormControl(null,Validators.required),  
+  studentName:new FormControl(null,Validators.required),  
+  studentEmail:new FormControl(null,[Validators.email,Validators.required]),  
+  password:new FormControl(null,Validators.required),
+  batchesDropdown:new FormControl(null,Validators.required)
+  })
+  
+  trainerPrograms=new FormGroup({
+    programId:new FormControl(null,Validators.required),
+    batch:new FormControl(null,Validators.required)
+  })
+
+  newTrainerForm=new FormGroup({
+    trainerId:new FormControl(null,Validators.required),
+    trainerName:new FormControl(null,Validators.required),
+    trainerEmail:new FormControl(null,[Validators.email,Validators.required]),
+    password:new FormControl(null,Validators.required)
+
+  })
+
+  newBatchForm=new FormGroup({
+    batch:new FormControl(null,Validators.required)
+  })
+
+  newCourseForm=new FormGroup({
+    courseId:new FormControl(null,Validators.required),
+    courseName:new FormControl(null,Validators.required)
+  })
+
+  newProgramForCourse=new FormGroup({
+    programId:new FormControl(null,Validators.required),
+    startDate:new FormControl(null,Validators.required),
+    endDate:new FormControl(null,Validators.required)
+  })
+
+  newProgramForm=new FormGroup({
+    programId:new FormControl(null,Validators.required),
+    programName:new FormControl(null,Validators.required)
+  })
+
+
+
+
+
   ngOnInit(): void {
     this.studServ.getStudents();
     this.trainServ.loadTrainers();
     this.courseServ.loadcourses();
     this.programServ.loadPrograms();
+    this.batches=this.courseServ.getAllBatches();
+  }
+
+  manageBatches(courseId)
+{
+  this.showBatchForCourse=!this.showBatchForCourse;
+  if(this.showBatchForCourse)
+  {
+    this.courseServ.setCourseById(courseId);
+    this.batchesForCourse=this.courseServ.getBatchesForCourse(courseId);
+  }
+  else{
+    this.courseServ.localCourse=null;
+    this.batchesForCourse=null;
+  }
+}
+
+addBatches()
+{
+  var batch=this.newBatchForm.get('batch').value;
+  var courseId=this.courseServ.localCourse.id;
+  if(this.newBatchForm.valid) 
+  {
+    let batchForCourse:BatchOfCourse=new BatchOfCourse(batch,courseId);    
+    this.courseServ.addBatchesforCourse(batchForCourse).subscribe();
+    this.batchesForCourse.push(batchForCourse);
+    this.batches.push(batch);
+  } 
+
+
+  
+}
+
+removeBatch(id)
+{
+ this.courseServ.removeBatch(id).subscribe();
+ for(let i=0;i<this.batchesForCourse.length;i++)
+ {
+   if(this.batchesForCourse[i].id==id)
+   {
+     this.batchesForCourse.splice(i,1);
+   }
+ }
+}
+
+  addProgramForTrainer()
+  {
+    var programId=this.trainerPrograms.get('programId').value;
+    var batch=this.trainerPrograms.get('batch').value;
+    var trainerId=this.trainServ.localTrainer.id;
+
+    if(this.trainerPrograms.valid)
+    { var trainerProgram:TrainerPrograms=new TrainerPrograms(trainerId,programId,batch);
+      this.trainServ.addTrainerProgram(trainerProgram).subscribe();
+      this.programsForTrainer.push(trainerProgram);
+    }
+    else{
+      this.trainServ.localTrainer=null;
+      this.programsForTrainer=null;
+    }
+
+  }
+
+  removeTrainerProgram(id)
+  { 
+    this.trainServ.removeTrainerProgram(id).subscribe();
+    for(let i=0;i<this.programsForTrainer.length;i++)
+    {
+      if(this.programsForTrainer[i].id==id)
+      {
+        this.programsForTrainer.splice(i,1);
+      }
+    }
   }
 
   deleteStudent(studentID) {
     this.studServ.deleteStudent(studentID).subscribe();
   }
+
+  managePrograms(trainerId)
+  { 
+    this.trainerProgramToggle=!this.trainerProgramToggle;
+    if(this.trainerProgramToggle)
+    {
+    this.trainServ.setLocalTrainerById(trainerId);
+    this.programsForTrainer=this.trainServ.getProgramsAndBatch();
+    }
+    else
+    {this.trainServ.localTrainer=null;
+      this.programsForTrainer=null;
+    }
+
+  }
   addStudent() {
-    var id = (<HTMLInputElement>document.getElementById('stuId')).value;
-    var name = (<HTMLInputElement>document.getElementById('stuName')).value;
-    var email = (<HTMLInputElement>document.getElementById('stuEmail')).value;
-    var pass = (<HTMLInputElement>document.getElementById('pass')).value;
-    var batch = (<HTMLInputElement>document.getElementById('batch')).value;
-    if (id != null && name != null && email != null && pass != null && batch != null) {
+    var form:FormGroup=this.studentForm;
+    var id = form.get('studentId').value;
+    var name = form.get('studentName').value;
+    var email = form.get('studentEmail').value;
+    var pass = form.get('password').value;
+    var batch = form.get('batchesDropdown').value;
+    if (form.valid) {
       var tempStudent: Student = new Student(id, name, email, pass, batch, true);
       this.studServ.addStudent(tempStudent).subscribe();
     }
@@ -57,12 +200,13 @@ export class AdminHomeComponent implements OnInit {
     this.trainServ.deleteTrainer(trainerId).subscribe();
   }
   addTrainer() {
-    var id = (<HTMLInputElement>document.getElementById('new-trainerId')).value;
-    var name = (<HTMLInputElement>document.getElementById('new-trainerName')).value;
-    var email = (<HTMLInputElement>document.getElementById('new-trainerEmail')).value;
-    var pass = (<HTMLInputElement>document.getElementById('new-trainerPassword')).value;
+    var trainerForm:FormGroup= this.newTrainerForm;
+    var id = trainerForm.get('trainerId').value;
+    var name = trainerForm.get('trainerName').value;
+    var email =trainerForm.get('trainerEmail').value;
+    var pass = trainerForm.get('password').value;
     var skills = [];
-    if (id != null && name != null && email != null && pass != null) {
+    if (trainerForm.valid) {
       var tempTrainer: Trainer = new Trainer(id, name, email, pass, true, skills);
       this.trainServ.addTrainer(tempTrainer).subscribe();
     }
@@ -95,9 +239,9 @@ export class AdminHomeComponent implements OnInit {
   }
 
   addProgram() {
-    var id = (<HTMLInputElement>document.getElementById('programId')).value;
-    var name = (<HTMLInputElement>document.getElementById('programName')).value;
-    if (id != null && name != null) {
+    var id = this.newProgramForm.get('programId').value;
+    var name = this.newProgramForm.get('programName').value;
+    if (this.newProgramForm.valid) {
       var tempProgram: Program = new Program(id, name, true);
       this.programServ.addProgram(tempProgram).subscribe();
     }
@@ -106,11 +250,11 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigateByUrl('/admin');
   }
   addProgramToCourse() {
-    var courseId = (<HTMLInputElement>document.getElementById('course-courseId')).value;
-    var programId = (<HTMLInputElement>document.getElementById('course-programId')).value;
-    var startDate = (<HTMLInputElement>document.getElementById('start-date')).value;
-    var endDate = (<HTMLInputElement>document.getElementById('end-date')).value;
-    if (courseId != null && programId != null && startDate != null && endDate != null) {
+    var courseId = this.courseServ.localCourse.id;
+    var programId = this.newProgramForCourse.get('programId').value;
+    var startDate =  this.newProgramForCourse.get('startDate').value;
+    var endDate =  this.newProgramForCourse.get('endDate').value;
+    if (this.newProgramForCourse.valid) {
       let programInCourse: ProgramInCourse = new ProgramInCourse(programId, courseId, startDate, endDate);
       this.localProgarms.push(programInCourse);
       this.courseServ.addProgramToCourse(programInCourse).subscribe();
@@ -148,7 +292,8 @@ export class AdminHomeComponent implements OnInit {
   { this.programServ.setProgramById(programId);
     this.viewFeedbacksForProgram=!this.viewFeedbacksForProgram;
     if(this.viewFeedbacksForProgram)
-    {
+    { console.log(batch);
+    
       this.feedbacksForProgram=this.trainServ.viewFeedbacksbyProgram(programId);
       this.feedbackDefaulters=this.trainServ.viewFeedBackDefaulters(programId,batch);
     }
@@ -158,9 +303,9 @@ export class AdminHomeComponent implements OnInit {
 
   addCourse()
   {
-    var courseId = (<HTMLInputElement>document.getElementById('new-courseId')).value;
-    var courseName = (<HTMLInputElement>document.getElementById('new-courseName')).value;
-    if(courseId!=null&&courseName!=null)
+    var courseId = this.newCourseForm.get('courseId').value;
+    var courseName = this.newCourseForm.get('courseName').value;
+    if(this.newCourseForm.valid)
     {
       let course:Course=new Course(courseId,courseName,true);
       this.courseServ.addcourse(course).subscribe();

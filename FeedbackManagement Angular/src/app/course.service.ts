@@ -4,6 +4,7 @@ import { Course } from './Course';
 import { ProgramService } from './program.service';
 import { Program } from './Program';
 import { ProgramInCourse } from './programsInCourse';
+import { BatchOfCourse } from './BatchOfCourse';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,45 @@ export class CourseService {
   removeProgramFromCourse(id)
   {
     return this.http.delete('http://localhost:3000/programsInCourses/'+id);
+  }
+
+  getBatchesForCourse(courseId)
+  { let batches=[];
+    this.http.get('http://localhost:3000/batchOfCourses').subscribe((resp:any)=>{
+      for(const data of(resp as any))
+      {
+        if(data.CourseId==courseId)
+        {
+          batches.push(data);
+        }
+      }
+    })
+    return batches;
+  }
+
+  getAllBatches()
+  {let batches=[];
+    this.http.get('http://localhost:3000/batchOfCourses').subscribe((resp:any)=>{
+      for(const data of (resp as any))
+      {
+        if(!batches.includes(data.batch))
+        {
+          batches.push(data.batch);
+        }
+      }
+    })
+    return batches;
+
+  }
+
+  addBatchesforCourse(batchOfCourse:BatchOfCourse)
+  {
+  return this.http.post('http://localhost:3000/batchOfCourses/',batchOfCourse);
+  }
+
+  removeBatch(id)
+  {
+    return this.http.delete('http://localhost:3000/batchOfCourses/'+id);
   }
 }
 
