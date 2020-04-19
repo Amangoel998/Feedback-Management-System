@@ -14,13 +14,13 @@ import { StuServiceService } from '../stu-service.service';
 export class StuLoginComponent implements OnInit {
   
   
-
-  constructor(private stuSer:StuServiceService,private router:Router) { }
+  flag:boolean=false;
+  constructor(public stuSer:StuServiceService,private router:Router) { }
 
 
   loginStu = new FormGroup({
-    stuEmail: new FormControl('', [Validators.email]),
-    pass: new FormControl('')
+    stuEmail: new FormControl('', [Validators.email,Validators.required]),
+    pass: new FormControl('',Validators.required)
   });
 
   
@@ -48,7 +48,11 @@ export class StuLoginComponent implements OnInit {
       if (this.stuSer.studentDb[i].studentEmail == email&&this.stuSer.studentDb[i].password==pass){     
         this.stuSer.tempStudent=this.stuSer.studentDb[i];
         this.stuSer.flag=true;
+       
         break;
+      }
+      else{
+        this.flag=true;
       }
           
     }

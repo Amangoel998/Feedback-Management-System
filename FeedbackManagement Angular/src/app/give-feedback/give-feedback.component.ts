@@ -3,7 +3,7 @@ import { Student } from '../student';
 import { Trainer } from '../Trainer';
 import { Program } from '../Program';
 import { StuServiceService } from '../stu-service.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TrainersService } from '../trainers.service';
 import { ProgramService } from '../program.service';
 import { Feedback } from '../feedback';
@@ -35,13 +35,13 @@ export class GiveFeedbackComponent implements OnInit {
   }
 
   feedbackForm=new FormGroup({
-    ques1: new FormControl(''),
-    ques2: new FormControl(''),
-    ques3: new FormControl(''),
-    ques4: new FormControl(''),
-    ques5: new FormControl(''),
-    comments: new FormControl(''),
-    suggestions: new FormControl('')
+    ques1: new FormControl(null,[Validators.min(1),Validators.max(5),Validators.required]),
+    ques2: new FormControl(null,[Validators.min(1),Validators.max(5),Validators.required]),
+    ques3: new FormControl(null,[Validators.min(1),Validators.max(5),Validators.required]),
+    ques4: new FormControl(null,[Validators.min(1),Validators.max(5),Validators.required]),
+    ques5: new FormControl(null,[Validators.min(1),Validators.max(5),Validators.required]),
+    comments: new FormControl(null,Validators.required),
+    suggestions: new FormControl(null,Validators.required)
   });
 
   submitFeedBack()
@@ -55,7 +55,9 @@ export class GiveFeedbackComponent implements OnInit {
                       ];
     var comments=this.feedbackForm.get('comments').value;
     var suggestions=this.feedbackForm.get('suggestions').value;
-    var feedback:Feedback=new Feedback(feedbackid,this.stuSer.tempStudent.id,this.trainerService.localTrainer.id,this.programService.localProgram.id,ques,comments,suggestions);
+    if(this.feedbackForm.valid)
+    {
+    var feedback:Feedback=new Feedback(feedbackid,this.stuSer.tempStudent.id,this.trainerService.localTrainer.id,this.programService.localProgram.id,ques,suggestions,comments);
     
     
     this.feedbackService.postFeedback(feedback).subscribe(resp => {
@@ -64,6 +66,7 @@ export class GiveFeedbackComponent implements OnInit {
     });
     this.router.navigateByUrl('stuActions');
 
+  }
   }
 
 }
