@@ -2,7 +2,10 @@ package com.cg.feedback.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -12,7 +15,7 @@ public class FeedbackDTO {
 
 	@Id
 	@Column(name="feedbackid", updatable=false)
-	private String feedbackId;
+	private Long feedbackId;
 	
 	@Column(name="studentid", updatable=false)
 	private String studentId;
@@ -55,7 +58,7 @@ public class FeedbackDTO {
 				+ ", comments=" + comments + ", suggestions=" + suggestions + "]";
 	}
 
-	public FeedbackDTO(String feedbackId, String studentId, String trainerId, String programId, int q1, int q2, int q3,
+	public FeedbackDTO(Long feedbackId, String studentId, String trainerId, String programId, int q1, int q2, int q3,
 			int q4, int q5, String comments, String suggestions) {
 		super();
 		this.feedbackId = feedbackId;
@@ -73,13 +76,13 @@ public class FeedbackDTO {
 
 
 
-	public String getFeedbackId() {
+	public Long getFeedbackId() {
 		return feedbackId;
 	}
 
 
 
-	public void setFeedbackId(String feedbackId) {
+	public void setFeedbackId(Long feedbackId) {
 		this.feedbackId = feedbackId;
 	}
 

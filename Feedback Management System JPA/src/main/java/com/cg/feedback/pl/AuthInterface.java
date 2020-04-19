@@ -5,6 +5,8 @@ import static com.cg.feedback.pl.UserInterface.*;
 import com.cg.feedback.service.*;
 
 import java.util.List;
+import java.util.Map;
+
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.exceptions.CustomException;
 
@@ -83,8 +85,8 @@ public class AuthInterface {
 						System.out.println(((TrainerServiceImpl) user).getTrainerMethods(method));
 						break;
 					case 3:
-						List<FeedbackDTO> feedbacks = ((StudentServiceImpl) user).availableFeedbacks();
-						takeFeedback(feedbacks);
+						Map<String, FeedbackDTO> feedbacks = ((StudentServiceImpl) user).availableFeedbacks();
+						((StudentServiceImpl) user).giveFeedback(takeFeedback(feedbacks));
 						break;
 					default:
 						break;

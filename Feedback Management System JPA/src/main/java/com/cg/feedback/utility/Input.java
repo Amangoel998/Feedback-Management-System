@@ -111,7 +111,7 @@ public class Input {
 			try {
 				System.out.print("\nEnter " + s + ": ");
 				i = sc.nextInt();
-				if (i > 0 && i < 15)
+				if (i > 0 && i < 17)
 					return i;
 				else
 					throw new CustomException("Invalid " + s + ", enter again");

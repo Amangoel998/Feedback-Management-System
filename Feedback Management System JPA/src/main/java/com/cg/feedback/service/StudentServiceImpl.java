@@ -1,6 +1,7 @@
 package com.cg.feedback.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cg.feedback.dao.FeedbackDAO;
 import com.cg.feedback.dao.FeedbackDAOImpl;
@@ -40,8 +41,9 @@ public class StudentServiceImpl implements StudentService {
 				return true;
 			}
 		}
-
-		public List<FeedbackDTO> availableFeedbacks() throws CustomException{
+		
+		@Override
+		public Map<String, FeedbackDTO> availableFeedbacks() throws CustomException{
 			return stdDao.getAvailableFeedbacks(student.getStudentId());
 
 		}

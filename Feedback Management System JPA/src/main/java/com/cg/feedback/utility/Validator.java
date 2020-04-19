@@ -25,13 +25,13 @@ public class Validator {
 
 	public static boolean isValidProgramId(String name) throws CustomException {
 		if (!Pattern.matches("^(PRG)[0-9]{3,}$", name))
-			throw new CustomException("Invalid Trainer ID");
+			throw new CustomException("Invalid Program ID");
 		return true;
 	}
 
 	public static boolean isValidCourseId(String name) throws CustomException {
 		if (!Pattern.matches("^(CRS)[0-9]{3,}$", name))
-			throw new CustomException("Invalid Trainer ID");
+			throw new CustomException("Invalid Course ID");
 		return true;
 	}
 

@@ -32,6 +32,7 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		FeedbackDTO temp = manager.find(FeedbackDTO.class, feedbackSet.getFeedbackId());
+		System.out.println(feedbackSet);
 		if (temp!=null) {
 			throw new CustomException("Feedback has already been given by the Student with ID = "
 					+ feedbackSet.getStudentId() + " for the Program with ID = "

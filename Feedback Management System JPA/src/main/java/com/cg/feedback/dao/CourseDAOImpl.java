@@ -20,9 +20,11 @@ public class CourseDAOImpl implements CourseDAO{
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		CourseDTO temp = manager.find(CourseDTO.class, course.getCourseId());
 		if(temp!=null){
-			if(temp.isActive())
-				throw new CustomException("Course Exception : Course with ID: "+course.getCourseId()+" is already present and active. First delete the existing course to overwrite.");
-			else{
+			if(temp.isActive()) {
+				temp.setCourseName(course.getCourseName());
+				manager.getTransaction().commit();
+				throw new CustomException("Course Exception : Course with ID: "+course.getCourseId()+" is already present and active. So overwritten!");
+			} else{
 				temp.setActive(true);
 				manager.getTransaction().commit();
 				throw new CustomException("Course Exception : Course with ID: "+course.getCourseId()+" is already present and has been set active.");

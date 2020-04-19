@@ -1,6 +1,9 @@
 package com.cg.feedback.pl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import static com.cg.feedback.utility.Input.*;
 import com.cg.feedback.dto.FeedbackDTO;
 import com.cg.feedback.dto.QuestionsSetDTO;
@@ -26,15 +29,15 @@ public class UserInterface {
 		return new QuestionsSetDTO(q1, q2, q3, q4, q5);
 	}
 
-	public static FeedbackDTO takeFeedback(List<FeedbackDTO> feedbacks) {
+	public static FeedbackDTO takeFeedback(Map<String,FeedbackDTO> feedbacks) {
 		System.out.println("Available Feedbacks for the following programs along with their trainers :");
 		int i = 1;
-		for (FeedbackDTO temp : feedbacks) {
-			System.out.println((i++) + temp.getProgramId() + "\tBy\t" + temp.getTrainerId());
+		for (String temp : feedbacks.keySet()) {
+			System.out.println((i++)+" " + temp);
 		}
 		System.out.print("Which Program you would like to give feedback for ?\nEnter a number from 1 to " + (i-1) + ":");
 		int e = inputInt("", i);
-		FeedbackDTO feedback = feedbacks.get(e-1);
+		FeedbackDTO feedback = feedbacks.get(feedbacks.keySet().stream().collect(Collectors.toList()).get(e-1));
 		System.out.println("Entering Feedback for the program " + feedback.getProgramId() + " by "
 				+ feedback.getTrainerId() + " :");
 		feedback.setQuestions(takeQuestions());

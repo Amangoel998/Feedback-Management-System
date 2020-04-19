@@ -3,7 +3,9 @@ package com.cg.feedback.dao;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -27,6 +29,7 @@ public class StudentDAOImpl implements StudentDAO{
 	private EntityManager manager = emf.createEntityManager();
 	
 	private TrainerDAO trainerDAO = new TrainerDAOImpl();
+	private ProgramDAO programDAO = new ProgramDAOImpl();
 	
 	@Override
 	public StudentDTO getStudent(String studentId) throws CustomException {
@@ -76,7 +79,7 @@ public class StudentDAOImpl implements StudentDAO{
 	}
 	
 	@Override
-	public List<FeedbackDTO> getAvailableFeedbacks(String studentId) throws CustomException{
+	public Map<String, FeedbackDTO> getAvailableFeedbacks(String studentId) throws CustomException{
 		StudentDTO student = manager.find(StudentDTO.class, studentId);
 		Query query1 = manager.createQuery("from BatchCourseDTO where batch='"+student.getBatch()+"'", BatchCourseDTO.class);
 		BatchCourseDTO res1 = (BatchCourseDTO) query1.getSingleResult();
@@ -85,19 +88,23 @@ public class StudentDAOImpl implements StudentDAO{
 		List<String> programs = getAvailablePrograms(tempCourse);
 		programs.stream().forEach(temp->System.out.println(temp));
 		if(programs.size()==0) throw new CustomException("Student Exception : Student with Id: "+studentId+" has not completed a program since last 30 days!");
-		List<FeedbackDTO> feedbacks = new ArrayList<FeedbackDTO>();
+		Map<String,FeedbackDTO> feedbacks = new HashMap<String,FeedbackDTO>();
 		List<String> feedbackGiven = new ArrayList<String>();
+		Long feedbackId = ((FeedbackDTO)manager.createQuery("from FeedbackDTO order by feedbackid desc").setMaxResults(1).getSingleResult()).getFeedbackId()+1;
 		Query query2 = manager.createQuery("from FeedbackDTO where studentid='"+studentId+"' and programid IN :param",FeedbackDTO.class);
 		query2.setParameter("param",programs);
 		((List<FeedbackDTO>)query2.getResultList()).stream().map(temp->temp.getProgramId()).forEach(temp->feedbackGiven.add(temp));
 		programs.stream().filter(temp -> !feedbackGiven.contains(temp)).forEach(temp -> {
 			FeedbackDTO ftemp = new FeedbackDTO();
+			ftemp.setFeedbackId(feedbackId);
 			ftemp.setProgramId(temp);
 			ftemp.setStudentId(studentId);
+			String prgTrn = temp+"("+programDAO.getProgram(temp).getProgramName()+") By ";
 			String trainer = trainerDAO.getTrainerFromProgram(tempBatch, temp);
 			if(trainer!=null){
 				ftemp.setTrainerId(trainer);
-				feedbacks.add(ftemp);
+				prgTrn += trainer+"("+trainerDAO.getTrainer(trainer).getTrainerName()+")";
+				feedbacks.put(prgTrn,ftemp);
 			}
 		});
 		return feedbacks;

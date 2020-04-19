@@ -44,14 +44,13 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public boolean addPrograminCourse(ProgramCourseDTO programs) throws CustomException {
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
-		try {
+		ProgramCourseDTO temp = manager.find(ProgramCourseDTO.class, new ProgramCourseDTOId(programs.getProgramId(), programs.getCourseId()));
+		if(temp == null) {
 			manager.persist(programs);
-		} catch (EntityExistsException e) {
-			ProgramCourseDTO temp = manager.find(ProgramCourseDTO.class, new ProgramCourseDTOId(programs.getProgramId(), programs.getCourseId()));
+		} else {
 			temp.setEnddate(programs.getEnddate());
 			temp.setStartdate(programs.getStartdate());
-			manager.getTransaction().commit();
-			throw new CustomException("Program-Course Already Exists so overwritten!");
+			System.out.println("Program-Course Already Exists so overwritten!");
 		}
 		manager.getTransaction().commit();
 		return true;
