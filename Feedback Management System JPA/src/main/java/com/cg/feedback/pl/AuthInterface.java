@@ -13,6 +13,7 @@ import com.cg.feedback.exceptions.CustomException;
 public class AuthInterface {
 	private static Object user;
 	private static String[] ad = null;
+	String temp;
 
 	private static void login(int role) {
 		boolean res = false;
