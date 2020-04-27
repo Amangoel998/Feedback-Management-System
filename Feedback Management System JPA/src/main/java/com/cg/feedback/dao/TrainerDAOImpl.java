@@ -12,12 +12,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-
+import com.cg.feedback.dto.LoginDTO;
 import com.cg.feedback.dto.ProgramCourseDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.dto.TrainerProgramDTO;
 import com.cg.feedback.exceptions.CustomException;
-
+import static com.cg.feedback.utility.GeneratePassKey.generatePass;
 
 public class TrainerDAOImpl implements TrainerDAO{
 
@@ -45,16 +45,11 @@ public class TrainerDAOImpl implements TrainerDAO{
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		TrainerDTO temp = manager.find(TrainerDTO.class, trainer.getTrainerId());
 		if (temp!=null) {
-			if (temp.isActive())
 				throw new CustomException("Trainer with Id: " + trainer.getTrainerId()
-						+ " is already present and active.");
-			else {
-				temp.setActive(true);
-				manager.getTransaction().commit();
-				throw new CustomException(
-						"Trainer with Id: " + trainer.getTrainerId() + " is already present and has been set active.");
-			}
+						+ " is already present.");
+			
 		} else {
+			manager.persist(new LoginDTO(trainer.getTrainerId(),generatePass(trainer.getTrainerName(), trainer.getTrainerId()) , "trainer"));
 			manager.persist(trainer);
 			manager.getTransaction().commit();
 			return true;
@@ -67,8 +62,9 @@ public class TrainerDAOImpl implements TrainerDAO{
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		TrainerDTO temp = manager.find(TrainerDTO.class, trainerId);
 		
-		if (temp!=null && temp.isActive()) {
-			temp.setActive(false);
+		if (temp!=null) {
+			manager.remove(manager.find(LoginDTO.class, trainerId));
+			manager.remove(temp);
 			manager.getTransaction().commit();
 			return true;
 		} else {
@@ -126,7 +122,7 @@ public class TrainerDAOImpl implements TrainerDAO{
 	public boolean validateTrainer(String trainerId, String pass) throws CustomException {
 		TrainerDTO temp = manager.find(TrainerDTO.class, trainerId);
 		if(temp!=null) {
-			if(temp.getTrainerPass().equals(pass))
+			if(manager.find(LoginDTO.class, trainerId).getUserPass().equals(pass))
 				return true;
 			
 		}

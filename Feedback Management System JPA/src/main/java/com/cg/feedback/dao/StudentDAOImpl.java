@@ -17,11 +17,12 @@ import javax.persistence.Query;
 
 import com.cg.feedback.dto.BatchCourseDTO;
 import com.cg.feedback.dto.FeedbackDTO;
+import com.cg.feedback.dto.LoginDTO;
 import com.cg.feedback.dto.ProgramCourseDTO;
 import com.cg.feedback.dto.ProgramDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.exceptions.CustomException;
-
+import static com.cg.feedback.utility.GeneratePassKey.generatePass;
 
 public class StudentDAOImpl implements StudentDAO{
 
@@ -52,15 +53,10 @@ public class StudentDAOImpl implements StudentDAO{
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		StudentDTO temp = manager.find(StudentDTO.class, student.getStudentId());
 		if(temp!=null) {
-			if(temp.isActive())
 				throw new CustomException("Student Exception : Student with Id: "+student.getStudentId()+" already exists.");
-			else{
-				temp.setActive(true);
-				manager.getTransaction().commit();
-				throw new CustomException("Student Exception : Student with Id: "+student.getStudentId()+" already exists and status has been set to active.");
-			}
 		}
 		else{
+			manager.persist(new LoginDTO(student.getStudentId(), generatePass(student.getStudentName(), student.getStudentId()) , "student"));
 			manager.persist(student);
 			manager.getTransaction().commit();
 			return true;
@@ -114,13 +110,14 @@ public class StudentDAOImpl implements StudentDAO{
 	public boolean removeStudent(String studentId) throws CustomException {
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		StudentDTO student = manager.find(StudentDTO.class, studentId);
-		if(student!=null && student.isActive()) {
-			student.setActive(false);
+		if(student!=null) {
+			manager.remove(manager.find(LoginDTO.class, studentId));
+			manager.remove(student);
 			manager.getTransaction().commit();
 			return true;
 		}
 		else
-			throw new CustomException("Student with Id: "+studentId+"is not active, so cannot be removed");
+			throw new CustomException("Student with Id: "+studentId+" does not exist, so cannot be removed");
 	}
 
 
@@ -128,7 +125,7 @@ public class StudentDAOImpl implements StudentDAO{
 	public boolean validateStudent(String studentId, String pass) throws CustomException {
 		StudentDTO student = manager.find(StudentDTO.class, studentId);
 		if(student!=null) {
-			if(student.getStudentPass().equals(pass))
+			if(manager.find(LoginDTO.class, studentId).getUserPass().equals(pass))
 				return true;
 		}
 		return false;

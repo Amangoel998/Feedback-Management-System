@@ -23,14 +23,7 @@ public class ProgramDAOImpl implements ProgramDAO{
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		ProgramDTO temp = manager.find(ProgramDTO.class, program.getProgramId());
 		if(temp!=null){
-			if(temp.isActive())
-				throw new CustomException("Program with ID: "+program.getProgramId()+" is already present and active. First delete the existing program to overwrite.");
-			else{
-				temp.setActive(true);
-				temp.setProgramName(program.getProgramName());
-				manager.getTransaction().commit();
-				throw new CustomException("Program with ID: "+program.getProgramId()+" is already present and has been set active.");
-			}
+				throw new CustomException("Program with ID: "+program.getProgramId()+" is already present. First delete the existing program to overwrite.");
 		};
 		manager.persist(program);
 		manager.getTransaction().commit();
@@ -41,8 +34,8 @@ public class ProgramDAOImpl implements ProgramDAO{
 	public boolean removeTrainingProgram(String programId) throws CustomException {
 		if(!manager.getTransaction().isActive())manager.getTransaction().begin();
 		ProgramDTO program = manager.find(ProgramDTO.class, programId);
-		if(program!=null && program.isActive()){
-			program.setActive(false);
+		if(program!=null){
+			manager.remove(program);
 			manager.getTransaction().commit();
 			return true;
 		}

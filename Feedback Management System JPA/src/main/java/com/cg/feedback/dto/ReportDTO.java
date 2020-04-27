@@ -2,6 +2,8 @@ package com.cg.feedback.dto;
 
 import java.util.List;
 
+import com.cg.feedback.exceptions.CustomException;
+
 public class ReportDTO {
     private List<FeedbackDTO> feedbacks;
 
@@ -18,6 +20,9 @@ public class ReportDTO {
         String result = "";
         long[] ques_avg = { 0l, 0l, 0l, 0l, 0l };
         long count = feedbacks.size();
+        if(count == 0) {
+        	throw new CustomException("No Feedback Present!");
+        }
         String[] q_strings = { "Presentation and communication skills of faculty: ",
                 "Ability to clarify doubts and explain difficult points: ",
                 "Time management in completing the contents: ", "Handout provided(Student Guide): ",

@@ -65,20 +65,20 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 				course.add(e.getCourseId());
 			}
 		}
-		if(course.size()==0)throw new CustomException("Course not present for this program or Course not started");
+		if(course.size()==0)throw new CustomException("Program not ended in any course in recent 30 days!");
 		
 		Query query1 = manager.createQuery("from BatchCourseDTO where courseid IN :param",BatchCourseDTO.class);
 		query1.setParameter("param", course);
 		List<String> batches = ((List<BatchCourseDTO>)query1.getResultList()).stream().map(temp->temp.getBatch()).collect(Collectors.toList());
 		
-		if(batches.size()==0)throw new CustomException("Batch not made for the course");
+		if(batches.size()==0)throw new CustomException("Program not ended in any course in recent 30 days!");
 		
 		Query query2 = manager.createQuery("from StudentDTO where batch IN :param",StudentDTO.class);
 		query2.setParameter("param", batches);
 		List<StudentDTO> studentDTOs = query2.getResultList();
 		List<String> students = studentDTOs.stream().map(temp->temp.getStudentId()).collect(Collectors.toList());
 		
-		if(students.size()==0) throw new CustomException("No Students in these batches!");
+		if(students.size()==0) throw new CustomException("No Students have studied this program in recent 30 days!");
 		
 		Query query3 = manager.createQuery("from FeedbackDTO where programid='"+programId+"' and studentid IN :param",FeedbackDTO.class);
 		query3.setParameter("param", students);

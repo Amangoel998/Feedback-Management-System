@@ -17,6 +17,7 @@ import com.cg.feedback.service.AdminServiceImpl;
 public class AdminInterface {
 	private static AdminService adm = new AdminServiceImpl();
 
+	static int index = 1;
 	public static void getAdminMethods(int method) {
 		try {
 			String trainerId;
@@ -90,14 +91,26 @@ public class AdminInterface {
 					break;
 				case 13:
 					programId = inputProgramId();
-					System.out.println(adm.viewFeedbackDefaultersByProgram(programId));
+					index = 1;
+					adm.viewFeedbackDefaultersByProgram(programId).stream().forEach(temp -> System.out.println((index++)+" - "+temp));
+					System.out.println();
 					break;
 				case 14:
 					trainerId = inputTrainerId();
-					System.out.println(adm.viewFeedbackDefaultersByTrainer(trainerId));
+					adm.viewFeedbackDefaultersByTrainer(trainerId).entrySet().stream().forEach(temp -> {
+						System.out.println(temp.getKey()+":");
+						index=1;
+						for(StudentDTO tempS : temp.getValue()) {
+							System.out.println("\t"+(index++)+" - "+tempS);
+						}
+						if(temp.getValue().size()==0)
+							System.out.println("\tNo Defaulters!");
+					});
 					break;
 				case 15:
-					adm.assignCourseToBatch(new BatchCourseDTO(inputCourseId(adm.getCourses()),inputNewBatch(adm.availableBatches())));
+					if(adm.assignCourseToBatch(new BatchCourseDTO(inputCourseId(adm.getCourses()),inputNewBatch(adm.availableBatches())))) {
+						System.out.println("Assigned Course to Batch!");
+					}else System.out.println("Failed to assign Course to Batch!");
 					break;
 				case 16:
 					String batch = inputBatch(adm.availableBatches());
@@ -106,7 +119,9 @@ public class AdminInterface {
 					if(programId==null) throw new CustomException("No programs available for the batch!");
 					trainerId = inputTrainerId(adm.getAvailableTrainers(batch));
 					if(trainerId==null) throw new CustomException("No trainers available for the batch!");
-					adm.assignTrainertoProgram(new TrainerProgramDTO(trainerId, programId, batch));
+					if(adm.assignTrainertoProgram(new TrainerProgramDTO(trainerId, programId, batch))) {
+						System.out.println("Assigned Trainer to Program!");
+					}else System.out.println("Failed to assign Trainer to Program!");
 					break;
 				default:
 					break;

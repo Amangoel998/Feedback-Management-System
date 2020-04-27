@@ -19,25 +19,26 @@ public interface AdminService extends UserService{
 	boolean removeTrainingProgram(String programId)  throws CustomException;
 	boolean addStudents(StudentDTO student) throws CustomException;
 	boolean removeStudents(String studentID) throws CustomException;
-	boolean addTrainer(TrainerDTO trainer) throws CustomException;
-	boolean removeTrainer(String trainerID) throws CustomException;
-	boolean addTrainerSkill(String skill,String trainerId) throws CustomException;
-	boolean removeTrainerSkill(String skillName,String trainerId) throws CustomException;
-	boolean addTrainingCourse(CourseDTO course) throws CustomException;
-	boolean removeTrainingCourse(String courseId) throws CustomException;
 	ReportDTO viewFeedbackByProgram(String program) throws CustomException;
 	ReportDTO viewFeedbackByTrainer(String trainer) throws CustomException;
 	List<StudentDTO> viewFeedbackDefaultersByProgram(String program) throws CustomException;
 	Map<String, List<StudentDTO>> viewFeedbackDefaultersByTrainer(String trainer) throws CustomException;
-	boolean addPrograminCourse(ProgramCourseDTO programs) throws CustomException;
 	List<String> availableBatches() throws CustomException;
-	boolean assignTrainertoProgram(TrainerProgramDTO trainer) throws CustomException;
-	boolean assignCourseToBatch(BatchCourseDTO batches) throws CustomException;
 	List<String> getCourses() throws CustomException;
-	List<String> getTrainers() throws CustomException;
-	List<String> getStudents() throws CustomException;
 	List<String> getPrograms() throws CustomException;
-	List<String> availablePrograms(String batch);
+
+	boolean addTrainer(TrainerDTO trainer) throws CustomException;
+	boolean removeTrainer(String trainerID) throws CustomException;
+	boolean addTrainerSkill(String skill,String trainerId) throws CustomException;
+	boolean removeTrainerSkill(String skillName,String trainerId) throws CustomException;
+	boolean assignTrainertoProgram(TrainerProgramDTO trainer) throws CustomException;
+	List<String> getTrainers() throws CustomException;
 	List<String> getAvailableTrainers(String batchId);
 	
+	boolean assignCourseToBatch(BatchCourseDTO batches) throws CustomException;
+	boolean addPrograminCourse(ProgramCourseDTO programs) throws CustomException;
+	List<String> availablePrograms(String batch);
+	boolean addTrainingCourse(CourseDTO course) throws CustomException;
+	boolean removeTrainingCourse(String courseId) throws CustomException;
+	List<String> getStudents() throws CustomException;
 }

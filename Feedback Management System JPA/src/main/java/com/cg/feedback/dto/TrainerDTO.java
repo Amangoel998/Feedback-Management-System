@@ -21,24 +21,16 @@ public class TrainerDTO {
 	@Column(name="skills")
 	private String skills;
 	
-	@Column(name="trainerpass")
-	private String trainerPass;
-	
 	@Column(name="traineremail")
 	private String trainerEmail;
-	
-	@Column(name="isactive")
-	private boolean isActive;
 
 	// constructor
-	public TrainerDTO(String trainerId, String trainerName, String skills, String trainerPass, String trainerEmail, boolean isActive) {
+	public TrainerDTO(String trainerId, String trainerName, String skills, String trainerEmail) {
 		super();
 		this.trainerId = trainerId;
 		this.trainerName = trainerName;
 		this.skills=skills;
-		this.trainerPass = trainerPass;
 		this.trainerEmail = trainerEmail;
-		this.isActive=isActive;
 	}
 
 	public TrainerDTO() {
@@ -62,28 +54,12 @@ public class TrainerDTO {
 		this.trainerName = trainerName;
 	}
 
-	public String getTrainerPass() {
-		return trainerPass;
-	}
-
-	public void setTrainerPass(String trainerPass) {
-		this.trainerPass = trainerPass;
-	}
-
 	public String getTrainerEmail() {
 		return trainerEmail;
 	}
 
 	public void setTrainerEmail(String trainerEmail) {
 		this.trainerEmail = trainerEmail;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
 	}
 
 	public String getSkills() {

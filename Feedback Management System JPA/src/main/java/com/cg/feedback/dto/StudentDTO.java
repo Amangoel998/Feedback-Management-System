@@ -16,28 +16,20 @@ public class StudentDTO {
 	@Column(name="studentname", updatable=false)
 	private String studentName;
 	
-	@Column(name="studentpass")
-	private String studentPass;
-	
 	@Column(name="studentemail")
 	private String studentEmail;
 	
 	@Column(name="batch")
 	private String batch;
 	
-	@Column(name="isactive")
-	private boolean isActive;
-	
 	//Constructor
 	
-	public StudentDTO(String studentId, String studentName, String studentPass, String studentEmail, String batch, boolean isActive) {
+	public StudentDTO(String studentId, String studentName, String studentEmail, String batch) {
 		super();
 		this.studentId = studentId;
 		this.studentName = studentName;
-		this.studentPass = studentPass;
 		this.studentEmail = studentEmail;
 		this.batch = batch;
-		this.isActive=isActive;
 	}
 	
 	
@@ -50,8 +42,8 @@ public class StudentDTO {
 
 	@Override
 	public String toString() {
-		return "StudentDTO [studentId=" + studentId + ", studentName=" + studentName + ", studentPass=" + studentPass
-				+ ", studentEmail=" + studentEmail + ", batch=" + batch + ", isActive=" + isActive + "]";
+		return "StudentDTO [studentId=" + studentId + ", studentName=" + studentName + 
+				", studentEmail=" + studentEmail + ", batch=" + batch + "]";
 	}
 
 
@@ -67,23 +59,11 @@ public class StudentDTO {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	public boolean isActive() {
-		return isActive;
-	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
 	public String getStudentName() {
 		return studentName;
 	}
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
-	}
-	public String getStudentPass() {
-		return studentPass;
-	}
-	public void setStudentPass(String studentPass) {
-		this.studentPass = studentPass;
 	}
 	public String getStudentEmail() {
 		return studentEmail;

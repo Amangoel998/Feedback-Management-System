@@ -17,16 +17,12 @@ public class CourseDTO {
 	
 	@Column(name="coursename", updatable=false)
 	private String courseName;
-
-	@Column(name="isactive")
-	private boolean isActive;
 	
 	//Constructor
-	public CourseDTO(String courseId, String courseName, boolean isActive) {
+	public CourseDTO(String courseId, String courseName) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
-		this.isActive = isActive;
 	}
 	
 	//Getter and Setters
@@ -37,15 +33,7 @@ public class CourseDTO {
 
 	@Override
 	public String toString() {
-		return "CourseDTO [courseId=" + courseId + ", courseName=" + courseName + ", isActive=" + isActive + "]";
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+		return "CourseDTO [courseId=" + courseId + ", courseName=" + courseName + "]";
 	}
 
 	public String getCourseId() {

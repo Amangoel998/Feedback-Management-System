@@ -188,20 +188,20 @@ public class Input {
 	}
 
 	public static ProgramDTO inputProgram() {
-		return new ProgramDTO(inputProgramId(), inputName("Program Name"), true);
+		return new ProgramDTO(inputProgramId(), inputName("Program Name"));
 	}
 
 	public static StudentDTO inputStudent(List<String> availableBatches) {
-		return new StudentDTO(inputStudentId(), inputName("Student Name"), inputPassword(), inputEmail(),
-				inputBatch(availableBatches), true);
+		return new StudentDTO(inputStudentId(), inputName("Student Name"), inputEmail(),
+				inputBatch(availableBatches));
 	}
 
 	public static TrainerDTO inputTrainer() {
-		return new TrainerDTO(inputTrainerId(), inputName("Trainer Name"), "", inputPassword(), inputEmail(), true);
+		return new TrainerDTO(inputTrainerId(), inputName("Trainer Name"), "", inputEmail());
 	}
 
 	public static CourseDTO inputCourse() {
-		CourseDTO temp = new CourseDTO(inputCourseId(), inputName("Course Name"), true);
+		CourseDTO temp = new CourseDTO(inputCourseId(), inputName("Course Name"));
 		return temp;
 	}
 
