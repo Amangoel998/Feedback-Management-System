@@ -13,6 +13,11 @@ public class ProgramDTO {
 		this.programId = programId;
 		isActive=true;
 	}
+	
+	@Override
+	public String toString() {
+		return "ProgramDTO [programId=" + programId + ", programName=" + programName + ", isActive=" + isActive + "]";
+	}
 
 	// Getters and Setters
 	public boolean isActive() {

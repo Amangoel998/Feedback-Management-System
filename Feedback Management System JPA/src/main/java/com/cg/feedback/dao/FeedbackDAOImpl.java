@@ -53,7 +53,6 @@ public class FeedbackDAOImpl implements FeedbackDAO{
 		return new ReportDTO(manager.createQuery("from FeedbackDTO where trainerid='"+trainerId+"'",FeedbackDTO.class).getResultList());
 	}
 
-	static String batch = null;
 
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByProgram(String programId) throws CustomException {

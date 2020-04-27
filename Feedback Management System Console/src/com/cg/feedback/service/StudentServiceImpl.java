@@ -47,6 +47,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public FeedbackDTO giveFeedback(FeedbackDTO feedbackSet) throws CustomException {
+		System.out.println(feedbackSet);
 		return fdbDao.giveFeedback(feedbackSet);
 	}
 

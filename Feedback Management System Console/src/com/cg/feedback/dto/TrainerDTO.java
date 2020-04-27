@@ -79,6 +79,12 @@ public class TrainerDTO {
 	}
 
 	@Override
+	public String toString() {
+		return "TrainerDTO [trainerId=" + trainerId + ", trainerName=" + trainerName + ", skills=" + skills
+				+ ", trainerPass=" + trainerPass + ", trainerEmail=" + trainerEmail + ", isActive=" + isActive + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		TrainerDTO temp = (TrainerDTO) obj;
 		if (temp.getTrainerEmail().equals(this.trainerEmail))

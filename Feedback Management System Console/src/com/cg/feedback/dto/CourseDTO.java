@@ -18,6 +18,11 @@ public class CourseDTO {
 		return isActive;
 	}
 
+	@Override
+	public String toString() {
+		return "CourseDTO [isActive=" + isActive + ", courseId=" + courseId + ", courseName=" + courseName + "]";
+	}
+
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}

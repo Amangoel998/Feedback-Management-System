@@ -8,6 +8,7 @@ import com.cg.feedback.dao.FeedbackDAOImpl;
 import com.cg.feedback.dao.TrainerDAO;
 import com.cg.feedback.dao.TrainerDAOImpl;
 import com.cg.feedback.dto.FeedbackDTO;
+import com.cg.feedback.dto.ReportDTO;
 import com.cg.feedback.dto.StudentDTO;
 import com.cg.feedback.dto.TrainerDTO;
 import com.cg.feedback.exceptions.CustomException;
@@ -60,10 +61,7 @@ public class TrainerServiceImpl implements TrainerService {
 		if (feedbacks.size() == 0)
 			throw new CustomException("No Feedbacks available for you!\n");
 		else {
-			String res = "";
-			for (FeedbackDTO temp : feedbacks)
-				res += temp;
-			return res;
+			return new ReportDTO(feedbacks).toString();
 		}
 	}
 

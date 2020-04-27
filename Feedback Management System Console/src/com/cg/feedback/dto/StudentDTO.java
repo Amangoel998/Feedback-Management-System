@@ -26,6 +26,12 @@ public class StudentDTO {
 		return batch;
 	}
 
+	@Override
+	public String toString() {
+		return "StudentDTO [studentId=" + studentId + ", studentName=" + studentName + ", studentPass=" + studentPass
+				+ ", studentEmail=" + studentEmail + ", batch=" + batch + ", isActive=" + isActive + "]";
+	}
+
 	public void setBatch(String batch) {
 		this.batch = batch;
 	}

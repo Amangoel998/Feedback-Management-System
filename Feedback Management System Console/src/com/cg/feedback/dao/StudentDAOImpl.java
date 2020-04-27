@@ -44,7 +44,6 @@ public class StudentDAOImpl implements StudentDAO {
 
 	@Override
 	public List<String> getAvailablePrograms(String course) throws CustomException {
-		System.out.println(staticDb.getListOfProgramInCourse().values().stream().filter(temp -> temp.get(0).equals(course)).count());
 		return staticDb.getListOfProgramInCourse().values().stream().filter(temp -> {
 			long days = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(temp.get(3)));
 			if (temp.get(0).equals(course) && days<=0 && days>=-30)
@@ -56,9 +55,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public List<FeedbackDTO> getAvailableFeedbacks(String studentId) throws CustomException {
 		String tempBatch = staticDb.getStudent(studentId).getBatch();
-		System.out.println(tempBatch);
 		String tempCourse = staticDb.getBatchOfCourse().get(tempBatch);
-		System.out.println(tempCourse);
 		List<String> programs = getAvailablePrograms(tempCourse);
 		if (programs.size() == 0)
 			throw new CustomException(

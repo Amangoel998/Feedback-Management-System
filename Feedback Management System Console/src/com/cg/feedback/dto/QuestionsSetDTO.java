@@ -11,6 +11,11 @@ public class QuestionsSetDTO {
 		this.q4 = q4;
 		this.q5 = q5;
 	}
+	
+	@Override
+	public String toString() {
+		return " q1=" + q1 + ", q2=" + q2 + ", q3=" + q3 + ", q4=" + q4 + ", q5=" + q5 + " ";
+	}
 
 	public int getQ1() {
 		return q1;

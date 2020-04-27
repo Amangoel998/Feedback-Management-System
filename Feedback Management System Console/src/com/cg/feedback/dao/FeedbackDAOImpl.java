@@ -3,6 +3,7 @@ package com.cg.feedback.dao;
 import com.cg.feedback.exceptions.CustomException;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,36 +38,37 @@ public class FeedbackDAOImpl implements FeedbackDAO {
 				.collect(Collectors.toList());
 	}
 
-	static String batch = null;
-
 	@Override
 	public List<StudentDTO> viewFeedbackDefaultersByProgram(String programId) throws CustomException {
-		List<StudentDTO> students = new ArrayList<>();
-		batch = null;
-		String course = null;
-		for (List e : dao.getListOfProgramInCourse().values()) {
-			if (e.get(1).equals(programId) && LocalDate.now().isAfter((LocalDate) e.get(2))
-					&& LocalDate.now().isBefore((LocalDate) e.get(3))) {
-				course = (String) e.get(0);
+		List<String> courses = new ArrayList<>();
+		for (List<String> e : dao.getListOfProgramInCourse().values()) {
+			long days = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(e.get(3)));
+			if (e.get(1).equals(programId) && days<=0 && days>=-30 ) {
+				courses.add(e.get(0));
 				break;
 			}
 		}
-		if (course == null)
-			throw new CustomException("Course not present for this program or Course not started");
-
+		if (courses.size()==0)
+			throw new CustomException("Program not ended in any course in recent 30 days!");
+		
+		List<String> batches = new ArrayList<>();
 		for (Map.Entry<String,String> e : dao.getBatchOfCourse().entrySet()) {
-			if (e.getValue().equals(course)) {
-				batch = (String) e.getKey();
+			if (courses.contains(e.getValue())) {
+				batches.add(e.getKey());
 				break;
 			}
 		}
-		if (batch == null)
-			throw new CustomException("Batch not made for the course");
-
-		return dao.getStudents().values().stream()
-				.filter(temp -> !(students.contains(temp)) && temp.getBatch().equals(batch))
-				.collect(Collectors.toList());
-
+		if (batches.size()==0)
+			throw new CustomException("Program not ended in any course in recent 30 days!");
+		
+		List<StudentDTO> studentDTOs = dao.getStudents().values().stream().filter(temp -> batches.contains(temp.getBatch())).collect(Collectors.toList());
+		List<String> students = studentDTOs.stream().map(temp->temp.getStudentId()).collect(Collectors.toList());
+		
+		if(students.size()==0) throw new CustomException("No Students have studied this program in recent 30 days!");
+		
+		List<String> studentFeedbackGiven = dao.getFeedback().values().stream().filter(temp -> temp.getProgramId().equals(programId) && students.contains(temp.getStudentId())).map(temp -> temp.getStudentId()).collect(Collectors.toList());
+		
+		return studentDTOs.stream().filter(temp -> !studentFeedbackGiven.contains(temp.getStudentId())).collect(Collectors.toList());
 	}
 
 	@Override

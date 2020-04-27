@@ -32,9 +32,9 @@ public class UserInterface {
 		for (FeedbackDTO temp : feedbacks) {
 			System.out.println((i++) + temp.getProgramId() + "\tBy\t" + temp.getTrainerId());
 		}
-		System.out.print("Which Program you would like to give feedback for ?\nEnter a number from 1 to " + i + ":");
+		System.out.print("Which Program you would like to give feedback for ?\nEnter a number from 1 to " + (i-1) + ":");
 		int e = inputInt("", i);
-		FeedbackDTO feedback = feedbacks.get(e);
+		FeedbackDTO feedback = feedbacks.get(e-1);
 		System.out.println("Entering Feedback for the program " + feedback.getProgramId() + " by "
 				+ feedback.getTrainerId() + " :");
 		feedback.setQuestions(takeQuestions());

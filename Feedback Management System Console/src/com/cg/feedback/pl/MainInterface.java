@@ -74,14 +74,14 @@ public class MainInterface {
 					case 2:
 						getTrainerOptions();
 						method = inputTrainerOptions("Trainer Options");
-						((TrainerServiceImpl) user).getTrainerMethods(method);
+						System.out.println(((TrainerServiceImpl) user).getTrainerMethods(method));
 						break;
 					case 3:
 						List<FeedbackDTO> feedbacks = ((StudentServiceImpl) user).availableFeedbacks();
 						if(feedbacks.size()==0)
 							System.out.println("No Feedbacks available for you!");
 						else	
-							takeFeedback(feedbacks);
+							((StudentServiceImpl) user).giveFeedback(takeFeedback(feedbacks));
 						break;
 					default:
 						break;
