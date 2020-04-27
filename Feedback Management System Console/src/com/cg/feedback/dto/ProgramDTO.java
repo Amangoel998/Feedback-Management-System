@@ -11,6 +11,7 @@ public class ProgramDTO {
 		super();
 		this.programName = programName;
 		this.programId = programId;
+		isActive=true;
 	}
 
 	// Getters and Setters

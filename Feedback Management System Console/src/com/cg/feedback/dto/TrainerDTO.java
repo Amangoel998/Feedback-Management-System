@@ -15,10 +15,12 @@ public class TrainerDTO {
 	// constructor
 	public TrainerDTO(String trainerId, String trainerName, String trainerPass, String trainerEmail) {
 		super();
+		skills = new ArrayList<String>();
 		this.trainerId = trainerId;
 		this.trainerName = trainerName;
 		this.trainerPass = trainerPass;
 		this.trainerEmail = trainerEmail;
+		isActive=true;
 	}
 
 	// Getters and Setters

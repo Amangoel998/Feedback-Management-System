@@ -18,6 +18,7 @@ public class StudentDTO {
 		this.studentPass = studentPass;
 		this.studentEmail = studentEmail;
 		this.batch = batch;
+		isActive=true;
 	}
 	// getter and Setters
 

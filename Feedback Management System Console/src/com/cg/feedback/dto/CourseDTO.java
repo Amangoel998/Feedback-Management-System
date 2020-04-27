@@ -10,6 +10,7 @@ public class CourseDTO {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
+		isActive=true;
 	}
 
 	// Getter and Setters

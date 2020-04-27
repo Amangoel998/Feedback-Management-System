@@ -2,7 +2,7 @@ package com.cg.feedback.dto;
 
 public class FeedbackDTO {
 
-	private String feedbackId;
+	private int feedbackId;
 	private String studentId;
 	private String trainerId;
 	private String programId;
@@ -14,7 +14,7 @@ public class FeedbackDTO {
 		super();
 	}
 
-	public FeedbackDTO(String feedbackId, String studentId, String trainerId, String programId,
+	public FeedbackDTO(int feedbackId, String studentId, String trainerId, String programId,
 			QuestionsSetDTO questions, String comments, String suggestions) {
 		super();
 		this.feedbackId = feedbackId;
@@ -69,11 +69,11 @@ public class FeedbackDTO {
 		this.questions = questions;
 	}
 
-	public String getFeedbackId() {
+	public int getFeedbackId() {
 		return feedbackId;
 	}
 
-	public void setFeedbackId(String feedbackId) {
+	public void setFeedbackId(int feedbackId) {
 		this.feedbackId = feedbackId;
 	}
 

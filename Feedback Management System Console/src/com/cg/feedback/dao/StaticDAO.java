@@ -14,7 +14,7 @@ public final class StaticDAO {
 	private static Map<String, StudentDTO> students = new HashMap<String, StudentDTO>();
 	private static Map<String, ProgramDTO> programs = new HashMap<String, ProgramDTO>();
 	private static Map<String, CourseDTO> courses = new HashMap<String, CourseDTO>();
-	private static Map<String, FeedbackDTO> feedback = new HashMap<String, FeedbackDTO>();
+	private static Map<Integer, FeedbackDTO> feedback = new HashMap<Integer, FeedbackDTO>();
 	private static Map<Integer, List<String>> listOfTrainerProgram = new HashMap<Integer, List<String>>();
 	private static Map<Integer, List<String>> listOfProgramInCourse = new HashMap<Integer, List<String>>();
 	private static Map<String, String> batchOfCourse = new HashMap<String, String>();
@@ -34,19 +34,17 @@ public final class StaticDAO {
 		programs.put("PRG102", new ProgramDTO("PRG102", "Oracle"));
 		programs.put("PRG103", new ProgramDTO("PRG103", "MVC"));
 		programs.put("PRG104", new ProgramDTO("PRG104", "Spring"));
+		programs.put("PRG105", new ProgramDTO("PRG105", "Android"));
 
 		courses.put("CRS101", new CourseDTO("CRS101", "Java Cloud"));
 		courses.put("CRS102", new CourseDTO("CRS102", "Java Big Data"));
 		courses.put("CRS103", new CourseDTO("CRS103", "Java "));
+		courses.put("CRS104", new CourseDTO("CRS104", "Red Hat"));
 
-		feedback.put("FDB101", new FeedbackDTO("FDB101", "STD101", "TRN101", "PRG101",
+		feedback.put(1, new FeedbackDTO(1, "STD101", "TRN101", "PRG101",
 				new QuestionsSetDTO(3, 4, 3, 4, 4), "Great.", "Nothing"));
-		feedback.put("FDB102", new FeedbackDTO("FDB102", "STD102", "TRN101", "PRG101",
+		feedback.put(2, new FeedbackDTO(2, "STD102", "TRN101", "PRG101",
 				new QuestionsSetDTO(5, 4, 3, 3, 4), "Good.", "NA"));
-		feedback.put("FDB103", new FeedbackDTO("FDB103", "STD102", "TRN102", "PRG103",
-				new QuestionsSetDTO(1, 1, 2, 2, 1), "BAD.", "everything"));
-		feedback.put("FDB104", new FeedbackDTO("FDB104", "STD103", "TRN104", "PRG102",
-				new QuestionsSetDTO(5, 3, 4, 3, 5), "LOL.", "Heh!"));
 
 		// populating TRAINER-PROGRAM WITH BATCH NAME
 		List<String> temp = new ArrayList<String>();
@@ -55,99 +53,101 @@ public final class StaticDAO {
 		temp.add("A");
 		listOfTrainerProgram.put(1, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("TRN102");
 		temp.add("PRG103");
 		temp.add("A");
 		listOfTrainerProgram.put(2, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("TRN103");
 		temp.add("PRG102");
 		temp.add("B");
 		listOfTrainerProgram.put(3, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("TRN104");
 		temp.add("PRG104");
 		temp.add("B");
 		listOfTrainerProgram.put(4, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("TRN101");
 		temp.add("PRG103");
 		temp.add("B");
 		listOfTrainerProgram.put(5, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("TRN102");
 		temp.add("PRG101");
 		temp.add("B");
 		listOfTrainerProgram.put(6, temp);
 
 		// populating PROGRAM-COURSE WITH START-DATE AND END-DATE
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS101");
 		temp.add("PRG101");
-		temp.add(LocalDate.of(2020, 1, 10).toString());
-		temp.add(LocalDate.of(2020, 1, 17).toString());
+		temp.add(LocalDate.of(2020, 3, 17).toString());
+		temp.add(LocalDate.of(2020, 3, 25).toString());
 		listOfProgramInCourse.put(1, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS101");
 		temp.add("PRG103");
-		temp.add(LocalDate.of(2020, 1, 18).toString());
-		temp.add(LocalDate.of(2020, 1, 25).toString());
+		temp.add(LocalDate.of(2020, 3, 26).toString());
+		temp.add(LocalDate.of(2020, 4, 5).toString());
 		listOfProgramInCourse.put(2, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS102");
 		temp.add("PRG101");
 		temp.add(LocalDate.of(2020, 1, 10).toString());
 		temp.add(LocalDate.of(2020, 1, 17).toString());
 		listOfProgramInCourse.put(3, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS102");
 		temp.add("PRG102");
 		temp.add(LocalDate.of(2020, 1, 18).toString());
 		temp.add(LocalDate.of(2020, 1, 25).toString());
 		listOfProgramInCourse.put(4, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS102");
 		temp.add("PRG104");
 		temp.add(LocalDate.of(2020, 1, 26).toString());
 		temp.add(LocalDate.of(2020, 2, 5).toString());
 		listOfProgramInCourse.put(5, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS103");
 		temp.add("PRG101");
 		temp.add(LocalDate.of(2020, 2, 20).toString());
 		temp.add(LocalDate.of(2020, 2, 27).toString());
 		listOfProgramInCourse.put(6, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS103");
 		temp.add("PRG102");
 		temp.add(LocalDate.of(2020, 2, 27).toString());
 		temp.add(LocalDate.of(2020, 3, 5).toString());
 		listOfProgramInCourse.put(7, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS103");
 		temp.add("PRG103");
 		temp.add(LocalDate.of(2020, 3, 5).toString());
 		temp.add(LocalDate.of(2020, 3, 12).toString());
 		listOfProgramInCourse.put(8, temp);
 
-		temp.clear();
+		temp= new ArrayList<String>();
 		temp.add("CRS103");
 		temp.add("PRG104");
 		temp.add(LocalDate.of(2020, 3, 15).toString());
 		temp.add(LocalDate.of(2020, 3, 25).toString());
 		listOfProgramInCourse.put(9, temp);
+		
+		
 
 		// populating BATCH-COURSE
 		batchOfCourse.put("A", "CRS101");
@@ -189,11 +189,11 @@ public final class StaticDAO {
 		this.courses = courses;
 	}
 
-	public final Map<String, FeedbackDTO> getFeedback() {
+	public final Map<Integer, FeedbackDTO> getFeedback() {
 		return feedback;
 	}
 
-	public final void setFeedback(Map<String, FeedbackDTO> feedback) {
+	public final void setFeedback(Map<Integer, FeedbackDTO> feedback) {
 		this.feedback = feedback;
 	}
 
