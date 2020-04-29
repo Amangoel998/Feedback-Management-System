@@ -39,7 +39,7 @@ public class ProgramDAOImpl implements ProgramDAO{
 			manager.getTransaction().commit();
 			return true;
 		}
-		throw new CustomException("Program with Id: "+programId+"is not active, so cannot be removed");
+		throw new CustomException("Program with Id: "+programId+"is not present, so cannot be removed");
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class ProgramDAOImpl implements ProgramDAO{
 	
 	@Override
 	public List<String> getPrograms() throws CustomException{
-		return manager.createQuery("from ProgramDTO where isactive=1",ProgramDTO.class).getResultList().stream().map(temp->temp.getProgramId()+"-"+temp.getProgramName()).collect(Collectors.toList());
+		return manager.createQuery("from ProgramDTO",ProgramDTO.class).getResultList().stream().map(temp->temp.getProgramId()+"-"+temp.getProgramName()).collect(Collectors.toList());
 	}
 
 	@Override

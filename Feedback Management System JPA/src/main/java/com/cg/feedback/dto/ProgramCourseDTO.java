@@ -18,7 +18,7 @@ public class ProgramCourseDTO {
 	private String courseId;
 	
 	@Id
-	@Column(name="programId", updatable=false)
+	@Column(name="programid", updatable=false)
 	private String programId;
 	
 	@Column(name="startdate", updatable=false)
